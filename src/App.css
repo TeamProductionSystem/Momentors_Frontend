@@ -1,4 +1,22 @@
 .nav {
-  background-color: red;
   text-align: center;
+  margin: 0;
+  font-size: 60pt;
+  font-family: 'Bungee Shade';
+  border-bottom: black 1px solid;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+}
+
+.hero--yoda {
+  margin: 2rem;
+  border-radius: 9pt;
+}
+
+.Authentication {
+  display: flex;
+  justify-content: center;
 }
