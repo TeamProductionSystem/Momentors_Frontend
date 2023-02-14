@@ -1,10 +1,28 @@
+/* Navigation Bar */
+
 .nav {
-  text-align: center;
-  margin: 0;
-  font-size: 60pt;
-  font-family: 'Bungee Shade';
-  border-bottom: black 1px solid;
+  border: red solid 1px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
+.nav--title {
+  margin: 0;
+  font-size: 45pt;
+  font-family: 'Bungee Shade';
+  border: red solid 1px;
+  padding: 1rem;
+  align-self: flex-end;
+}
+
+.nav--authentication {
+  padding: 1rem;
+  border: red solid 1px;
+  align-self: center;
+}
+
+/* Hero Page */
 
 .hero {
   display: flex;
@@ -16,7 +34,7 @@
   border-radius: 9pt;
 }
 
-.Authentication {
+.hero--authentication {
   display: flex;
   justify-content: center;
 }
