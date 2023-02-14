@@ -5,10 +5,10 @@ export default function Hero() {
     return (
         <>
             <div className="hero">
-                <img className="hero--yoda" src={yoda} alt="the best mentor he is"/>
+                <img className="hero--yoda" src={yoda} alt="the best mentor he is yoda"/>
             </div>
 
-            <div className="Authentication">
+            <div className="hero--authentication">
                 <ButtonGroup variant='outline'>
                     <Button>Log in</Button>
                     <Button>Sign up</Button>
