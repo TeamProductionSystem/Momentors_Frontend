@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {FormControl, FormLabel, Button } from '@chakra-ui/react';
+import {FormControl, FormLabel, Button, Input, Box } from '@chakra-ui/react';
 
-export default function Login({ setAuth, isLoggedIn, setUserName, userName }) {
+export default function Login({ setAuth, setUserName, userName }) {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -19,25 +20,22 @@ export default function Login({ setAuth, isLoggedIn, setUserName, userName }) {
                 console.log(res.data)
                 const token = res.data.auth_token
                 setAuth(userName, token)
+                navigate("/sessions")
             })
             .catch((e) => setError(e.message))
-    }
-
-    if (isLoggedIn) {
-        return <Navigate to="/sessions" replace={true} />
     }
 
 
     return (
         <div className="Login">
-            {/* {error && <div className="error">{error}</div>} */}
-            <FormControl onSubmit={handleLogin} className="section">
+            <form onSubmit={handleLogin}>
+            <FormControl  className="form--login">
                 <div className="field">
                     <FormLabel className="label" htmlFor="username">
                         Username
                     </FormLabel>
                     <div>
-                        <input
+                        <Input
                             type="text"
                             id="username"
                             className="input"
@@ -52,7 +50,7 @@ export default function Login({ setAuth, isLoggedIn, setUserName, userName }) {
                         Password
                     </FormLabel>
                     <div>
-                        <input
+                        <Input
                             type="password"
                             id="password"
                             className="input"
@@ -62,8 +60,9 @@ export default function Login({ setAuth, isLoggedIn, setUserName, userName }) {
                         />
                     </div>
                 </div>
+
                 <div>
-                    <div>
+                    <div className="button--login">
                         <Button type="submit" to="/sessions" >
                             Log in
                         </Button>
@@ -71,6 +70,7 @@ export default function Login({ setAuth, isLoggedIn, setUserName, userName }) {
                 </div>
                 </div>
             </FormControl>
+            </form>
         </div>
     )
 }

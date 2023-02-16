@@ -12,13 +12,13 @@ import "./App.css";
 
 function App() {
 
-  const [ userName, setUserName ] = useState('')
+  const [userName, setUserName] = useState('')
 
-  const [ token, setToken ] = useState('')
+  const [token, setToken] = useState('')
 
-  const setAuth = (un, token) => {
+  const setAuth = (userName, token) => {
     setToken(token)
-    setUserName(un)
+    setUserName(userName)
   }
 
   const handleLogout = () => {
@@ -46,7 +46,6 @@ function App() {
       <Route path="/login" element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} setUserName={setUserName} userName={userName}/>} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
     </Routes>
-
     </BrowserRouter>
   )
 }
