@@ -38,3 +38,27 @@
   display: flex;
   justify-content: center;
 }
+
+.form--registration {
+  display: flex;
+  justify-content: center;
+
+}
+
+.Login {
+  display: flex;
+  justify-content: center;
+}
+
+.form--login {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 9px;
+  max-width: 20rem;
+  margin: 1rem;
+}
+
+.Input {
+  font-size: 12pt;
+}
