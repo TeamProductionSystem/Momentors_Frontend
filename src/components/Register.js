@@ -1,110 +1,107 @@
-import { Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import axios from 'axios';
-import {FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
+import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
 const Register = ({ setAuth, isLoggedIn }) => {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    // const navigate = useNavigate();
-
-    const handleRegister = (e) => {
-        e.preventDefault();
-        console.log(userName, email, password)
-
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(userName, email, password);
+    axios
+      .post("https://team-production-system.onrender.com/auth/users/", {
+        username: userName,
+        password: password,
+        email: email,
+      })
+      .then(() =>
         axios
-        .post ('https://team-production-system.onrender.com/auth/users/', {
-            username: userName,
-            password: password,
-            email: email,
-        })
+          .post(
+            "https://team-production-system.onrender.com/auth/token/login",
+            {
+              username: userName,
+              password: password,
+            }
+          )
 
-        .then(() =>
-        axios
-        .post('https://team-production-system.onrender.com//auth/token/login', {
-            username: userName,
-            password: password,
-        })
-    )
-    .then((res) =>
-    setAuth(userName, res.data.auth_token))
+          .then((res) => {
+            console.log(res.data);
+            const token = res.data.auth_token;
+            setAuth(userName, token);
+            navigate("/sessions");
+          })
+          .catch((e) => setError(e.message))
+      );
+  };
 
-    .catch((error) => {
-        if (error.response.data.userName)
-            setError(error.response.data.userName);
+  return (
+    <div className="Register">
+      <form onSubmit={handleRegister}>
+        <FormControl className="form--registration">
+          <div className="field">
+            <FormLabel className="label" htmlFor="email">
+              E-mail
+            </FormLabel>
+            <div>
+              <Input
+                type="email"
+                id="email"
+                className="input"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
 
-        if (error.response.data.password)
-            setError(error.response.data.password)
-    })
-}
-    return (
-        <div>
-            <form onSubmit={handleRegister}>
-            <FormControl  className="form--registration">
+          <div className="field">
+            <FormLabel className="label" htmlFor="username">
+              Username
+            </FormLabel>
+            <div>
+              <Input
+                type="text"
+                id="username"
+                className="input"
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+          </div>
 
-                <div className="field">
-                    <FormLabel className="label" htmlFor="email">
-                        E-mail
-                    </FormLabel>
-                    <div>
-                        <Input
-                            type="text"
-                            id="email"
-                            className="input"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            />
-                    </div>
-                </div>
+          <div className="field">
+            <FormLabel className="label" htmlFor="password">
+              Password
+            </FormLabel>
+            <div>
+              <Input
+                type="password"
+                id="password"
+                className="input"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
 
-                <div className="field">
-                    <FormLabel className="label" htmlFor="username">
-                        Username
-                    </FormLabel>
-                    <div>
-                        <Input
-                            type="text"
-                            id="username"
-                            className="input"
-                            required
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                            />
-                    </div>
-                </div>
+          <div>
+            <div className="button--register">
+              <Button type="submit" to="/sessions">
+                Register
+              </Button>
+            </div>
+          </div>
+        </FormControl>
+      </form>
+    </div>
+  );
+};
 
-                <div className="field">
-                    <FormLabel className="label" htmlFor="password">
-                        Password
-                    </FormLabel>
-                    <div>
-                        <Input
-                            type="password"
-                            id="password"
-                            className="input"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <Button type="submit" to="/sessions" >
-                            Register
-                        </Button>
-                    </div>
-                </div>
-                
-            </FormControl>
-            </form>
-        </div>
-    )
-}
-
-export default Register
+export default Register;
