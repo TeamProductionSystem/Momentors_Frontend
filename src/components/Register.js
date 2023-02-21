@@ -35,7 +35,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
             const token = res.data.auth_token;
             setIsRegistered(true);
             setAuth(userName, token);
-            navigate("/sessions");
+            e.target.submit();
           })
           .catch((e) => setError(e.message))
       );
@@ -48,7 +48,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
 
   return (
     <div className="Register">
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleRegister} id="registration-form">
         <FormControl className="form--registration">
           <div className="field">
             <FormLabel className="label" htmlFor="email">
@@ -100,7 +100,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
 
           <div>
             <div className="button--register">
-              <Button type="submit" to="/sessions">
+              <Button type="submit" form="registration-form">
                 Register
               </Button>
             </div>

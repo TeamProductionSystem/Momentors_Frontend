@@ -1,64 +1,106 @@
 /* Navigation Bar */
 
 .nav {
-  border: red solid 1px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-between; 
+  background-color: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  height: 80px;
 }
 
 .nav--title {
-  margin: 0;
-  font-size: 45pt;
-  font-family: 'Bungee Shade';
-  border: red solid 1px;
-  padding: 1rem;
-  align-self: flex-end;
+  font-family: 'Bungee Shade', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  color: #222222;
+  margin-right: auto;
 }
 
 .nav--authentication {
-  padding: 1rem;
-  border: red solid 1px;
-  align-self: center;
+  display: flex;
+  text-align: right;
+}
+
+.nav--authentication a {
+  background-color:#333335;
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 4px 8px;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.nav--authentication a:hover {
+  background-color: #aca8a8;
+}
+
+.nav--authentication .chakra-button {
+  background-color:#343435;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.nav--authentication .chakra-button:hover {
+  background-color: #333333;
 }
 
 /* Hero Page */
 
 .hero {
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding-top: 2rem;
+  background-color: #232222;
 }
 
-.hero--yoda {
-  margin: 2rem;
-  border-radius: 9pt;
+.hero--content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero--title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.15rem;
+  margin-top: 2rem;
+  color: #ffffff;
+}
+
+.hero--subtitle {
+  font-size: 1.75rem;
+  color: #949aa5;
+  margin-bottom: 1.75rem;
 }
 
 .hero--authentication {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
 }
 
-.form--registration {
-  display: flex;
-  justify-content: center;
-
+.hero--authentication button:first-child {
+  margin-right: 1.5rem;
+  margin-left: auto;
 }
 
-.Login {
-  display: flex;
-  justify-content: center;
+.hero--authentication button:last-child {
+  margin-left: 1,5rem;
+  margin-right: auto;
 }
 
-.form--login {
-  display: flex;
-  justify-content: center;
-  border: 1px solid black;
-  border-radius: 9px;
-  max-width: 20rem;
-  margin: 1rem;
-}
-
-.Input {
-  font-size: 12pt;
+.hero--yoda {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
