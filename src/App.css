@@ -26,7 +26,7 @@
 .nav--authentication a {
   background-color:#333335;
   color: #ffffff;
-  border-radius: 4px;
+  border-radius: 18px;
   padding: 4px 8px;
   font-size: 16px;
   text-decoration: none;
@@ -39,9 +39,7 @@
 
 .nav--authentication .chakra-button {
   background-color:#343435;
-  ;
   color: #ffffff;
-
   font-size: 16px;
 }
 
@@ -73,30 +71,31 @@
 .hero--title {
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
+  margin-top: 2rem;
   color: #ffffff;
 }
 
 .hero--subtitle {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: #949aa5;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .hero--authentication {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .hero--authentication button:first-child {
-  margin-right: 1rem;
+  margin-right: 1.5rem;
   margin-left: auto;
 }
 
 .hero--authentication button:last-child {
-  margin-left: 1rem;
+  margin-left: 1,5rem;
   margin-right: auto;
 }
 
