@@ -19,7 +19,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
           </ButtonGroup>
         ) : (
           <Link to="/" onClick={handleLogout}>
-            Log out
+            <Button>Log out</Button>
           </Link>
         )}
       </div>
