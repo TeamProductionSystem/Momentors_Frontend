@@ -17,10 +17,10 @@ export default function Login({ setAuth, setUserName, userName }) {
                 password: password,
             })
             .then((res) => {
-                console.log(res.data)
+                console.log(res.data);
                 const token = res.data.auth_token
-                setAuth(userName, token)
-                navigate("/sessions")
+                setAuth(userName, token);
+                navigate("/sessions");
             })
             .catch((e) => setError(e.message))
     }

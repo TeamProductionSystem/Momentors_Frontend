@@ -7,6 +7,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -32,12 +33,18 @@ const Register = ({ setAuth, isLoggedIn }) => {
           .then((res) => {
             console.log(res.data);
             const token = res.data.auth_token;
+            setIsRegistered(true);
             setAuth(userName, token);
             navigate("/sessions");
           })
           .catch((e) => setError(e.message))
       );
   };
+
+    if (isRegistered) {
+    console.log("Registered!")
+    return <Navigate to='/sessions' />
+  }
 
   return (
     <div className="Register">
