@@ -3,7 +3,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {FormControl, FormLabel, Button, Input, Box } from '@chakra-ui/react';
 
-export default function Login({ setAuth, setUserName, userName }) {
+export default function Login({ setAuth }) {
+    const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const navigate = useNavigate();
