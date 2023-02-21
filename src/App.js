@@ -24,14 +24,14 @@ function App() {
   const handleLogout = () => {
     axios
       .post(
-        'https://team-production-system.onrender.com//auth/token/logout',
+        'https://team-production-system.onrender.com/auth/token/logout/',
         {},
         {
           headers: { Authorization: `Token ${token}` },
         }
       )
       .then((res) => {
-        setAuth(null, null)
+        setAuth("", null)
       })
   }
 
