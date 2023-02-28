@@ -21,7 +21,7 @@ export default function Login({ setAuth }) {
                 console.log(res.data);
                 const token = res.data.auth_token
                 setAuth(userName, token);
-                navigate("/sessions");
+                navigate("/profile");
             })
             .catch((e) => setError(e.message))
     }
@@ -64,7 +64,7 @@ export default function Login({ setAuth }) {
 
                 <div>
                     <div className="button--login">
-                        <Button type="submit" to="/sessions" >
+                        <Button type="submit" to="/profile" >
                             Log in
                         </Button>
                     </div>

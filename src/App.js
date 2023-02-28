@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from 'react';
 import useLocalStorageState from "use-local-storage-state";
-import NavBar from "./components/NavBar";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import Hero from "./components/Hero";
+import NavBar from "./components/NavBar";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 import Sessions from "./components/Sessions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
@@ -45,6 +46,8 @@ function App() {
       <Route path="/" element={<Hero />} />
       <Route path="/register" element={<Register isLoggedIn={isLoggedIn}/>} />
       <Route path="/login" element={<Login setAuth={setAuth}/>} />
+      <Route path="/profile" element={<Profile userName={userName}/>} />
+      {/* This is a temporary solution to bring in the username on the profile  */}
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
     </Routes>
     </BrowserRouter>
