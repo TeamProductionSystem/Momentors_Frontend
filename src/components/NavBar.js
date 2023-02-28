@@ -23,6 +23,17 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
           </Link>
         )}
       </div>
+
+      <div className="navigation">
+        <ButtonGroup>
+          <Link to="/sessions">
+            <Button>Sessions</Button>
+          </Link>
+          <Link to="/profile">
+            <Button>Profile</Button>
+          </Link>
+        </ButtonGroup>
+      </div>
     </nav>
   );
 };
