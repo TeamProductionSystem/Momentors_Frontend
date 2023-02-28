@@ -1,5 +1,4 @@
 import yoda from '../mentor-yoda.jpeg';
-import { Button, ButtonGroup } from '@chakra-ui/react'
 
 export default function Hero() {
   return (
@@ -9,12 +8,6 @@ export default function Hero() {
         <p className="hero--subtitle">Find a mentor to help achieve your goals and a Master you will become...</p>
       </div>
       <img className="hero--yoda" src={yoda} alt="the best mentor he is yoda"/>
-        <div className="hero--authentication">
-          <ButtonGroup variant='solid' size="md">
-            <Button>Log in</Button>
-            <Button>Sign up</Button>
-          </ButtonGroup>
-        </div>
     </div>
   );
 };
