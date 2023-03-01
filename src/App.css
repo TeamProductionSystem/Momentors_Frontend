@@ -23,6 +23,10 @@
   text-align: right;
 }
 
+.nav--navigation {
+  margin: 1rem;
+}
+
 .nav--authentication a {
   background-color:#333335;
   color: #ffffff;
@@ -103,4 +107,8 @@
   max-width: 100%;
   height: auto;
   margin: 0 auto;
+}
+
+.profile--heading, .profile--bio {
+  margin: 1rem;
 }

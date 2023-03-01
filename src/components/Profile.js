@@ -2,9 +2,10 @@ import { Button } from '@chakra-ui/react';
 import { Card, Box, Heading, CardBody, CardFooter, Text, Image, Stack } from '@chakra-ui/react';
 
 export default function Profile ({userName}) {
+
     return (
         <div className="profile--page">
-        <Box>
+        <Box className="profile--heading">
             <Heading>
                 <img src="" alt=""/>
                 <h1>{userName}</h1>
@@ -14,7 +15,7 @@ export default function Profile ({userName}) {
             </Heading>
         </Box>
 
-                <Card
+                <Card className="profile--bio"
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
@@ -24,10 +25,12 @@ export default function Profile ({userName}) {
                         <CardBody>
 
                             <Text>Hi I'm so and so and I am skilled at such and such</Text>
+                            {/* Pull in bio from database */}
                         </CardBody>
 
                         <CardFooter>
-                            <Text>Skills: </Text>
+                            <Text><b>Skills: </b></Text>
+                            {/* Pull in marked skills from database */}
                         </CardFooter>
                         </Stack>
                 </Card>
