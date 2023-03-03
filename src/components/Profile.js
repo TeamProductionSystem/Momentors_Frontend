@@ -3,25 +3,27 @@ import { Button } from '@chakra-ui/react';
 import { Card, Box, Heading, CardBody, CardFooter, Text, Image, Stack } from '@chakra-ui/react';
 import axios from 'axios';
 
-export default function Profile ({ token, id }) {
+export default function Profile ({ token, pk }) {
 
 // username, first name, last name, skills
 
 const [username, setUsername] = useState("");
+const [firstname, setFirstname] = useState("");
+const [lastname, setLastname] = useState("");
 
 useEffect(() => {
-    console.log(id);
     // if (!id) return;
     axios
-        .get(`https://team-production-system.onrender.com/auth/users/me/`, {
-            // hardcode with a 1 and see if it console logs
+        .get(`https://team-production-system.onrender.com/myprofile/`, {
             headers: { Authorization: `Token ${token}` },
         })
         .then((res) => {
             setUsername(res.data.username);
+            setFirstname(res.data.firstname);
+            setLastname(res.data.lastname);
             console.log(res)
         })
-}, [token, id])
+}, [token, pk])
             
     return (
         <div className="profile--page">
@@ -29,7 +31,8 @@ useEffect(() => {
         <Heading>
             <img src="" alt=""/>
             <p>{username}</p>
-            <p>First Name + Last Name</p>
+            <p>{firstname}</p>
+            <p>{lastname}</p>
             <p>e-mail</p>
             <Button>Edit</Button>
         </Heading>

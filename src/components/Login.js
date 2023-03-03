@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {FormControl, FormLabel, Button, Input, Box } from '@chakra-ui/react';
+import {FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
 
 export default function Login({ setAuth }) {
     const [userName, setUserName] = useState('')
@@ -18,10 +18,17 @@ export default function Login({ setAuth }) {
                 password: password,
             })
             .then((res) => {
-                console.log(res.data);
                 const token = res.data.auth_token
-                setAuth(userName, token, res.data.id);
-                navigate("/profile");
+                axios
+                .get('https://team-production-system.onrender.com/myprofile/', {
+                    headers: { Authorization: `Token ${token}`, },}
+                    )
+                .then((res) => {
+                    setAuth(userName, token, res.data.pk);
+                    console.log(res.data);
+                    navigate("/profile");
+                })
+                .catch((e) => setError(e.message))
             })
             .catch((e) => setError(e.message))
     }
