@@ -1,18 +1,38 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
 import { Card, Box, Heading, CardBody, CardFooter, Text, Image, Stack } from '@chakra-ui/react';
+import axios from 'axios';
 
-export default function Profile ({userName}) {
+export default function Profile ({ token, id }) {
 
+// username, first name, last name, skills
+
+const [username, setUsername] = useState("");
+
+useEffect(() => {
+    console.log(id);
+    // if (!id) return;
+    axios
+        .get(`https://team-production-system.onrender.com/auth/users/me/`, {
+            // hardcode with a 1 and see if it console logs
+            headers: { Authorization: `Token ${token}` },
+        })
+        .then((res) => {
+            setUsername(res.data.username);
+            console.log(res)
+        })
+}, [token, id])
+            
     return (
         <div className="profile--page">
-        <Box className="profile--heading">
-            <Heading>
-                <img src="" alt=""/>
-                <h1>{userName}</h1>
-                <h1>First Name + Last Name</h1>
-                <p>e-mail</p>
-                <Button>Edit</Button>
-            </Heading>
+        <Box>
+        <Heading>
+            <img src="" alt=""/>
+            <p>{username}</p>
+            <p>First Name + Last Name</p>
+            <p>e-mail</p>
+            <Button>Edit</Button>
+        </Heading>
         </Box>
 
                 <Card className="profile--bio"
