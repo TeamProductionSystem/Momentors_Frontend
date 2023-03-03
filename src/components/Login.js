@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {FormControl, FormLabel, Button, Input, Box } from '@chakra-ui/react';
 
@@ -20,7 +20,7 @@ export default function Login({ setAuth }) {
             .then((res) => {
                 console.log(res.data);
                 const token = res.data.auth_token
-                setAuth(userName, token);
+                setAuth(userName, token, res.data.id);
                 navigate("/profile");
             })
             .catch((e) => setError(e.message))
