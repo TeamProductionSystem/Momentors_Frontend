@@ -23,7 +23,6 @@ useEffect(() => {
         })
 }, [token, id])
             
-
     return (
         <div className="profile--page">
         <Box>
