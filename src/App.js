@@ -16,12 +16,12 @@ function App() {
   const [token, setToken] = useLocalStorageState('momentorsToken', null)
   
   const [userName, setUserName] = useLocalStorageState('momentorsUserName', '')
-  const [id, setId] = useLocalStorageState('id', '');
+  const [pk, setPk] = useLocalStorageState('pk', '');
 
-  const setAuth = (userName, token, id) => {
+  const setAuth = (userName, token, pk) => {
     setToken(token)
     setUserName(userName)
-    setId(id)
+    setPk(pk)
   }
 
   const handleLogout = () => {
@@ -47,7 +47,7 @@ function App() {
       <Route path="/" element={<Hero />} />
       <Route path="/register" element={<Register isLoggedIn={isLoggedIn}/>} />
       <Route path="/login" element={<Login setAuth={setAuth}/>} />
-      <Route path="/profile" element={<Profile token={token} id={id} />} />
+      <Route path="/profile" element={<Profile token={token} pk={pk} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
     </Routes>
     </BrowserRouter>
