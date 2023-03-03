@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 import useLocalStorageState from "use-local-storage-state";
 import Hero from "./components/Hero";
 import NavBar from "./components/NavBar";
@@ -17,10 +16,12 @@ function App() {
   const [token, setToken] = useLocalStorageState('momentorsToken', null)
   
   const [userName, setUserName] = useLocalStorageState('momentorsUserName', '')
+  const [id, setId] = useLocalStorageState('id', '');
 
-  const setAuth = (userName, token) => {
+  const setAuth = (userName, token, id) => {
     setToken(token)
     setUserName(userName)
+    setId(id)
   }
 
   const handleLogout = () => {
@@ -46,8 +47,7 @@ function App() {
       <Route path="/" element={<Hero />} />
       <Route path="/register" element={<Register isLoggedIn={isLoggedIn}/>} />
       <Route path="/login" element={<Login setAuth={setAuth}/>} />
-      <Route path="/profile" element={<Profile userName={userName}/>} />
-      {/* This is a temporary solution to bring in the username on the profile  */}
+      <Route path="/profile" element={<Profile token={token} id={id} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
     </Routes>
     </BrowserRouter>
