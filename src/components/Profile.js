@@ -36,7 +36,7 @@ useEffect(() => {
         </Heading>
         </Box>
 
-                <Card
+                <Card className="profile--bio"
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
@@ -46,10 +46,12 @@ useEffect(() => {
                         <CardBody>
 
                             <Text>Hi I'm so and so and I am skilled at such and such</Text>
+                            {/* Pull in bio from database */}
                         </CardBody>
 
                         <CardFooter>
-                            <Text>Skills: </Text>
+                            <Text><b>Skills: </b></Text>
+                            {/* Pull in marked skills from database */}
                         </CardFooter>
                         </Stack>
                 </Card>
