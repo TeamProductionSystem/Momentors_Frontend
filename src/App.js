@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 import Sessions from "./components/Sessions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
@@ -48,6 +49,7 @@ function App() {
       <Route path="/register" element={<Register isLoggedIn={isLoggedIn}/>} />
       <Route path="/login" element={<Login setAuth={setAuth}/>} />
       <Route path="/profile" element={<Profile token={token} pk={pk} />} />
+      <Route path="/editprofile" element={<EditProfile token={token} pk={pk} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
     </Routes>
     </BrowserRouter>

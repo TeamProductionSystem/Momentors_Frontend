@@ -27,28 +27,12 @@
   margin: 1rem;
 }
 
-.nav--authentication a {
-  background-color:#333335;
-  color: #ffffff;
-  border-radius: 18px;
-  padding: 4px 8px;
-  font-size: 16px;
-  text-decoration: none;
-  margin-left: 5px;
-}
-
-.nav--authentication a:hover {
-  background-color: #aca8a8;
-}
-
-.nav--authentication .chakra-button {
-  background-color:#343435;
-  color: #ffffff;
-  font-size: 16px;
+.nav--navigation .chakra-button:hover {
+  background-color: #5a5a5a;
 }
 
 .nav--authentication .chakra-button:hover {
-  background-color: #333333;
+  background-color: #5a5a5a;
 }
 
 /* Hero Page */
@@ -86,29 +70,27 @@
   margin-bottom: 1.75rem;
 }
 
-.hero--authentication {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2.5rem;
-}
-
-.hero--authentication button:first-child {
-  margin-right: 1.5rem;
-  margin-left: auto;
-}
-
-.hero--authentication button:last-child {
-  margin-left: 1,5rem;
-  margin-right: auto;
-}
-
 .hero--yoda {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
+  border-radius: 8px;
 }
+
+/* Profile Page */
 
 .profile--heading, .profile--bio {
   margin: 1rem;
 }
+
+.profile--username {
+  font-family: "Helvetica";
+  font-size: 20pt;
+}
+
+.authentication-switch {
+  margin: 1rem;
+}
+
+/* Sessions Page */
+
