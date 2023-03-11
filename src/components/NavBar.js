@@ -9,31 +9,38 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
           <Link to="/sessions">
             <Button 
             border='2px'
-            borderColor='gray.500'>Sessions</Button>
+            borderColor='gray.400'>Sessions</Button>
           </Link>
           <Link to="/profile">
             <Button
             border='2px'
-            borderColor='gray.500'>Profile</Button>
+            borderColor='gray.400'>Profile</Button>
           </Link>
         </ButtonGroup>
       </div>
-      <div className="nav--title-container"> </div>
+      <div className="nav--title-container">
         <h1 className="nav--title">Momentum Mentors</h1>
-     
+      </div>
       <div className="nav--authentication">
         {!isLoggedIn ? (
           <ButtonGroup>
             <Link to="/register">
-              <Button>Sign up</Button>
+              <Button
+              border='2px'
+              borderColor='green.500'>Sign up</Button>
             </Link>
             <Link to="/login">
-              <Button>Log in</Button>
+              <Button
+              border='2px'
+              borderColor='green.500'>Log in</Button>
             </Link>
           </ButtonGroup>
         ) : (
           <Link to="/" onClick={handleLogout}>
-            <Button>Log out</Button>
+            <Button 
+            border='2px'
+            borderColor='red.200'
+            className="button--logout">Log out</Button>
           </Link>
         )}
       </div>
