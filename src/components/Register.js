@@ -43,7 +43,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
 
     if (isRegistered) {
     console.log("Registered!")
-    return <Navigate to='/sessions' />
+    return <Navigate to='/profile' />
   }
 
   return (
