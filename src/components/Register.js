@@ -1,19 +1,20 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Button, Input, Text } from "@chakra-ui/react";
 
 const Register = ({ setAuth, isLoggedIn }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(userName, email, password);
+    setIsLoading(true);
     axios
       .post("https://team-production-system.onrender.com/auth/users/", {
         username: userName,
@@ -38,8 +39,12 @@ const Register = ({ setAuth, isLoggedIn }) => {
             e.target.submit();
           })
           .catch((e) => setError(e.message))
-      );
+      ).finally(() => setIsLoading(false));
   };
+
+  if (isLoading) {
+    return <Text>Loading...</Text>
+  }
 
     if (isRegistered) {
     console.log("Registered!")
