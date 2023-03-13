@@ -1,27 +1,29 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { FormControl, FormLabel, Button, Input, Text } from "@chakra-ui/react";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
 const Register = ({ setAuth, isLoggedIn }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState('');
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setError('');
+    setLoading(true);
     axios
       .post("https://team-production-system.onrender.com/auth/users/", {
         username: userName,
         password: password,
         email: email,
       })
-      .then(() =>
+      .then(() => {
         axios
           .post(
             "https://team-production-system.onrender.com/auth/token/login",
@@ -32,24 +34,30 @@ const Register = ({ setAuth, isLoggedIn }) => {
           )
 
           .then((res) => {
+            setLoading(false);
             console.log(res.data);
             const token = res.data.auth_token;
             setIsRegistered(true);
             setAuth(userName, token);
             e.target.submit();
+
+            
           })
-          .catch((e) => setError(e.message))
-      ).finally(() => setIsLoading(false));
-  };
-
-  if (isLoading) {
-    return <Text>Loading...</Text>
-  }
-
-    if (isRegistered) {
+          .catch((e) => {
+            setError(e.message);
+            setLoading(false);
+          });
+        })
+      .catch((e) => {
+        setLoading(false);
+        setError(e.message);
+  });
+  if (isRegistered) {
     console.log("Registered!")
     return <Navigate to='/profile' />
   }
+};
+          
 
   return (
     <div className="Register">
@@ -105,15 +113,26 @@ const Register = ({ setAuth, isLoggedIn }) => {
 
           <div>
             <div className="button--register">
-              <Button type="submit" form="registration-form">
-                Register
-              </Button>
+              {loading ? (
+                <Button
+                  id="loading--button"
+                  isLoading
+                  colorScheme='gray'
+                  spinner={<PacmanLoader size={20} color='yellow'/>}
+                  >
+                  loading...
+                  </Button>
+              ) : ( 
+                <Button type="submit" form="registration-form">
+                  Register
+                </Button>
+              )}
             </div>
           </div>
         </FormControl>
       </form>
     </div>
   );
-};
+}
 
 export default Register;
