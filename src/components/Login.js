@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
 
 export default function Login({ setAuth }) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -80,9 +81,16 @@ export default function Login({ setAuth }) {
             <div>
               <div className="button--login">
                 {loading ? (
-                  <p>Loading...</p>
+                  <Button
+                    id="loading--button"
+                    isLoading
+                    colorScheme='gray'
+                    spinner={<PacmanLoader size={20} color='yellow'/>}
+                    >
+                    loading...
+                    </Button>
                 ) : (
-                  <Button type="submit" to="/profile">
+                  <Button type="submit" to="/profile" >
                     Log in
                   </Button>
                 )}
