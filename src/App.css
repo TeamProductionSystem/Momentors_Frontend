@@ -77,6 +77,24 @@
   border-radius: 8px;
 }
 
+/* authentication */
+
+.button--login {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.field {
+  margin: auto;
+  margin-top: 1rem;
+  width: 20rem;
+
+}
+
+#loading--button {
+  background-color: black;  
+  color: yellow;
+}
 /* Profile Page */
 
 .profile--heading, .profile--bio {
