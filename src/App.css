@@ -111,4 +111,18 @@
 }
 
 /* Sessions Page */
+.session--signup {
+
+}
+
+/* Session Singup Page */
+
+.session--signup-header {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.15rem;
+  margin-top: 2rem;
+  color: #000000;
+  text-align: center;
+}
 
