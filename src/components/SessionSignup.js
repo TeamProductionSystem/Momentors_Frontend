@@ -14,20 +14,18 @@ export default function SessionSignup({ token }) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((response) => {
-        const skillsSet = [];
+        const skillsSet = new Set(); // create a new Set to store unique skills
         response.data.forEach((mentor) => {
           if (mentor.mentor_profile && mentor.mentor_profile.skills) {
             const mentorSkills = Array.isArray(mentor.mentor_profile.skills)
               ? mentor.mentor_profile.skills
               : [mentor.mentor_profile.skills];
             mentorSkills.forEach((skill) => {
-              skillsSet.push(skill);
-
+              skillsSet.add(skill); // add each skill to the Set
             });
           }
         });
-        setSkills(skillsSet);
-        console.log(skillsSet)
+        setSkills(Array.from(skillsSet)); // convert Set to array and set as state
       })
       .catch((error) => {
         console.log(error);
