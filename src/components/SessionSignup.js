@@ -3,59 +3,68 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function SessionSignup({token, pk}) {
+export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
 
-
   useEffect(() => {
-    axios.get('https://team-production-system.onrender.com/mentor/', {
+    axios
+      .get("https://team-production-system.onrender.com/mentor/", {
         headers: { Authorization: `Token ${token}` },
-    })
-      .then(response => {
-        const skillsSet = new Set();
-        response.data.forEach(mentor => {
-          mentor.skills.forEach(skill => {
-            skillsSet.add(skill);
-          });
-        });
-        setSkills(Array.from(skillsSet));
       })
-      .catch(error => {
+      .then((response) => {
+        const skillsSet = [];
+        response.data.forEach((mentor) => {
+          if (mentor.mentor_profile && mentor.mentor_profile.skills) {
+            const mentorSkills = Array.isArray(mentor.mentor_profile.skills)
+              ? mentor.mentor_profile.skills
+              : [mentor.mentor_profile.skills];
+            mentorSkills.forEach((skill) => {
+              skillsSet.push(skill);
+
+            });
+          }
+        });
+        setSkills(skillsSet);
+        console.log(skillsSet)
+      })
+      .catch((error) => {
         console.log(error);
       });
-  }, [token, pk]);
+  }, [token]);
 
   useEffect(() => {
     if (selectedSkill) {
-      axios.get(`https://team-production-system.onrender.com/mentors/${selectedSkill}`, {
-        headers: { Authorization: `Token ${token}` },
-      })
-    
-        .then(response => {
+      axios
+        .get(
+          `https://team-production-system.onrender.com/mentors/${selectedSkill}`,
+          {
+            headers: { Authorization: `Token ${token}` },
+          }
+        )
+
+        .then((response) => {
           setMentors(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
-  }, [selectedSkill, token, pk]);
+  }, [selectedSkill, token]);
 
-  const handleSkillChange = event => {
+  const handleSkillChange = (event) => {
     setSelectedSkill(event.target.value);
   };
 
   return (
     <div className="session--signup">
-      <div className="session--signup-header">
-        Meet a Mentor
-      </div>
+      <div className="session--signup-header">Meet a Mentor</div>
       <div className="session--signup-topic">
         <p>What do you want to learn about?</p>
         <select onChange={handleSkillChange}>
           <option value="">Select a skill</option>
-          {skills.map(skill => (
+          {skills.map((skill) => (
             <option value={skill} key={skill}>
               {skill}
             </option>
@@ -66,7 +75,7 @@ export default function SessionSignup({token, pk}) {
         <div className="session--signup-mentors">
           <p>Choose a mentor:</p>
           <ul>
-            {mentors.map(mentor => (
+            {mentors.map((mentor) => (
               <li key={mentor.pk}>
                 <Link to={`/mentor/${mentor.pk}`}>{mentor.username}</Link>
               </li>
