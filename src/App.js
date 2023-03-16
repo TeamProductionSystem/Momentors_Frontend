@@ -50,7 +50,7 @@ function App() {
       <Route path="/" element={<Hero />} />
       <Route path="/register" element={<Register isLoggedIn={isLoggedIn}/>} />
       <Route path="/login" element={<Login setAuth={setAuth}/>} />
-      <Route path="/profile" element={<Profile token={token} pk={pk} />} />
+      <Route path="/profile" element={<Profile token={token} pk={pk} setAuth={setAuth} />} />
       <Route path="/editprofile" element={<EditProfile token={token} pk={pk} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
       <Route path="/sessionsignup" element={<SessionSignup token={token}/>} />
