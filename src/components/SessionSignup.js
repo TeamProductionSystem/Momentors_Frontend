@@ -71,7 +71,7 @@ export default function SessionSignup({ token }) {
       </div>
       {mentors.length > 0 && (
         <div className="session--signup-mentors">
-          <p>Choose a Mentor:</p>
+          <p>Choose a Mentor!:</p>
           <ul>
             {mentors.map((mentor) => (
               <li key={mentor.pk}>
