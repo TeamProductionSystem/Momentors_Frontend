@@ -16,6 +16,11 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             border='2px'
             borderColor='gray.400'>Profile</Button>
           </Link>
+          <Link to ="/sessionsignup">
+            <Button
+            border='2px'
+            borderColor='gray.400'>Session Signup</Button>
+          </Link>
         </ButtonGroup>
       </div>
       <div className="nav--title-container">

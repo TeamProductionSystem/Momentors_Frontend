@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import Sessions from "./components/Sessions";
+import SessionSignup from "./components/SessionSignup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -52,6 +53,7 @@ function App() {
       <Route path="/profile" element={<Profile token={token} pk={pk} setAuth={setAuth} />} />
       <Route path="/editprofile" element={<EditProfile token={token} pk={pk} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
+      <Route path="/sessionsignup" element={<SessionSignup token={token}/>} />
     </Routes>
     </BrowserRouter>
   )
