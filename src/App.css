@@ -79,7 +79,7 @@
 
 /* authentication */
 
-.button--login {
+.button--login, .button--edit-profile {
   margin-top: 1rem;
   text-align: center;
 }

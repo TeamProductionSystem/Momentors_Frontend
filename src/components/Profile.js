@@ -4,13 +4,14 @@ import { Button } from '@chakra-ui/react';
 import { Card, Box, Heading, CardBody, CardFooter, Text, Image, Stack, Switch, FormControl, FormLabel } from '@chakra-ui/react';
 import axios from 'axios';
 
-export default function Profile ({ token, pk }) {
+export default function Profile ({ token, pk, setAuth }) {
 
 // username, first name, last name, skills
 
 // const [username, setUsername] = useState("");
 const [first_name, setFirstname] = useState("");
 const [last_name, setLastname] = useState("");
+const [phoneNumber, setPhoneNumber] = useState("");
 
 useEffect(() => {
     // if (!id) return;
@@ -22,6 +23,7 @@ useEffect(() => {
             // setUsername(res.data.username);
             setFirstname(res.data.first_name);
             setLastname(res.data.last_name);
+            setPhoneNumber(res.data.phone_number);
             console.log(res)
         })
 }, [token, pk])
@@ -33,8 +35,9 @@ useEffect(() => {
             <img src="" alt=""/>
             {/* <p className="profile--username">{username}</p> */}
             <p>{first_name} {last_name}</p>
+            <p>{phoneNumber}</p>
             
-            <Link to="/editprofile">
+            <Link to="/editprofile" >
                 <Button
                 border='2px'
                 borderColor='orange.200'>Edit</Button>
