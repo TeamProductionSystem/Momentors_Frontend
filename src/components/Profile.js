@@ -14,7 +14,6 @@ const [last_name, setLastname] = useState("");
 const [phoneNumber, setPhoneNumber] = useState("");
 
 useEffect(() => {
-    // if (!id) return;
     axios
         .get(`https://team-production-system.onrender.com/myprofile/`, {
             headers: { Authorization: `Token ${token}` },
