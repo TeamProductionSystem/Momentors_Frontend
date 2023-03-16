@@ -53,7 +53,7 @@ function App() {
       <Route path="/profile" element={<Profile token={token} pk={pk} />} />
       <Route path="/editprofile" element={<EditProfile token={token} pk={pk} />} />
       <Route path="/sessions" element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
-      <Route path="/sessionsignup" element={<SessionSignup setAuth={setAuth} isLoggedIn={isLoggedIn}/>} />
+      <Route path="/sessionsignup" element={<SessionSignup token={token}/>} />
     </Routes>
     </BrowserRouter>
   )
