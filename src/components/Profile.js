@@ -33,7 +33,6 @@ useEffect(() => {
         <Box>
         <Heading className="profile--heading">
             <img src="" alt=""/>
-            {/* <p className="profile--username">{username}</p> */}
             <p>{first_name} {last_name}</p>
             <p>{phoneNumber}</p>
             
