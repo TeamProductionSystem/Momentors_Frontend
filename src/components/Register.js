@@ -12,10 +12,11 @@ const Register = ({ setAuth, isLoggedIn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [token, setToken] = useState(null);
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     axios
       .post("https://team-production-system.onrender.com/auth/users/", {
@@ -35,43 +36,41 @@ const Register = ({ setAuth, isLoggedIn }) => {
 
           .then((res) => {
             setLoading(false);
-            console.log(res.data);
-            const token = res.data.auth_token;
+            console.log(res.data.auth_token);
+            setToken(res.data.auth_token);
             setIsRegistered(true);
-            setAuth(userName, token);
-            e.target.submit();
-
-            
+            setAuth(userName, res.data.auth_token);
+            // e.target.submit();
+            navigate("/profile");
           })
           .catch((e) => {
             setError(e.message);
             setLoading(false);
           });
-        })
+      })
       .catch((e) => {
         setLoading(false);
         setError(e.message);
-  });
-  if (isRegistered) {
-    console.log("Registered!")
-    return <Navigate to='/profile' />
-  }
-};
-          
+      });
+    // if (isRegistered) {
+    //   console.log("Registered!");
+    //   return <Navigate to='/profile' />;
+    // }
+  };
 
   return (
-    <div className="Register">
-      <form onSubmit={handleRegister} id="registration-form">
-        <FormControl className="form--registration">
-          <div className="field">
-            <FormLabel className="label" htmlFor="email">
+    <div className='Register'>
+      <form onSubmit={handleRegister} id='registration-form'>
+        <FormControl className='form--registration'>
+          <div className='field'>
+            <FormLabel className='label' htmlFor='email'>
               E-mail
             </FormLabel>
             <div>
               <Input
-                type="email"
-                id="email"
-                className="input"
+                type='email'
+                id='email'
+                className='input'
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -79,15 +78,15 @@ const Register = ({ setAuth, isLoggedIn }) => {
             </div>
           </div>
 
-          <div className="field">
-            <FormLabel className="label" htmlFor="username">
+          <div className='field'>
+            <FormLabel className='label' htmlFor='username'>
               Username
             </FormLabel>
             <div>
               <Input
-                type="text"
-                id="username"
-                className="input"
+                type='text'
+                id='username'
+                className='input'
                 required
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
@@ -95,15 +94,15 @@ const Register = ({ setAuth, isLoggedIn }) => {
             </div>
           </div>
 
-          <div className="field">
-            <FormLabel className="label" htmlFor="password">
+          <div className='field'>
+            <FormLabel className='label' htmlFor='password'>
               Password
             </FormLabel>
             <div>
               <Input
-                type="password"
-                id="password"
-                className="input"
+                type='password'
+                id='password'
+                className='input'
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -112,18 +111,18 @@ const Register = ({ setAuth, isLoggedIn }) => {
           </div>
 
           <div>
-            <div className="button--register">
+            <div className='button--register'>
               {loading ? (
                 <Button
-                  id="loading--button"
+                  id='loading--button'
                   isLoading
                   colorScheme='gray'
-                  spinner={<PacmanLoader size={20} color='yellow'/>}
-                  >
+                  spinner={<PacmanLoader size={20} color='yellow' />}
+                >
                   loading...
-                  </Button>
-              ) : ( 
-                <Button type="submit" form="registration-form">
+                </Button>
+              ) : (
+                <Button type='submit' form='registration-form'>
                   Register
                 </Button>
               )}
@@ -133,6 +132,6 @@ const Register = ({ setAuth, isLoggedIn }) => {
       </form>
     </div>
   );
-}
+};
 
 export default Register;
