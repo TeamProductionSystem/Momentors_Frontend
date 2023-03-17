@@ -1,36 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
+import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
 export default function Login({ setAuth }) {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
     event.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     axios
-      .post('https://team-production-system.onrender.com/auth/token/login/', {
+      .post("https://team-production-system.onrender.com/auth/token/login/", {
         username: userName,
         password: password,
       })
       .then((res) => {
         const token = res.data.auth_token;
+        console.log(res);
         axios
-          .get('https://team-production-system.onrender.com/myprofile/', {
+          .get("https://team-production-system.onrender.com/myprofile/", {
             headers: { Authorization: `Token ${token}` },
           })
           .then((res) => {
             setLoading(false);
             setAuth(userName, token, res.data.pk);
             console.log(res.data);
-            navigate('/profile');
+            navigate("/profile");
           })
           .catch((e) => {
             setLoading(false);
@@ -44,33 +45,33 @@ export default function Login({ setAuth }) {
   };
 
   return (
-    <div className="Login">
+    <div className='Login'>
       <form onSubmit={handleLogin}>
-        <FormControl className="form--login">
-          <div className="field">
-            <FormLabel className="label" htmlFor="username">
+        <FormControl className='form--login'>
+          <div className='field'>
+            <FormLabel className='label' htmlFor='username'>
               Username
             </FormLabel>
             <div>
               <Input
-                type="text"
-                id="username"
-                className="input"
+                type='text'
+                id='username'
+                className='input'
                 required
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
 
-            <div className="field">
-              <FormLabel className="label" htmlFor="password">
+            <div className='field'>
+              <FormLabel className='label' htmlFor='password'>
                 Password
               </FormLabel>
               <div>
                 <Input
-                  type="password"
-                  id="password"
-                  className="input"
+                  type='password'
+                  id='password'
+                  className='input'
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -79,18 +80,18 @@ export default function Login({ setAuth }) {
             </div>
 
             <div>
-              <div className="button--login">
+              <div className='button--login'>
                 {loading ? (
                   <Button
-                    id="loading--button"
+                    id='loading--button'
                     isLoading
                     colorScheme='gray'
-                    spinner={<PacmanLoader size={20} color='yellow'/>}
-                    >
+                    spinner={<PacmanLoader size={20} color='yellow' />}
+                  >
                     loading...
-                    </Button>
+                  </Button>
                 ) : (
-                  <Button type="submit" to="/profile" >
+                  <Button type='submit' to='/profile'>
                     Log in
                   </Button>
                 )}
