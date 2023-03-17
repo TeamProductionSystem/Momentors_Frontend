@@ -36,7 +36,7 @@ export default function SessionSignup({ token }) {
     if (selectedSkill) {
       axios
         .get(
-          `https://team-production-system.onrender.com/mentors/${selectedSkill}`,
+          `https://team-production-system.onrender.com/mentor/${selectedSkill}`,
           {
             headers: { Authorization: `Token ${token}` },
           }
