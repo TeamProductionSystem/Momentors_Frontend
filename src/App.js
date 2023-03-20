@@ -11,7 +11,6 @@ import Sessions from "./components/Sessions";
 import SessionSignup from "./components/SessionSignup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
-import PacmanLoader from "react-spinners/PacmanLoader";
 import "./App.css";
 
 function App() {

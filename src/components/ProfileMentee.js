@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, CardBody, CardFooter, Text, Image, Stack, Switch, FormControl, FormLabel } from '@chakra-ui/react';
+import { Image, Switch, FormControl, FormLabel } from '@chakra-ui/react';
 import axios from 'axios';
 import ProfileBasicInfo from './ProfileBasicInfo';
 
