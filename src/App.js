@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import Hero from "./components/Hero";
 import NavBar from "./components/NavBar";
@@ -18,6 +19,8 @@ function App() {
 
   const [userName, setUserName] = useLocalStorageState("momentorsUserName", "");
   const [pk, setPk] = useLocalStorageState("pk", "");
+  const [mentor, setMentor] = useState(false);
+  const [mentee, setMentee] = useState(false);
 
   const setAuth = (userName, token, pk) => {
     setUserName(userName);
@@ -50,15 +53,16 @@ function App() {
           path='/register'
           element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
         />
-        <Route path='/login' element={<Login setAuth={setAuth} />} />
+        <Route path='/login' element={<Login setAuth={setAuth} setMentor={setMentor} setMentee={setMentee} />} />
         <Route
           path='/profile'
           element={
             <Profile
               token={token}
               pk={pk}
-              setToken={setToken}
               setAuth={setAuth}
+              mentor={mentor}
+              mentee={mentee}
             />
           }
         />
