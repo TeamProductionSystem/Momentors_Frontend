@@ -62,7 +62,9 @@ function App() {
               pk={pk}
               setAuth={setAuth}
               mentor={mentor}
+              setMentor={setMentor}
               mentee={mentee}
+              setMentee={setMentee}
             />
           }
         />

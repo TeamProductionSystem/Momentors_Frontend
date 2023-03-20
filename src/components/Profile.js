@@ -1,7 +1,50 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Button } from '@chakra-ui/react';
 import ProfileMentor from "./ProfileMentor"
 import ProfileMentee from "./ProfileMentee"
 
-export default function Profile ({ token, pk, setAuth, mentor, mentee }) {
+export default function Profile ({ token, pk, setAuth, mentor, setMentor, mentee, setMentee }) {
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    const updateMentor = (event) => {
+        event.preventDefault();
+        setError("");
+        axios
+            .patch('https://team-production-system.onrender.com/myprofile/', {
+                'is_mentor': true,
+            }, {
+                headers: { 'Content-type': 'application/json; charset=UTF-8',
+                Authorization: `Token ${token}` }
+            })
+            .then((res) => {
+                setMentor(true)
+            })
+            .catch((e) => {
+                setError(e.message);
+            });
+    }
+
+    const updateMentee = (event) => {
+        event.preventDefault();
+        setError("");
+        axios
+            .patch('https://team-production-system.onrender.com/myprofile/', {
+                'is_mentee': true,
+            }, {
+                headers: { 'Content-type': 'application/json; charset=UTF-8',
+                Authorization: `Token ${token}` }
+            })
+            .then((res) => {
+                setMentee(true)
+            })
+            .catch((e) => {
+                setError(e.message);
+            });
+    }
+
     if (mentor === true) {
         return (
             <ProfileMentor token={token} pk={pk} setAuth={setAuth} />
@@ -12,7 +55,19 @@ export default function Profile ({ token, pk, setAuth, mentor, mentee }) {
         )
     } else {
         return (
-            <p>You aren't a mentor or mentee</p>
-            )
+            <>
+                <p>Are you signing up as a mentor or mentee?</p>
+                <Button
+                    border='2px'
+                    borderColor='orange.200'
+                    onClick={updateMentor}>Mentor</Button>
+                <Button
+                    border='2px'
+                    borderColor='orange.200'
+                    onClick={updateMentee}
+                    >Mentee</Button>
+                
+            </>
+        )
     }
 }
