@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from '@chakra-ui/react';
 import ProfileMentor from "./ProfileMentor"
@@ -7,7 +6,6 @@ import ProfileMentee from "./ProfileMentee"
 
 export default function Profile ({ token, pk, setAuth, mentor, setMentor, mentee, setMentee }) {
     const [error, setError] = useState("");
-    const navigate = useNavigate();
 
     const updateMentor = (event) => {
         event.preventDefault();
