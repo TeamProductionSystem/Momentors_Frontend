@@ -4,7 +4,7 @@ import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
-export default function Login({ setAuth }) {
+export default function Login({ setAuth, setMentor, setMentee }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,6 +30,8 @@ export default function Login({ setAuth }) {
           .then((res) => {
             setLoading(false);
             setAuth(userName, token, res.data.pk);
+            setMentor(res.data.is_mentor);
+            setMentee(res.data.is_mentee);
             console.log(res.data);
             navigate("/profile");
           })
