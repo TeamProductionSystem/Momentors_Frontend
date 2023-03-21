@@ -2,6 +2,7 @@ import { Divider } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Select, Box, Grid, GridItem } from "@chakra-ui/react";
 
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
@@ -56,31 +57,35 @@ export default function SessionSignup({ token }) {
   };
 
   return (
-    <div className="session--signup">
-      <div className="session--signup-header">Meet a Mentor</div>
-      <div className="session--signup-topic">
-        <p>What do you want to learn about?</p>
-        <select onChange={handleSkillChange}>
-          <option value="">Select a skill</option>
-          {skills.map((skill) => (
-            <option value={skill} key={skill}>
-              {skill}
-            </option>
-          ))}
-        </select>
-      </div>
-      {mentors.length > 0 && (
-        <div className="session--signup-mentors">
-          <p>Choose a Mentor!:</p>
-          <ul>
-            {mentors.map((mentor) => (
-              <li key={mentor.pk}>
-                <Link to={`/mentor/${mentor.pk}`}>{mentor.username}</Link>
-              </li>
+    skills && (
+      <div className='session--signup'>
+        <div className='session--signup-header'>Meet a Mentor</div>
+        <div className='session--signup-topic'>
+          <p>What do you want to learn about?</p>
+          <Select placeholder='Select Skill' onChange={handleSkillChange}>
+            {skills.map((skill) => (
+              <option value={skill} key={skill}>
+                {skill}
+              </option>
             ))}
-          </ul>
+          </Select>
         </div>
-      )}
-    </div>
+        {mentors.length > 0 && selectedSkill && (
+          <div className='session--signup-mentors'>
+            <p>Choose a Mentor!:</p>
+
+            <Grid templateColumns='repeat(3, 1fr)' gap={4}>
+              {mentors.map((mentor) => (
+                <GridItem>
+                  <Box key={mentor.pk} bg='tomato' height='175px'>
+                    {mentor.about_me}
+                  </Box>
+                </GridItem>
+              ))}
+            </Grid>
+          </div>
+        )}
+      </div>
+    )
   );
 }

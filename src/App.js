@@ -8,7 +8,7 @@ import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import Sessions from "./components/Sessions";
 import SessionSignup from "./components/SessionSignup";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import "./App.css";
@@ -42,7 +42,7 @@ function App() {
   const isLoggedIn = userName && token;
 
   return (
-    <BrowserRouter>
+    <>
       <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
         <Route path='/' element={<Hero />} />
@@ -75,7 +75,7 @@ function App() {
           element={<SessionSignup token={token} />}
         />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
