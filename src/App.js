@@ -9,7 +9,7 @@ import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import Sessions from "./components/Sessions";
 import SessionSignup from "./components/SessionSignup";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 
@@ -46,17 +46,26 @@ function App() {
   const isLoggedIn = userName && token;
 
   return (
-    <BrowserRouter>
+    <div>
       <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
-        <Route path='/' element={<Hero />} />
+        <Route path="/" element={<Hero />} />
         <Route
-          path='/register'
+          path="/register"
           element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
         />
-        <Route path='/login' element={<Login setAuth={setAuth} setMentor={setMentor} setMentee={setMentee} />} />
         <Route
-          path='/profile'
+          path="/login"
+          element={
+            <Login
+              setAuth={setAuth}
+              setMentor={setMentor}
+              setMentee={setMentee}
+            />
+          }
+        />
+        <Route
+          path="/profile"
           element={
             <Profile
               token={token}
@@ -70,19 +79,19 @@ function App() {
           }
         />
         <Route
-          path='/editprofile'
+          path="/editprofile"
           element={<EditProfile token={token} pk={pk} />}
         />
         <Route
-          path='/sessions'
+          path="/sessions"
           element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
-          path='/sessionsignup'
+          path="/sessionsignup"
           element={<SessionSignup token={token} />}
         />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
