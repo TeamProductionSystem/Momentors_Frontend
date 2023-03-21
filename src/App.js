@@ -38,6 +38,8 @@ function App() {
       )
       .then((res) => {
         setAuth("", null);
+        setMentor(false);
+        setMentee(false);
       });
   };
 
