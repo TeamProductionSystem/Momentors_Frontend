@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createTheme, ThemeProvider } from "@mui/system";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
