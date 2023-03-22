@@ -67,9 +67,8 @@ export default function SessionSignup({ token }) {
         <div className='session--signup-topic'>
           <p>What do you want to learn about?</p>
           <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-            <InputLabel id='skill-select'>Age</InputLabel>
+            <InputLabel id='skill-select'>Select Skill</InputLabel>
             <Select label='Select Skill' onChange={handleSkillChange}>
-              <MenuItem value=''>Select Skill</MenuItem>
               {skills.map((skill) => (
                 <MenuItem value={skill} key={skill}>
                   {skill}
