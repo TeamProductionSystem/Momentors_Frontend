@@ -2,7 +2,12 @@ import { Divider } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Grid } from "@mui/material";
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
@@ -56,31 +61,42 @@ export default function SessionSignup({ token }) {
   };
 
   return (
-    <div className="session--signup">
-      <div className="session--signup-header">Meet a Mentor</div>
-      <div className="session--signup-topic">
-        <p>What do you want to learn about?</p>
-        <select onChange={handleSkillChange}>
-          <option value="">Select a skill</option>
-          {skills.map((skill) => (
-            <option value={skill} key={skill}>
-              {skill}
-            </option>
-          ))}
-        </select>
-      </div>
-      {mentors.length > 0 && (
-        <div className="session--signup-mentors">
-          <p>Choose a Mentor!:</p>
-          <ul>
-            {mentors.map((mentor) => (
-              <li key={mentor.pk}>
-                <Link to={`/mentor/${mentor.pk}`}>{mentor.username}</Link>
-              </li>
-            ))}
-          </ul>
+    skills && (
+      <div className='session--signup'>
+        <div className='session--signup-header'>Meet a Mentor</div>
+        <div className='session--signup-topic'>
+          <p>What do you want to learn about?</p>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+            <InputLabel id='skill-select'>Age</InputLabel>
+            <Select label='Select Skill' onChange={handleSkillChange}>
+              <MenuItem value=''>Select Skill</MenuItem>
+              {skills.map((skill) => (
+                <MenuItem value={skill} key={skill}>
+                  {skill}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
-      )}
-    </div>
+        {mentors.length > 0 && selectedSkill && (
+          <div className='session--signup-mentors'>
+            <p>Choose a Mentor!:</p>
+
+            <Grid container spacing={3} row>
+              {mentors.map((mentor) => (
+                <Grid item xs={4}>
+                  <Box
+                    key={mentor.pk}
+                    sx={{ backgroundColor: "red", height: 175 }}
+                  >
+                    {mentor.about_me}
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        )}
+      </div>
+    )
   );
 }
