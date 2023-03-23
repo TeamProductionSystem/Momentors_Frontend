@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Button } from '@chakra-ui/react';
+import { Button } from '@mui/material';
 import ProfileMentor from "./ProfileMentor"
 import ProfileMentee from "./ProfileMentee"
 
@@ -56,15 +56,10 @@ export default function Profile ({ token, pk, setAuth, mentor, setMentor, mentee
             <>
                 <p>Are you signing up as a mentor or mentee?</p>
                 <Button
-                    border='2px'
-                    borderColor='orange.200'
                     onClick={updateMentor}>Mentor</Button>
                 <Button
-                    border='2px'
-                    borderColor='orange.200'
                     onClick={updateMentee}
                     >Mentee</Button>
-                
             </>
         )
     }

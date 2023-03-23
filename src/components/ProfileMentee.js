@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Image, Switch, FormControl, FormLabel } from '@chakra-ui/react';
+import { Switch, FormControl, FormLabel } from '@mui/material';
 import axios from 'axios';
 import ProfileBasicInfo from './ProfileBasicInfo';
 
@@ -32,7 +32,7 @@ useEffect(() => {
             </FormLabel>
             <Switch id='switch--mentor-mentee' />
         </FormControl>
-        <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfWLr5vMAESMl38Yncgk4rl7y3-_OiD9nnprz8SGTj2ClL1NfEsn46eXLiPO82dWXZuk&usqp=CAU" alt="temporary image"></Image>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfWLr5vMAESMl38Yncgk4rl7y3-_OiD9nnprz8SGTj2ClL1NfEsn46eXLiPO82dWXZuk&usqp=CAU" alt="temporary" />
         </div>
     )
 }

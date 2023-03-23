@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
+import { FormControl, FormLabel, TextField, Button } from '@mui/material';
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function EditProfile({ token, pk, setAuth }) {
@@ -62,7 +62,7 @@ export default function EditProfile({ token, pk, setAuth }) {
                             First name
                         </FormLabel>
                         <div>
-                            <Input
+                            <TextField
                                 type="text"
                                 id="first_name"
                                 className="input"
@@ -77,7 +77,7 @@ export default function EditProfile({ token, pk, setAuth }) {
                             Last name
                         </FormLabel>
                         <div>
-                            <Input
+                            <TextField
                                 type="text"
                                 id="last_name"
                                 className="input"
@@ -92,7 +92,7 @@ export default function EditProfile({ token, pk, setAuth }) {
                             Phone number
                         </FormLabel>
                         <div>
-                            <Input
+                            <TextField
                                 type="text"
                                 id="phone_number"
                                 className="input"
@@ -108,13 +108,12 @@ export default function EditProfile({ token, pk, setAuth }) {
                   <Button
                     id="loading--button"
                     isLoading
-                    colorScheme='gray'
-                    spinner={<PacmanLoader size={20} color='yellow'/>}
+                    spinner={<PacmanLoader size={20}/>}
                     >
                     loading...
                     </Button>
                 ) : (
-                  <Button type="submit" to="/profile" >
+                  <Button type="submit" onClick={() => navigate("/profile")} >
                     Save changes
                   </Button>
                 )}

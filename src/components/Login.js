@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Button, TextField } from "@mui/material";
 
 export default function Login({ setAuth, setMentor, setMentee }) {
   const [userName, setUserName] = useState("");
@@ -55,7 +55,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
               Username
             </FormLabel>
             <div>
-              <Input
+              <TextField
                 type='text'
                 id='username'
                 className='input'
@@ -70,7 +70,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
                 Password
               </FormLabel>
               <div>
-                <Input
+                <TextField
                   type='password'
                   id='password'
                   className='input'
@@ -87,13 +87,12 @@ export default function Login({ setAuth, setMentor, setMentee }) {
                   <Button
                     id='loading--button'
                     isLoading
-                    colorScheme='gray'
-                    spinner={<PacmanLoader size={20} color='yellow' />}
+                    spinner={<PacmanLoader size={20} />}
                   >
                     loading...
                   </Button>
                 ) : (
-                  <Button type='submit' to='/profile'>
+                  <Button type='submit' onClick={() => navigate("/profile")}>
                     Log in
                   </Button>
                 )}

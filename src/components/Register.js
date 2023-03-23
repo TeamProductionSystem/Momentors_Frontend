@@ -2,7 +2,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Button, Input } from "@mui/material";
 
 const Register = ({ setAuth, isLoggedIn }) => {
   const [userName, setUserName] = useState("");
@@ -116,8 +116,7 @@ const Register = ({ setAuth, isLoggedIn }) => {
                 <Button
                   id='loading--button'
                   isLoading
-                  colorScheme='gray'
-                  spinner={<PacmanLoader size={20} color='yellow' />}
+                  spinner={<PacmanLoader size={20} />}
                 >
                   loading...
                 </Button>

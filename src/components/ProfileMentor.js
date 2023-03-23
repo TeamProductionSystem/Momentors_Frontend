@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, CardBody, CardFooter, Text, Image, Stack, Switch, FormControl, FormLabel } from '@chakra-ui/react';
+import { Card, Typography, Switch, FormControl, FormLabel } from '@mui/material';
 import axios from 'axios';
 import ProfileBasicInfo from './ProfileBasicInfo';
 
@@ -32,24 +32,15 @@ useEffect(() => {
             </FormLabel>
             <Switch id='switch--mentor-mentee' />
         </FormControl>
-        <Card className="profile--bio"
-            direction={{ base: 'column', sm: 'row' }}
-            overflow='hidden'
-            variant='outline'
-            >
-            <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfWLr5vMAESMl38Yncgk4rl7y3-_OiD9nnprz8SGTj2ClL1NfEsn46eXLiPO82dWXZuk&usqp=CAU" alt="temporary image"></Image>
-            <Stack>
-                <CardBody>
+        <Card className="profile--bio">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfWLr5vMAESMl38Yncgk4rl7y3-_OiD9nnprz8SGTj2ClL1NfEsn46eXLiPO82dWXZuk&usqp=CAU" alt="temporary"/>
+            
 
-                    <Text>Hi I'm so and so and I am skilled at such and such</Text>
+                    <Typography>Hi I'm so and so and I am skilled at such and such</Typography>
                     {/* Pull in bio from database */}
-                </CardBody>
 
-                <CardFooter>
-                    <Text><b>Skills: </b></Text>
+                    <Typography>Skills: </Typography>
                     {/* Pull in marked skills from database */}
-                </CardFooter>
-            </Stack>
         </Card>
         </div>
     )
