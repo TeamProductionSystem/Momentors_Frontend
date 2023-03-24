@@ -1,10 +1,11 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { Button, TextField } from "@mui/material";
+import { Stack } from "@mui/system";
 
-const Register = ({ setAuth, isLoggedIn }) => {
+const Register = ({ setAuth }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +41,6 @@ const Register = ({ setAuth, isLoggedIn }) => {
             setToken(res.data.auth_token);
             setIsRegistered(true);
             setAuth(userName, res.data.auth_token);
-            // e.target.submit();
             navigate("/profile");
           })
           .catch((e) => {
@@ -52,83 +52,51 @@ const Register = ({ setAuth, isLoggedIn }) => {
         setLoading(false);
         setError(e.message);
       });
-    // if (isRegistered) {
-    //   console.log("Registered!");
-    //   return <Navigate to='/profile' />;
-    // }
   };
 
   return (
-    <div className='Register'>
-      <form onSubmit={handleRegister} id='registration-form'>
-        <FormControl className='form--registration'>
-          <div className='field'>
-            <FormLabel className='label' htmlFor='email'>
+    <div className="Register">
+      <form onSubmit={handleRegister} id="registration-form">
+        <Stack container="true" justifyContent="center" alignItems="center">
+          <Stack item="true" className="field">
+            <TextField label="email" onChange={(e) => setEmail(e.target.value)}>
               E-mail
-            </FormLabel>
-            <div>
-              <Input
-                type='email'
-                id='email'
-                className='input'
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          </div>
+            </TextField>
+          </Stack>
 
-          <div className='field'>
-            <FormLabel className='label' htmlFor='username'>
+          <Stack item="true" className="field">
+            <TextField
+              label="username"
+              onChange={(e) => setUserName(e.target.value)}
+            >
               Username
-            </FormLabel>
-            <div>
-              <Input
-                type='text'
-                id='username'
-                className='input'
-                required
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className='field'>
-            <FormLabel className='label' htmlFor='password'>
+            </TextField>
+          </Stack>
+          <Stack item="true" className="field">
+            <TextField
+              label="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            >
               Password
-            </FormLabel>
-            <div>
-              <Input
-                type='password'
-                id='password'
-                className='input'
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
+            </TextField>
+          </Stack>
 
-          <div>
-            <div className='button--register'>
-              {loading ? (
-                <Button
-                  id='loading--button'
-                  isLoading
-                  colorScheme='gray'
-                  spinner={<PacmanLoader size={20} color='yellow' />}
-                >
-                  loading...
-                </Button>
-              ) : (
-                <Button type='submit' form='registration-form'>
-                  Register
-                </Button>
-              )}
-            </div>
-          </div>
-        </FormControl>
+          <Stack item="true" className="button--register">
+            {loading ? (
+              <Button
+                id="loading--button"
+                spinner={<PacmanLoader size={20} color="yellow" />}
+              >
+                loading...
+              </Button>
+            ) : (
+              <Button type="submit" form="registration-form">
+                Register
+              </Button>
+            )}
+          </Stack>
+        </Stack>
       </form>
     </div>
   );
