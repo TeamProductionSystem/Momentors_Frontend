@@ -1,13 +1,13 @@
-import { Divider } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { Grid } from "@mui/material";
+import {
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Grid,
+} from "@mui/material";
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
@@ -62,13 +62,13 @@ export default function SessionSignup({ token }) {
 
   return (
     skills && (
-      <div className='session--signup'>
-        <div className='session--signup-header'>Meet a Mentor</div>
-        <div className='session--signup-topic'>
+      <div className="session--signup">
+        <div className="session--signup-header">Meet a Mentor</div>
+        <div className="session--signup-topic">
           <p>What do you want to learn about?</p>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-            <InputLabel id='skill-select'>Select Skill</InputLabel>
-            <Select label='Select Skill' onChange={handleSkillChange}>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="skill-select">Select Skill</InputLabel>
+            <Select label="Select Skill" onChange={handleSkillChange}>
               {skills.map((skill) => (
                 <MenuItem value={skill} key={skill}>
                   {skill}
@@ -78,7 +78,7 @@ export default function SessionSignup({ token }) {
           </FormControl>
         </div>
         {mentors.length > 0 && selectedSkill && (
-          <div className='session--signup-mentors'>
+          <div className="session--signup-mentors">
             <p>Choose a Mentor!:</p>
 
             <Grid container spacing={3} row>
