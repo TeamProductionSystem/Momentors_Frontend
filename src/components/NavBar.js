@@ -26,7 +26,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+            // color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
             aria-controls={open ? "basic-menu" : undefined}
@@ -72,7 +72,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
                   type="submit"
                   component={Link}
                   to="/register"
-                  color="inherit"
+                  // color="inherit"
                 >
                   Sign up
                 </Button>
@@ -82,14 +82,14 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
                   type="submit"
                   component={Link}
                   to="/login"
-                  color="inherit"
+                  // color="inherit"
                 >
                   Log in
                 </Button>
               </div>
             ) : (
               <Link to="/" onClick={handleLogout}>
-                <Button type="submit" color="inherit">
+                <Button type="submit">
                   Log out
                 </Button>
               </Link>
