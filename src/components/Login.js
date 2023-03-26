@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { Button, TextField } from "@mui/material";
+import { Stack } from "@mui/system";
 
 export default function Login({ setAuth, setMentor, setMentee }) {
   const [userName, setUserName] = useState("");
@@ -47,60 +48,43 @@ export default function Login({ setAuth, setMentor, setMentee }) {
   };
 
   return (
-    <div className='Login'>
-      <form onSubmit={handleLogin}>
-        <FormControl className='form--login'>
-          <div className='field'>
-            <FormLabel className='label' htmlFor='username'>
+    <div className="Login">
+      <form onSubmit={handleLogin} id="login-form">
+        <Stack container="true" justifyContent="center" alignItems="center">
+          <Stack item="true" className="field">
+            <TextField
+              label="username"
+              onChange={(e) => setUserName(e.target.value)}
+            >
               Username
-            </FormLabel>
-            <div>
-              <Input
-                type='text'
-                id='username'
-                className='input'
-                required
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </div>
+            </TextField>
+          </Stack>
 
-            <div className='field'>
-              <FormLabel className='label' htmlFor='password'>
-                Password
-              </FormLabel>
-              <div>
-                <Input
-                  type='password'
-                  id='password'
-                  className='input'
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
+          <Stack item="true" className="field">
+            <TextField
+              label="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            >
+              Password
+            </TextField>
+          </Stack>
 
-            <div>
-              <div className='button--login'>
-                {loading ? (
-                  <Button
-                    id='loading--button'
-                    isLoading
-                    colorScheme='gray'
-                    spinner={<PacmanLoader size={20} color='yellow' />}
-                  >
-                    loading...
-                  </Button>
-                ) : (
-                  <Button type='submit' to='/profile'>
-                    Log in
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
-        </FormControl>
+          <Stack item="true" className="button--login">
+            {loading ? (
+              <Button
+                id="loading--button"
+                spinner={<PacmanLoader size={20} color="yellow" />}
+              >
+                loading...
+              </Button>
+            ) : (
+              <Button type="submit" form="login-form">
+                Log in
+              </Button>
+            )}
+          </Stack>
+        </Stack>
       </form>
     </div>
   );
