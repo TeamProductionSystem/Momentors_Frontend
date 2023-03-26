@@ -1,56 +1,103 @@
-import { ButtonGroup, Button } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const NavBar = ({ handleLogout, isLoggedIn }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <nav className="nav" role="navigation">
-      <div className="nav--navigation">
-        <ButtonGroup>
-          <Link to="/sessions">
-            <Button 
-            border='2px'
-            borderColor='gray.400'>Sessions</Button>
-          </Link>
-          <Link to="/profile">
-            <Button
-            border='2px'
-            borderColor='gray.400'>Profile</Button>
-          </Link>
-          <Link to ="/sessionsignup">
-            <Button
-            border='2px'
-            borderColor='gray.400'>Session Signup</Button>
-          </Link>
-        </ButtonGroup>
-      </div>
-      <div className="nav--title-container">
-        <h1 className="nav--title">Momentum Mentors</h1>
-      </div>
-      <div className="nav--authentication">
-        {!isLoggedIn ? (
-          <ButtonGroup>
-            <Link to="/register">
-              <Button
-              border='2px'
-              borderColor='green.500'>Sign up</Button>
-            </Link>
-            <Link to="/login">
-              <Button
-              border='2px'
-              borderColor='green.500'>Log in</Button>
-            </Link>
-          </ButtonGroup>
-        ) : (
-          <Link to="/" onClick={handleLogout}>
-            <Button 
-            border='2px'
-            borderColor='red.200'
-            className="button--logout">Log out</Button>
-          </Link>
-        )}
-      </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose} component={Link} to="/profile">
+              Profile
+            </MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/sessions">
+              Sessions
+            </MenuItem>
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to="/sessionsignup"
+            >
+              Session Signup
+            </MenuItem>
+          </Menu>
 
-    </nav>
+          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+            <p className="nav--title">Momentum Mentors</p>
+          </Typography>
+
+          <div className="nav--authentication">
+            {!isLoggedIn ? (
+              <div>
+                <Button
+                  size="large"
+                  type="submit"
+                  component={Link}
+                  to="/register"
+                  color="inherit"
+                >
+                  Sign up
+                </Button>
+
+                <Button
+                  size="large"
+                  type="submit"
+                  component={Link}
+                  to="/login"
+                  color="inherit"
+                >
+                  Log in
+                </Button>
+              </div>
+            ) : (
+              <Link to="/" onClick={handleLogout}>
+                <Button type="submit" color="inherit">
+                  Log out
+                </Button>
+              </Link>
+            )}
+          </div>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
