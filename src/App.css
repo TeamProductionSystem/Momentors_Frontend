@@ -2,6 +2,7 @@
 
 header {
   height: 6.5rem;
+  background-color: #ffffff !important;
 }
 
 .nav--title {
@@ -9,7 +10,7 @@ header {
   font-size: 50px;
   font-weight: 700;
   color: #222222;
-  margin-right: auto;
+  text-align: center;
 }
 
 /* Hero Page */
