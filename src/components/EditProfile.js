@@ -14,7 +14,9 @@ export default function EditProfile({ token, pk, setAuth }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    // console.log(token);
+    // Append +1 to phone number if it's not already present
+    const formattedPhoneNumber = phoneNumber.startsWith('+1')
+    ? phoneNumber : `+1${phoneNumber}`;
     
     
     const editProfile = (e) => {
@@ -25,7 +27,7 @@ export default function EditProfile({ token, pk, setAuth }) {
         .patch('https://team-production-system.onrender.com/myprofile/', {
             'first_name': firstName,
             'last_name' : lastName,
-            'phone_number': phoneNumber,
+            'phone_number': formattedPhoneNumber,
             // 'is_mentor': '',
             // 'is_active': '',
         }, {
@@ -91,7 +93,7 @@ export default function EditProfile({ token, pk, setAuth }) {
                 {loading ? (
                   <Button
                     id="loading--button"
-                    isloading
+               
                     spinner={<PacmanLoader size={20} color='yellow'/>}
                     >
                     loading...
