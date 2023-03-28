@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
+import { TextField, FormLabel, Input, Button } from '@mui/material';
+import { Stack } from "@mui/system";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function EditProfile({ token, pk, setAuth }) {
@@ -55,73 +56,54 @@ export default function EditProfile({ token, pk, setAuth }) {
 
     return (
         <div className="profile--edit">
-            <form onSubmit={editProfile}>
-                <FormControl className="form--edit-profile">
-                    <div className="field">
-                        <FormLabel className="label" htmlFor="first_name">
+            <form onSubmit={editProfile} id="edit-profile">
+                <Stack container="true" justifyContent="center" alignItems="center">
+
+                    <Stack item="true" className="field">
+                        <TextField 
+                          label="first name"
+                          onChange={(e) => setFirstName(e.target.value)}
+                          >
                             First name
-                        </FormLabel>
-                        <div>
-                            <Input
-                                type="text"
-                                id="first_name"
-                                className="input"
-                                required
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                            />
-                            </div>
-                    </div>
-                    <div className="field">
-                        <FormLabel className="label" htmlFor="last_name">
+                        </TextField>
+                    </Stack>
+                    
+                    <Stack item="true" className="field">
+                        <TextField
+                          label="last name"
+                          onChange={(e) => setLastName(e.target.value)}
+                          >
                             Last name
-                        </FormLabel>
-                        <div>
-                            <Input
-                                type="text"
-                                id="last_name"
-                                className="input"
-                                required
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                            />
-                            </div>
-                    </div>
-                    <div className="field">
-                        <FormLabel className="label" htmlFor="phone_number">
+                        </TextField>
+                    </Stack>
+
+                    <Stack item="true" className="field">
+                        <TextField
+                          label="phone number"
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          >
                             Phone number
-                        </FormLabel>
-                        <div>
-                            <Input
-                                type="text"
-                                id="phone_number"
-                                className="input"
-                                required
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                            />
-                            </div>
-                    </div>
-                    <div>
-              <div className="button--edit-profile">
+                        </TextField>
+
+                    </Stack>
+                    
+              <Stack item="true" className="button--edit-profile">
                 {loading ? (
                   <Button
                     id="loading--button"
-                    isLoading
-                    colorScheme='gray'
+                    isloading
                     spinner={<PacmanLoader size={20} color='yellow'/>}
                     >
                     loading...
                     </Button>
                 ) : (
-                  <Button type="submit" to="/profile" >
+                  <Button type="submit" form="edit-profile" >
                     Save changes
                   </Button>
                 )}
-              </div>
-            </div>
-                </FormControl>
+              </Stack>
+            </Stack>
             </form>
         </div>
-    )
+    );
 }
