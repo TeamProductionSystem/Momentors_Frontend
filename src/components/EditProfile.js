@@ -91,7 +91,7 @@ export default function EditProfile({ token, pk, setAuth }) {
                 {loading ? (
                   <Button
                     id="loading--button"
-                    isLoading
+                    isloading
                     spinner={<PacmanLoader size={20} color='yellow'/>}
                     >
                     loading...

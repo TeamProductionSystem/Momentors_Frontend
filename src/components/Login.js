@@ -74,7 +74,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
             {loading ? (
               <Button
                 id="loading--button"
-                isLoading
+                isloading
                 spinner={<PacmanLoader size={20} color="yellow" />}
               >
                 loading...
