@@ -7,6 +7,9 @@ export default function MentorCard({ token, pk, setAuth }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const [aboutMe, setAboutMe] = useState("");
+  const [skills, setSkills] = useState("");
 
   useEffect(() => {
     axios
@@ -19,34 +22,43 @@ export default function MentorCard({ token, pk, setAuth }) {
         setPhoneNumber(res.data.phone_number);
         console.log(res);
       });
+
+    axios
+      .get("https://team-production-system.onrender.com/mentorinfo/", {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((res) => {
+        setAboutMe(res.data[0].about_me);
+        setSkills(res.data[0].skills);
+        console.log(res.data);
+      });
   }, [token, pk]);
 
   return (
     <div>
       <Grid container alignItems="center" justifyContent="center">
-        <Card sx={{ maxWidth: 800 }} elevation="4">
+        <Card sx={{ minWidth: 400, maxWidth: 400 }} elevation="4">
           <CardMedia
             sx={{ height: 400 }}
-            image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfWLr5vMAESMl38Yncgk4rl7y3-_OiD9nnprz8SGTj2ClL1NfEsn46eXLiPO82dWXZuk&usqp=CAU"
+            image={profilePhoto}
             title="master yoda"
           />
           <CardContent>
-            <Typography gutterBottom>
-              Hi, I'm so and so and I am skilled at such and such!
-            </Typography>
+            <Typography gutterBottom>{aboutMe}</Typography>
             {/* Pull in bio from database */}
             <Typography>
               <h4>Skills:</h4>
+              {skills}
             </Typography>
           </CardContent>
           {/* Pull in marked skills from database */}
         </Card>
-        <ProfileBasicInfo
-          firstName={firstName}
-          lastName={lastName}
-          phoneNumber={phoneNumber}
-        />
       </Grid>
+      <ProfileBasicInfo
+        firstName={firstName}
+        lastName={lastName}
+        phoneNumber={phoneNumber}
+      />
       ;
     </div>
   );

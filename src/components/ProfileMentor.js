@@ -14,7 +14,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
   return (
     <div className="profile--page">
       <br />
-      <MentorCard />
+      <MentorCard token={token} />
     </div>
   );
 }
