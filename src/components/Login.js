@@ -80,7 +80,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
                 loading...
               </Button>
             ) : (
-              <Button type="submit" form="login-form">
+              <Button type="submit" form="login-form" variant="outlined">
                 Log in
               </Button>
             )}
