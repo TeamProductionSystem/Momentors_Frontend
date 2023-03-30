@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import MentorCard from "./MentorCard";
 import {
   Box,
   InputLabel,
@@ -7,6 +8,7 @@ import {
   FormControl,
   Select,
   Grid,
+  Typography,
 } from "@mui/material";
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
@@ -65,7 +67,7 @@ export default function SessionSignup({ token }) {
       <div className="session--signup">
         <div className="session--signup-header">Meet a Mentor</div>
         <div className="session--signup-topic">
-          <p>What do you want to learn about?</p>
+          <Typography>What do you want to learn about?</Typography>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
             <InputLabel id="skill-select">Select Skill</InputLabel>
             <Select label="Select Skill" onChange={handleSkillChange}>
@@ -79,20 +81,9 @@ export default function SessionSignup({ token }) {
         </div>
         {mentors.length > 0 && selectedSkill && (
           <div className="session--signup-mentors">
-            <p>Choose a Mentor!:</p>
-
-            <Grid container spacing={3} row>
-              {mentors.map((mentor) => (
-                <Grid item xs={4}>
-                  <Box
-                    key={mentor.pk}
-                    sx={{ backgroundColor: "red", height: 175 }}
-                  >
-                    {mentor.about_me}
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+            <Typography>Choose a Mentor!</Typography>
+            <br />
+            <MentorCard />
           </div>
         )}
       </div>
