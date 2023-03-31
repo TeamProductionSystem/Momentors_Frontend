@@ -20,6 +20,7 @@ export default function MentorCard({ token, pk, setAuth }) {
         setFirstName(res.data.first_name);
         setLastName(res.data.last_name);
         setPhoneNumber(res.data.phone_number);
+        setProfilePhoto(res.data.profile_photo); // set profilePhoto state
         console.log(res);
       });
 
@@ -39,9 +40,11 @@ export default function MentorCard({ token, pk, setAuth }) {
       <Grid container alignItems="center" justifyContent="center">
         <Card sx={{ minWidth: 400, maxWidth: 400 }} elevation="4">
           <CardMedia
-            sx={{ height: 400 }}
+            sx={{ 
+              height: 400, 
+            }}
             image={profilePhoto}
-            title="master yoda"
+            title="Profile Photo"
           />
           <CardContent>
             <Typography gutterBottom>{aboutMe}</Typography>

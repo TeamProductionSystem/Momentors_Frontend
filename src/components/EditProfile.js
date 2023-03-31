@@ -12,6 +12,7 @@ export default function EditProfile({ token, pk, setAuth }) {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState("");
   const navigate = useNavigate();
   // Append +1 to phone number if it's not already present
   const formattedPhoneNumber = phoneNumber.startsWith("+1")
@@ -22,20 +23,21 @@ export default function EditProfile({ token, pk, setAuth }) {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    const formData = new FormData();
+    formData.append("first_name", firstName);
+    formData.append("last_name", lastName);
+    formData.append("phone_number", formattedPhoneNumber);
+    formData.append("profile_photo", profilePhoto);
+
     axios
       .patch(
         "https://team-production-system.onrender.com/myprofile/",
-        {
-          first_name: firstName,
-          last_name: lastName,
-          phone_number: formattedPhoneNumber,
-          // 'is_mentor': '',
-          // 'is_active': '',
-        },
+        formData,
         {
           headers: {
-            "Content-type": "multipart/form-data; charset=UTF-8",
             Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       )
@@ -89,6 +91,16 @@ export default function EditProfile({ token, pk, setAuth }) {
               onChange={(e) => setPhoneNumber(e.target.value)}
             >
               Phone number
+            </TextField>
+          </Stack>
+
+          <Stack item="true" className="field">
+            <TextField
+              label="profile photo"
+              type="file"
+              onChange={(e) => setProfilePhoto(e.target.files[0])}
+            >
+              Profile photo
             </TextField>
           </Stack>
 
