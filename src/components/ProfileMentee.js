@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ProfileBasicInfo from "./ProfileBasicInfo";
 import { Grid, Avatar, Typography } from "@mui/material";
 
 
@@ -30,9 +31,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
           <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         </Grid>
         <Grid item>
-          <Typography variant="h4">{`UserName: ${firstName} ${lastName}`}</Typography>
-          <Typography variant="h6">{`Phone Number: ${phoneNumber}`}</Typography>
-        </Grid>
+        <ProfileBasicInfo
+        firstName={`First Name: ${firstName}`}
+        lastName={`Last Name: ${lastName}`}
+        phoneNumber={`Phone Number: ${phoneNumber}`}
+         />
+         </Grid>
       </Grid>
     </div>
   );
