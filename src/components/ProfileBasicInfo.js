@@ -10,7 +10,10 @@ export default function ProfileBasicInfo({ firstName, lastName, phoneNumber }) {
       <Grid item className="profile--heading">
         <img src="" alt="" />
         <Typography>
-          {firstName} {lastName}
+          {firstName} 
+        </Typography>
+        <Typography>
+          {lastName} 
         </Typography>
         <p>{phoneNumber}</p>
         <Button variant="outlined" onClick={() => navigate("/editprofile")}>
