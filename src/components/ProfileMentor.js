@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProfileBasicInfo from "./ProfileBasicInfo";
-import { Avatar, Typography, Grid } from "@mui/material";
+import { Avatar, Typography, Grid, Box, Stack, TextField } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { Center } from "@chakra-ui/react";
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -47,28 +48,50 @@ export default function ProfileMentor({ token, pk, setAuth }) {
   }, [token, pk]);
 
   return (
-    <div className="profile--page" style={{ marginTop: "50px" }}>
-      <Grid container spacing={2} xs="auto">
+    <Box className="mentorprofile--page" margin="1rem">
+      <Stack container spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
-        <Grid>
+        <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
             lastName={`Last Name: ${lastName}`}
             phoneNumber={`Phone Number: ${phoneNumber}`}
-            about_me={`About Me: ${about_me}`}
-            skills={`Skills: ${skills}`}
           />
-        </Grid>
-      </Grid>
-      <div
-        className="mentorProfile--notifications"
-        style={{ marginTop: "50px" }}
-      >
-        <Grid>
-          <Typography variant="h5">Notifications</Typography>
-
-          <Typography variant="h6">Email</Typography>
-          <Grid>
+        </Box>
+        <Box sx={{ border: "2px solid", borderRadius: "16px" }} width="100%">
+          <Typography
+            variant="h5"
+            textAlign={"Center"}
+            sx={{ textDecoration: "underline" }}
+          >
+            About Me
+          </Typography>
+          <Box sx={{ fontSize: "20px", padding: ".5rem" }}>{about_me}</Box>
+        </Box>
+      </Stack>
+      <Stack direction="row" marginTop={"1.5rem"}>
+        <Box
+          sx={{ border: "2px solid", borderRadius: "16px" }}
+          width={"15rem"}
+          marginRight={".5rem"}
+        >
+          <Typography
+            variant="h5"
+            textAlign={"Center"}
+            sx={{ textDecoration: "underline" }}
+          >
+            What You Know
+          </Typography>
+          <Stack spacing={1} textAlign={"Center"} fontSize={"25px"}>
+            {skills}
+          </Stack>
+        </Box>
+        <Box width={"100%"} className="mentorProfile--notifications">
+          <Box>
+            <Typography variant="h5" textAlign={"center"}>
+              Notifications
+            </Typography>
+            <Typography variant="h6">Email</Typography>
             <FormGroup>
               <FormControlLabel
                 control={<Switch />}
@@ -83,25 +106,30 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                 label="Mentor Session Cancelled"
               />
             </FormGroup>
-          </Grid>
 
-          <Typography variant="h6">Text</Typography>
-          <FormGroup>
-            <FormControlLabel
-              control={<Switch />}
-              label="Mentor Session Requested"
-            />
-            <FormControlLabel
-              control={<Switch />}
-              label="Mentor Session Confirmed"
-            />
-            <FormControlLabel
-              control={<Switch />}
-              label="Mentor Session Cancelled"
-            />
-          </FormGroup>
-        </Grid>
-      </div>
-    </div>
+            <Typography variant="h6">Text</Typography>
+            <FormGroup>
+              <FormControlLabel
+                control={<Switch />}
+                label="Mentor Session Requested"
+              />
+              <FormControlLabel
+                control={<Switch />}
+                label="Mentor Session Confirmed"
+              />
+              <FormControlLabel
+                control={<Switch />}
+                label="Mentor Session Cancelled"
+              />
+            </FormGroup>
+          </Box>
+        </Box>
+      </Stack>
+        <Box sx={{marginTop: "4rem"}}>
+          <Typography variant="h4">
+            Time Slots:
+          </Typography>
+        </Box>
+    </Box>
   );
 }
