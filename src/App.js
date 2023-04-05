@@ -40,6 +40,13 @@ function App() {
         setAuth("", null);
         setMentor(false);
         setMentee(false);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          setAuth("", null);
+          setMentor(false);
+          setMentee(false);
+        }
       });
   };
 
@@ -49,13 +56,13 @@ function App() {
     <div>
       <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
-        <Route path='/' element={<Hero />} />
+        <Route path="/" element={<Hero />} />
         <Route
-          path='/register'
+          path="/register"
           element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
         />
         <Route
-          path='/login'
+          path="/login"
           element={
             <Login
               setAuth={setAuth}
@@ -65,7 +72,7 @@ function App() {
           }
         />
         <Route
-          path='/profile'
+          path="/profile"
           element={
             <Profile
               token={token}
@@ -79,15 +86,15 @@ function App() {
           }
         />
         <Route
-          path='/editprofile'
+          path="/editprofile"
           element={<EditProfile token={token} pk={pk} />}
         />
         <Route
-          path='/sessions'
+          path="/sessions"
           element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
-          path='/sessionsignup'
+          path="/sessionsignup"
           element={<SessionSignup token={token} />}
         />
       </Routes>
