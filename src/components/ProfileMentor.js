@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProfileBasicInfo from "./ProfileBasicInfo";
-import { Avatar, Typography, Grid, Box, Stack, TextField } from "@mui/material";
+import { Avatar, Typography, Box, Stack } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Center } from "@chakra-ui/react";
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -125,11 +124,9 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           </Box>
         </Box>
       </Stack>
-        <Box sx={{marginTop: "4rem"}}>
-          <Typography variant="h4">
-            Time Slots:
-          </Typography>
-        </Box>
+      <Box sx={{ marginTop: "4rem" }}>
+        <Typography variant="h4">Time Slots:</Typography>
+      </Box>
     </Box>
   );
 }
