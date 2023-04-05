@@ -95,12 +95,11 @@ export default function EditProfile({ token, pk, setAuth }) {
           </Stack>
 
           <Stack item="true" className="field">
+            <FormLabel>Profile Photo</FormLabel>
             <TextField
-              label="profile photo"
               type="file"
               onChange={(e) => setProfilePhoto(e.target.files[0])}
             >
-              Profile photo
             </TextField>
           </Stack>
 

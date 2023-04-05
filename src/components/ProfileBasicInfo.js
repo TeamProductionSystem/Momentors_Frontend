@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";
 
-export default function ProfileBasicInfo({ firstName, lastName, phoneNumber }) {
+export default function ProfileBasicInfo({ firstName, lastName, phoneNumber, about_me, skills }) {
   // We can set this component up to include different info depending on what we pass in (for instance the wireframes currently indicate that students will have a team # and mentors will not)
   const navigate = useNavigate();
 
@@ -16,6 +16,12 @@ export default function ProfileBasicInfo({ firstName, lastName, phoneNumber }) {
           {lastName} 
         </Typography>
         <p>{phoneNumber}</p>
+        <Typography>
+          {about_me}
+        </Typography>
+        <Typography>
+          {skills}
+        </Typography>
         <Button variant="outlined" onClick={() => navigate("/editprofile")}>
           Edit
         </Button>
