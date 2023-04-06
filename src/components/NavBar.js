@@ -48,8 +48,12 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             <MenuItem onClick={handleClose} component={Link} to="/profile">
               Profile
             </MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/sessions">
-              Sessions
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to="/mentorsessions"
+            >
+              Mentor Sessions
             </MenuItem>
             <MenuItem
               onClick={handleClose}
@@ -89,9 +93,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
               </div>
             ) : (
               <Link to="/" onClick={handleLogout}>
-                <Button type="submit">
-                  Log out
-                </Button>
+                <Button type="submit">Log out</Button>
               </Link>
             )}
           </div>
