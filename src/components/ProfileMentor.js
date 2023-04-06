@@ -5,6 +5,7 @@ import { Avatar, Typography, Box, Stack } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import TimeSlot from "./TimeSlot";
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -126,6 +127,9 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       </Stack>
       <Box sx={{ marginTop: "4rem" }}>
         <Typography variant="h4">Time Slots:</Typography>
+        <Box>
+          <TimeSlot />
+        </Box>
       </Box>
     </Box>
   );
