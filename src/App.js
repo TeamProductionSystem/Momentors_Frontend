@@ -7,8 +7,9 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
-import Sessions from "./components/MentorSessions";
+import MentorSessions from "./components/MentorSessions";
 import SessionSignup from "./components/SessionSignup";
+import MenteeSessions from "./components/MenteeSessions";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -91,7 +92,11 @@ function App() {
         />
         <Route
           path='/mentorsessions'
-          element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+          element={<MentorSessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path='/menteesessions'
+          element={<MenteeSessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
           path="/sessionsignup"
