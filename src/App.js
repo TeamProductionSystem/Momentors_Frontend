@@ -7,7 +7,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
-import Sessions from "./components/Sessions";
+import Sessions from "./components/MentorSessions";
 import SessionSignup from "./components/SessionSignup";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
@@ -90,7 +90,7 @@ function App() {
           element={<EditProfile token={token} pk={pk} />}
         />
         <Route
-          path="/sessions"
+          path='/mentorsessions'
           element={<Sessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
