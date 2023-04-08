@@ -102,7 +102,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             </Typography>
 
             <Grid container direction={"row"}  spacing={2}>
-              <Grid marginRight={"6rem"} marginLeft={"4rem"} width={"35rem"}>
+              <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
                 <Grid item>
                   {/* <FormControl width="1rem">
                       <InputLabel id="demo-simple-select-label">
