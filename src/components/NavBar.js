@@ -58,6 +58,13 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             <MenuItem
               onClick={handleClose}
               component={Link}
+              to="/menteesessions"
+            >
+              Mentee Sessions
+            </MenuItem>
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
               to="/sessionsignup"
             >
               Session Signup
