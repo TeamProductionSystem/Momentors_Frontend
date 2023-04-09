@@ -16,12 +16,6 @@ export default function ProfileBasicInfo({ firstName, lastName, phoneNumber, abo
           {lastName} 
         </Typography>
         <p>{phoneNumber}</p>
-        <Typography>
-          {about_me}
-        </Typography>
-        <Typography>
-          {skills}
-        </Typography>
         <Button variant="outlined" onClick={() => navigate("/editprofile")}>
           Edit
         </Button>
