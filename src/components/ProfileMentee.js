@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProfileBasicInfo from "./ProfileBasicInfo";
-import { Avatar, Typography, Grid } from "@mui/material";
+import { Avatar, Typography, Grid, Box } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -45,10 +45,10 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   }, [token, pk]);
 
   return (
-    <div className="profile--page" style={{ marginTop: "50px" }}>
-      <Grid container spacing={2} xs="auto">
+    <Box className="profile--page" style={{ marginTop: "2rem" }}>
+      <Grid container xs="auto" marginLeft={"1.5rem"}>
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
-        <Grid>
+        <Grid marginLeft={"1rem"} paddingTop={"1rem"}>
           <Typography variant="h5">{`Team Number: ${teamNumber}`}</Typography>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
@@ -57,32 +57,96 @@ export default function ProfileMentee({ token, pk, setAuth }) {
           />
         </Grid>
       </Grid>
-      <div
+      <Box
         className="menteeProfile--notifications"
-        style={{ marginTop: "50px" }}
+        style={{ marginTop: "50px", marginLeft: "1rem" }}
       >
-        <Grid>
+        <Box>
+          <Typography variant="h4" paddingLeft={"1rem"}>
+            Notifications:
+          </Typography>
 
-        <Typography variant="h5">Notifications</Typography>
+          <Grid container direction={"row"} spacing={2}>
+            <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
+              <Grid item>
+                {/* <FormControl width="1rem">
+                      <InputLabel id="demo-simple-select-label">
+                        Time
+                      </InputLabel>{" "}
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={age}
+                        // label="Age"
+                        // onChange={handleChange}
+                      >
+                        <MenuItem value={10}>15 Mintues</MenuItem>
+                        <MenuItem value={20}>30 Mintues</MenuItem>
+                        <MenuItem value={45}>45 Minutes</MenuItem>
+                        <MenuItem value={60}>60 Minutes</MenuItem>
+                      </Select>
+                    </FormControl> */}
 
-        <Typography variant="h6">Email</Typography>
-        <Grid>
-        <FormGroup>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Requested"/>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Confirmed"/>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Cancelled"/>
-        </FormGroup>
-        </Grid>
+                <Grid Item>
+                  <br></br>
+                </Grid>
+                <Grid item>
+                  <Typography fontSize={"18px"} paddingTop={"1.2rem"}>
+                    Notify me when a mentor confirms a session
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                    Notify me when a mentor cancels a session
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                    Notify me 15 minutes before a session
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                    Notify me 60 minutes before a session
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid marginRight={"2rem"}>
+              <Typography variant="h6">Email Notifications</Typography>
 
-        <Typography variant="h6">Text</Typography>
-        <FormGroup>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Requested"/>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Confirmed"/>
-          <FormControlLabel control={<Switch/>} label="Mentor Session Cancelled"/>
+              <Grid item textAlign={"center"}>
+                <FormControlLabel control={<Switch />} />
+                <Grid Item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+                <Grid item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+                <Grid item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid>
+              <Typography variant="h6">Text Notifications</Typography>
 
-        </FormGroup>
-        </Grid>
-      </div>
-    </div>
+              <Grid item textAlign={"center"}>
+                <FormControlLabel control={<Switch />} />
+                <Grid Item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+                <Grid item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+                <Grid item>
+                  <FormControlLabel control={<Switch />} />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Box>
   );
 }
