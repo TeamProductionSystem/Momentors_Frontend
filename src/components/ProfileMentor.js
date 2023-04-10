@@ -10,6 +10,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  List,
+  ListItem,
 } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormControl from "@mui/material/FormGroup";
@@ -22,7 +24,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const [about_me, setAboutMe] = useState("");
 
   useEffect(() => {
@@ -91,9 +93,20 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           >
             What You Know
           </Typography>
-          <Stack spacing={1} textAlign={"Center"} fontSize={"25px"}>
-            {skills}
-          </Stack>
+          <Box>
+            <List>
+              {skills.map((skill) => (
+                <ListItem
+                  sx={{
+                    fontSize: "20px",
+                    justifyContent: "center",
+                  }}
+                >
+                  {skill}
+                </ListItem>
+              ))}
+            </List>
+          </Box>
         </Box>
         <Box width={"100%"} className="mentorProfile--notifications">
           <Box>
@@ -101,7 +114,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
               Notifications:
             </Typography>
 
-            <Grid container direction={"row"}  spacing={2}>
+            <Grid container direction={"row"} spacing={2}>
               <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
                 <Grid item>
                   {/* <FormControl width="1rem">
@@ -122,7 +135,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       </Select>
                     </FormControl> */}
 
-                  <Grid Item>
+                  <Grid item>
                     <br></br>
                   </Grid>
                   <Grid item>
@@ -152,7 +165,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
                 <Grid item textAlign={"center"}>
                   <FormControlLabel control={<Switch />} />
-                  <Grid Item>
+                  <Grid item>
                     <FormControlLabel control={<Switch />} />
                   </Grid>
                   <Grid item>
@@ -168,7 +181,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
                 <Grid item textAlign={"center"}>
                   <FormControlLabel control={<Switch />} />
-                  <Grid Item>
+                  <Grid item>
                     <FormControlLabel control={<Switch />} />
                   </Grid>
                   <Grid item>
