@@ -28,7 +28,7 @@ export default function Profile({
         },
         {
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-type": "multipart/form-data; charset=UTF-8",
             Authorization: `Token ${token}`,
           },
         }
@@ -52,7 +52,7 @@ export default function Profile({
         },
         {
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-type": "multipart/form-data; charset=UTF-8",
             Authorization: `Token ${token}`,
           },
         }
