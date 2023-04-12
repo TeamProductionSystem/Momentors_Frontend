@@ -22,7 +22,7 @@ export default function Profile({
     setError("");
     axios
       .patch(
-        "https://team-production-system.onrender.com/myprofile/",
+        `${process.env.REACT_APP_BE_URL}/myprofile/`,
         {
           is_mentor: true,
         },
@@ -46,7 +46,7 @@ export default function Profile({
     setError("");
     axios
       .patch(
-        "https://team-production-system.onrender.com/myprofile/",
+        `${process.env.REACT_APP_BE_URL}/myprofile/`,
         {
           is_mentee: true,
         },

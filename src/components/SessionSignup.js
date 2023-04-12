@@ -17,7 +17,7 @@ export default function SessionSignup({ token }) {
 
   useEffect(() => {
     axios
-      .get("https://team-production-system.onrender.com/mentor/", {
+      .get(`${process.env.REACT_APP_BE_URL}/mentor/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((response) => {
@@ -43,7 +43,7 @@ export default function SessionSignup({ token }) {
     if (selectedSkill) {
       axios
         .get(
-          `https://team-production-system.onrender.com/mentor/${selectedSkill}`,
+          `${process.env.REACT_APP_BE_URL}/mentor/${selectedSkill}`,
           {
             headers: { Authorization: `Token ${token}` },
           }

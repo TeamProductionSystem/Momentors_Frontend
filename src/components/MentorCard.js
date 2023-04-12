@@ -13,7 +13,7 @@ export default function MentorCard({ token, pk, setAuth }) {
 
   useEffect(() => {
     axios
-      .get(`https://team-production-system.onrender.com/myprofile/`, {
+      .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
@@ -25,7 +25,7 @@ export default function MentorCard({ token, pk, setAuth }) {
       });
 
     axios
-      .get("https://team-production-system.onrender.com/mentorinfo/", {
+      .get(`${process.env.REACT_APP_BE_URL}/mentorinfo/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
