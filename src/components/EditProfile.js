@@ -32,7 +32,7 @@ export default function EditProfile({ token, pk, setAuth }) {
 
     axios
       .patch(
-        "https://team-production-system.onrender.com/myprofile/",
+        `${process.env.REACT_APP_BE_URL}/myprofile/`,
         formData,
         {
           headers: {
@@ -44,7 +44,7 @@ export default function EditProfile({ token, pk, setAuth }) {
       .then((res) => {
         // const token = res.data.auth_token;
         axios
-          .get("https://team-production-system.onrender.com/myprofile/", {
+          .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
             headers: { Authorization: `Token ${token}` },
           })
           .then((res) => {

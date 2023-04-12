@@ -17,7 +17,7 @@ export default function TimeSlot({ token, pk, setAuth }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://team-production-system.onrender.com/availability/", {}, {
+      .post(`${process.env.REACT_APP_BE_URL}/availability/`, {}, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
