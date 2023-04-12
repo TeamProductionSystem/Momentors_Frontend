@@ -29,7 +29,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
   useEffect(() => {
     axios
-      .get(`https://team-production-system.onrender.com/myprofile/`, {
+      .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
@@ -49,7 +49,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
       });
     axios
-      .get("https://team-production-system.onrender.com/mentorinfo/", {
+      .get(`${process.env.REACT_APP_BE_URL}/mentorinfo/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {

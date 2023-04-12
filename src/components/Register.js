@@ -20,7 +20,7 @@ const Register = ({ setAuth }) => {
     setError("");
     setLoading(true);
     axios
-      .post("https://team-production-system.onrender.com/auth/users/", {
+      .post(`${process.env.REACT_APP_BE_URL}/auth/users/`, {
         username: userName,
         password: password,
         email: email,
@@ -28,7 +28,7 @@ const Register = ({ setAuth }) => {
       .then(() => {
         axios
           .post(
-            "https://team-production-system.onrender.com/auth/token/login",
+            `${process.env.REACT_APP_BE_URL}/auth/token/login`,
             {
               username: userName,
               password: password,
