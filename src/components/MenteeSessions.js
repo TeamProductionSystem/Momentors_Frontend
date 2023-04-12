@@ -1,6 +1,21 @@
 import { Box, Button, Grid, Typography, Chip } from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function MenteeSessions(token, pk, setAuth) {
+export default function MenteeSessions({ token, pk, setAuth }) {
+  const [mentorFirstName, setMentorFirstName] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("https://team-production-system.onrender.com/session/", {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((res) => {
+        setMentorFirstName(res.data[0].mentor_first_name);
+        console.log(res.data);
+      });
+  }, [token, pk]);
+
   return (
     <Box className="menteesessions--page">
       <Typography
@@ -60,7 +75,7 @@ export default function MenteeSessions(token, pk, setAuth) {
           }}
         >
           <Grid item xs={3}>
-            <Box>Bob</Box>
+            <Box>dvln</Box>
           </Grid>
           <Grid item xs={3}>
             <Box>3/7/2020</Box>
@@ -70,13 +85,12 @@ export default function MenteeSessions(token, pk, setAuth) {
           </Grid>
           <Grid item xs={3}>
             <Chip
-            label="Waiting on Mentor"
+              label="Waiting on Mentor"
               variant="outlined"
               color="warning"
               size="md"
               sx={{ margin: ".25rem" }}
-            >
-            </Chip>
+            ></Chip>
           </Grid>
         </Grid>
         <Typography
@@ -132,13 +146,12 @@ export default function MenteeSessions(token, pk, setAuth) {
           </Grid>
           <Grid item xs={3}>
             <Chip
-            label="Confirmed"
+              label="Confirmed"
               variant="outlined"
               color="success"
               size="md"
               sx={{ margin: ".25rem" }}
-            >
-            </Chip>
+            ></Chip>
             <Button
               variant="outlined"
               color="error"
