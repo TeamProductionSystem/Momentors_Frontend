@@ -17,7 +17,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
     setError("");
     setLoading(true);
     axios
-      .post("https://team-production-system.onrender.com/auth/token/login/", {
+      .post(`${process.env.REACT_APP_BE_URL}/auth/token/login/`, {
         username: userName,
         password: password,
       })
@@ -25,7 +25,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
         const token = res.data.auth_token;
         console.log(res);
         axios
-          .get("https://team-production-system.onrender.com/myprofile/", {
+          .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
             headers: { Authorization: `Token ${token}` },
           })
           .then((res) => {
