@@ -7,7 +7,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
 
   useEffect(() => {
     axios
-      .get("https://team-production-system.onrender.com/session/", {
+      .get(`${process.env.REACT_APP_BE_URL}/session/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
