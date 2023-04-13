@@ -92,11 +92,11 @@ function App() {
         />
         <Route
           path='/mentorsessions'
-          element={<MentorSessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+          element={<MentorSessions token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
           path='/menteesessions'
-          element={<MenteeSessions setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+          element={<MenteeSessions  token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />}
         />
         <Route
           path="/sessionsignup"
