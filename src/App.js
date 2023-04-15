@@ -100,7 +100,7 @@ function App() {
         />
         <Route
           path="/sessionsignup"
-          element={<SessionSignup token={token} />}
+          element={<SessionSignup token={token} setAuth={setAuth} isLoggedIn={isLoggedIn}/>}
         />
       </Routes>
     </div>
