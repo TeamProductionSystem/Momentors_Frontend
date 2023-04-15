@@ -10,6 +10,7 @@ import {
   Grid,
   Typography,
   Stack,
+  Button,
 } from "@mui/material";
 
 export default function SessionSignup({ token }) {
@@ -17,6 +18,13 @@ export default function SessionSignup({ token }) {
   const [mentors, setMentors] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
+
+  const handleDayChange = () => {
+    const today = new Date();
+
+    const selectedDate = today.toISOString().slice(0, 10);
+    setSelectedDay(selectedDate);
+  };
 
   useEffect(() => {
     axios
@@ -66,32 +74,29 @@ export default function SessionSignup({ token }) {
   }, [token]);
 
   useEffect(() => {
-    if (selectedSkill) {
-      axios
-        .get(`${process.env.REACT_APP_BE_URL}/mentor/${selectedSkill}`, {
-          headers: { Authorization: `Token ${token}` },
-        })
-
-        .then((response) => {
-          const filteredMentors = response.data.filter((mentor) => {
-            if (mentor.mentor_profile && mentor.mentor_profile.skills) {
-              return mentor.mentor_profile.skills.includes(selectedSkill);
-            } else if (mentor.skills) {
-              return mentor.skills.includes(selectedSkill);
-            }
-            return false;
-          });
-          setMentors(filteredMentors);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (selectedSkill && selectedDay) {
+      const filteredMentors = mentors.filter((mentor) => {
+        if (
+          mentor.mentor_profile &&
+          mentor.mentor_profile.skills &&
+          mentor.availableSlots.includes(selectedDay)
+        ) {
+          return mentor.mentor_profile.skills.includes(selectedSkill);
+        } else if (mentor.skills && mentor.availableSlots.includes(selectedDay)) {
+          return mentor.skills.includes(selectedSkill);
+        }
+        return false;
+      });
+      setMentors(filteredMentors);
     }
-  }, [selectedSkill, token]);
+  }, [selectedSkill, selectedDay, mentors]);
 
   const handleSkillChange = (event) => {
     setSelectedSkill(event.target.value);
   };
+
+  
+  ;
 
   return (
     <Box className="SessionRequest">
@@ -119,13 +124,48 @@ export default function SessionSignup({ token }) {
                 </MenuItem>
               ))}
             </Select>
+                </FormControl>
             <Box>
               <Typography variant="h4" marginTop={"2rem"}>
                 Select a Day
               </Typography>
               {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
+              <Stack direction="row" spacing={2} marginTop={"2rem"}>
+                <Button variant="text" onClick={handleDayChange}>
+                  Today
+                </Button>
+                
+                <Button
+                  variant="text"
+                  onClick={() => handleDayChange("Tomorrow")}
+                  >
+                  Tomorrow
+                </Button>
+                <Button
+                  variant="text"
+                  onClick={() => handleDayChange("The Next Day")} 
+                  >
+                  The Next Day
+                </Button>
+                
+              </Stack>
             </Box>
-          </FormControl>
+            <Box>
+              <Typography variant="h4" marginTop={"2rem"}>
+                Select a Mentor</Typography>
+                {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
+              <Grid container spacing={2} marginTop={"2rem"}>
+                {mentors.map((mentor) => (
+                  <Grid item xs={12} sm={6} md={4} key={mentor.id}>
+                    <MentorCard mentor={mentor} />
+                  </Grid>
+                ))}
+              </Grid>
+
+
+              
+
+            </Box>
         </Box>
       </Box>
     </Box>
