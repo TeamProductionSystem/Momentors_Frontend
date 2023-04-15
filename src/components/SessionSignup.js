@@ -9,24 +9,50 @@ import {
   Select,
   Grid,
   Typography,
+  Stack,
 } from "@mui/material";
+
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BE_URL}/mentor/`, {
         headers: { Authorization: `Token ${token}` },
       })
+
       .then((response) => {
+        console.log(response.data);
+
+        const mentorsWithAvailableSlots = response.data.map((mentor) => {
+          let availableSlots = [];
+          if (mentor.availablities) {
+            availableSlots = mentor.availablities;
+          }
+          return {
+            ...mentor,
+            availableSlots,
+          };
+        });
+
+        setMentors(mentorsWithAvailableSlots);
+
         const skillsSet = new Set(); // create a new Set to store unique skills
         response.data.forEach((mentor) => {
           if (mentor.mentor_profile && mentor.mentor_profile.skills) {
             const mentorSkills = Array.isArray(mentor.mentor_profile.skills)
               ? mentor.mentor_profile.skills
               : [mentor.mentor_profile.skills];
+            mentorSkills.forEach((skill) => {
+              skillsSet.add(skill); // add each skill to the Set
+            });
+          } else if (mentor.skills) {
+            const mentorSkills = Array.isArray(mentor.skills)
+              ? mentor.skills
+              : [mentor.skills];
             mentorSkills.forEach((skill) => {
               skillsSet.add(skill); // add each skill to the Set
             });
@@ -42,15 +68,20 @@ export default function SessionSignup({ token }) {
   useEffect(() => {
     if (selectedSkill) {
       axios
-        .get(
-          `${process.env.REACT_APP_BE_URL}/mentor/${selectedSkill}`,
-          {
-            headers: { Authorization: `Token ${token}` },
-          }
-        )
+        .get(`${process.env.REACT_APP_BE_URL}/mentor/${selectedSkill}`, {
+          headers: { Authorization: `Token ${token}` },
+        })
 
         .then((response) => {
-          setMentors(response.data);
+          const filteredMentors = response.data.filter((mentor) => {
+            if (mentor.mentor_profile && mentor.mentor_profile.skills) {
+              return mentor.mentor_profile.skills.includes(selectedSkill);
+            } else if (mentor.skills) {
+              return mentor.skills.includes(selectedSkill);
+            }
+            return false;
+          });
+          setMentors(filteredMentors);
         })
         .catch((error) => {
           console.log(error);
@@ -63,30 +94,40 @@ export default function SessionSignup({ token }) {
   };
 
   return (
-    skills && (
-      <div className="session--signup">
-        <div className="session--signup-header">Meet a Mentor</div>
-        <div className="session--signup-topic">
-          <Typography>What do you want to learn about?</Typography>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="skill-select">Select Skill</InputLabel>
-            <Select label="Select Skill" onChange={handleSkillChange}>
+    <Box className="SessionRequest">
+      <Box className="SessionRequest-Header">
+        <Typography
+          variant="h4"
+          textAlign={"center"}
+          marginTop={"2rem"}
+          sx={{ textDecoration: "underline" }}
+        >
+          Mentor Sessions
+        </Typography>
+        <Box>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
+            <InputLabel id="skills">Select A Topic</InputLabel>
+            <Select
+              labelId="skills"
+              label="Select A Topic"
+              value={selectedSkill}
+              onChange={handleSkillChange}
+            >
               {skills.map((skill) => (
-                <MenuItem value={skill} key={skill}>
+                <MenuItem key={skill} value={skill}>
                   {skill}
                 </MenuItem>
               ))}
             </Select>
+            <Box>
+              <Typography variant="h4" marginTop={"2rem"}>
+                Select a Day
+              </Typography>
+              {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
+            </Box>
           </FormControl>
-        </div>
-        {mentors.length > 0 && selectedSkill && (
-          <div className="session--signup-mentors">
-            <Typography>Choose a Mentor!</Typography>
-            <br />
-            <MentorCard />
-          </div>
-        )}
-      </div>
-    )
+        </Box>
+      </Box>
+    </Box>
   );
 }
