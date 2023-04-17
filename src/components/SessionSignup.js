@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
+import SessionForm from "./SessionForm";
 import {
   Box,
   InputLabel,
@@ -12,6 +13,7 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+
 
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
@@ -166,6 +168,7 @@ export default function SessionSignup({ token }) {
               
 
             </Box>
+              <SessionForm/>
         </Box>
       </Box>
     </Box>
