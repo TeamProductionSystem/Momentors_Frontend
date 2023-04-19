@@ -14,7 +14,6 @@ import {
   Button,
 } from "@mui/material";
 
-
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
@@ -37,18 +36,24 @@ export default function SessionSignup({ token }) {
       .then((response) => {
         console.log(response.data);
 
-        const mentorsWithAvailableSlots = response.data.map((mentor) => {
+        const mentorsWithAvailableSlots = [];
+        response.data.forEach((mentor) => {
           let availableSlots = [];
-          if (mentor.availablities) {
-            availableSlots = mentor.availablities;
+          console.log(mentor);
+          console.log(mentor.availabilities);
+          if (mentor.availabilities.length > 0) {
+            availableSlots = mentor.availabilities;
+
+            mentorsWithAvailableSlots.push({
+              ...mentor,
+              availableSlots,
+            });
           }
-          return {
-            ...mentor,
-            availableSlots,
-          };
         });
 
         setMentors(mentorsWithAvailableSlots);
+        console.log(mentors);
+        console.log(mentorsWithAvailableSlots);
 
         const skillsSet = new Set(); // create a new Set to store unique skills
         response.data.forEach((mentor) => {
@@ -84,7 +89,10 @@ export default function SessionSignup({ token }) {
           mentor.availableSlots.includes(selectedDay)
         ) {
           return mentor.mentor_profile.skills.includes(selectedSkill);
-        } else if (mentor.skills && mentor.availableSlots.includes(selectedDay)) {
+        } else if (
+          mentor.skills &&
+          mentor.availableSlots.includes(selectedDay)
+        ) {
           return mentor.skills.includes(selectedSkill);
         }
         return false;
@@ -96,9 +104,6 @@ export default function SessionSignup({ token }) {
   const handleSkillChange = (event) => {
     setSelectedSkill(event.target.value);
   };
-
-  
-  ;
 
   return (
     <Box className="SessionRequest">
@@ -126,49 +131,45 @@ export default function SessionSignup({ token }) {
                 </MenuItem>
               ))}
             </Select>
-                </FormControl>
-            <Box>
-              <Typography variant="h4" marginTop={"2rem"}>
-                Select a Day
-              </Typography>
-              {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
-              <Stack direction="row" spacing={2} marginTop={"2rem"}>
-                <Button variant="text" onClick={handleDayChange}>
-                  Today
-                </Button>
-                
-                <Button
-                  variant="text"
-                  onClick={() => handleDayChange("Tomorrow")}
-                  >
-                  Tomorrow
-                </Button>
-                <Button
-                  variant="text"
-                  onClick={() => handleDayChange("The Next Day")} 
-                  >
-                  The Next Day
-                </Button>
-                
-              </Stack>
-            </Box>
-            <Box>
-              <Typography variant="h4" marginTop={"2rem"}>
-                Select a Mentor</Typography>
-                {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
-              <Grid container spacing={2} marginTop={"2rem"}>
-                {mentors.map((mentor) => (
-                  <Grid item xs={12} sm={6} md={4} key={mentor.id}>
-                    <MentorCard mentor={mentor} />
-                  </Grid>
-                ))}
-              </Grid>
+          </FormControl>
+          <Box>
+            <Typography variant="h4" marginTop={"2rem"}>
+              Select a Day
+            </Typography>
+            {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
+            <Stack direction="row" spacing={2} marginTop={"2rem"}>
+              <Button variant="text" onClick={handleDayChange}>
+                Today
+              </Button>
 
-
-              
-
-            </Box>
-              <SessionForm/>
+              <Button
+                variant="text"
+                onClick={() => handleDayChange("Tomorrow")}
+              >
+                Tomorrow
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => handleDayChange("The Next Day")}
+              >
+                The Next Day
+              </Button>
+            </Stack>
+          </Box>
+          <Box>
+            <Typography variant="h4" marginTop={"2rem"}>
+              Select a Mentor
+            </Typography>
+            {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
+            <Grid container spacing={2} marginTop={"2rem"}>
+              {mentors.map((mentor) => (
+                <Grid item xs={12} sm={6} md={4} key={mentor.id}>
+                  <MentorCard mentor={mentor} token={token} />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+          <SessionForm />
         </Box>
       </Box>
     </Box>
