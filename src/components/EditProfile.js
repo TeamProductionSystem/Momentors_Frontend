@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TextField, FormLabel, Input, Button } from "@mui/material";
@@ -13,11 +13,38 @@ export default function EditProfile({ token, pk, setAuth }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState("");
+  const [skills, setSkills] = useState("");
+  const [aboutMe, setAboutMe] = useState("");
+  const [teamNumber, setTeamNumber] = useState("");
+  const [isMentor, setIsMentor] = useState("");
+  const [isMentee, setIsMentee] = useState("");
   const navigate = useNavigate();
   // Append +1 to phone number if it's not already present
   const formattedPhoneNumber = phoneNumber.startsWith("+1")
     ? phoneNumber
     : `+1${phoneNumber}`;
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((res) => {
+        setLoading(false);
+        setFirstName(res.data.first_name);
+        setLastName(res.data.last_name);
+        setPhoneNumber(res.data.phone_number);
+        setIsMentor(res.data.is_mentor);
+        setIsMentee(res.data.is_mentee);
+        console.log(res.data);
+        // navigate("/profile");
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError(e.message);
+      });
+  }, [token]);
 
   const editProfile = (e) => {
     e.preventDefault();
@@ -31,16 +58,12 @@ export default function EditProfile({ token, pk, setAuth }) {
     formData.append("profile_photo", profilePhoto);
 
     axios
-      .patch(
-        `${process.env.REACT_APP_BE_URL}/myprofile/`,
-        formData,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .patch(`${process.env.REACT_APP_BE_URL}/myprofile/`, formData, {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         // const token = res.data.auth_token;
         axios
@@ -99,9 +122,43 @@ export default function EditProfile({ token, pk, setAuth }) {
             <TextField
               type="file"
               onChange={(e) => setProfilePhoto(e.target.files[0])}
-            >
-            </TextField>
+            ></TextField>
           </Stack>
+
+          {/* {isMentor && (
+            <>
+              <Stack item="true" className="field">
+                <TextField
+                  label="skills"
+                  onChange={(e) => setSkills(e.target.value)}
+                >
+                  Skills
+                </TextField>
+              </Stack>
+            </>
+          )}
+
+          {isMentor && (
+            <Stack item="true" className="field">
+              <TextField
+                label="about me"
+                onChange={(e) => setAboutMe(e.target.value)}
+              >
+                About Me
+              </TextField>
+            </Stack>
+          )}
+
+          {isMentee && (
+            <Stack item="true" className="field">
+              <TextField
+                label="team number"
+                onChange={(e) => setTeamNumber(e.target.value)}
+              >
+                Team Number
+              </TextField>
+            </Stack>
+          )} */}
 
           <Stack item="true" className="button--edit-profile">
             {loading ? (
