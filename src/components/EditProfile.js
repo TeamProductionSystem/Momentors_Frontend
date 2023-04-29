@@ -8,6 +8,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 export default function EditProfile({ token, pk, setAuth }) {
   const [error, setError] = useState("");
   const [userName, setUserName] = useState("");
+  const [originalProfile, setOriginalProfile] = useState({});
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -20,7 +21,7 @@ export default function EditProfile({ token, pk, setAuth }) {
   const [isMentee, setIsMentee] = useState("");
   const navigate = useNavigate();
   // Append +1 to phone number if it's not already present
-  const formattedPhoneNumber = phoneNumber.startsWith("+1")
+  const formattedPhoneNumber = phoneNumber?.startsWith("+1")
     ? phoneNumber
     : `+1${phoneNumber}`;
 
@@ -32,6 +33,7 @@ export default function EditProfile({ token, pk, setAuth }) {
       })
       .then((res) => {
         setLoading(false);
+        setOriginalProfile(res.data);
         setFirstName(res.data.first_name);
         setLastName(res.data.last_name);
         setPhoneNumber(res.data.phone_number);
@@ -52,10 +54,16 @@ export default function EditProfile({ token, pk, setAuth }) {
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("first_name", firstName);
-    formData.append("last_name", lastName);
-    formData.append("phone_number", formattedPhoneNumber);
-    formData.append("profile_photo", profilePhoto);
+    if (firstName !== originalProfile.first_name) {
+      formData.append("first_name", firstName);
+    }
+    if (lastName !== originalProfile.last_name) {
+      formData.append("last_name", lastName);
+    }
+    if (phoneNumber !== originalProfile.phone_number) {
+      formData.append("phone_number", formattedPhoneNumber);
+    }
+    // formData.append("profile_photo", profilePhoto);
 
     axios
       .patch(`${process.env.REACT_APP_BE_URL}/myprofile/`, formData, {
@@ -92,29 +100,37 @@ export default function EditProfile({ token, pk, setAuth }) {
         <Stack container="true" justifyContent="center" alignItems="center">
           <Stack item="true" className="field">
             <TextField
-              label="first name"
+              label="First Name"
+              placeholder={firstName !== "" ? firstName : "First Name"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-            >
-              First name
-            </TextField>
+            ></TextField>
           </Stack>
 
           <Stack item="true" className="field">
             <TextField
-              label="last name"
+              label="Last Name"
+              placeholder={lastName !== "" ? lastName : "Last Name"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-            >
-              Last name
-            </TextField>
+            ></TextField>
           </Stack>
 
           <Stack item="true" className="field">
             <TextField
-              label="phone number"
+              label="Phone Number"
+              placeholder={phoneNumber || "Phone Number"}
+              InputLabelProps={{
+                shrink: true,
+              }}
               onChange={(e) => setPhoneNumber(e.target.value)}
-            >
-              Phone number
-            </TextField>
+            ></TextField>
           </Stack>
 
           <Stack item="true" className="field">
@@ -125,40 +141,41 @@ export default function EditProfile({ token, pk, setAuth }) {
             ></TextField>
           </Stack>
 
-          {/* {isMentor && (
-            <>
-              <Stack item="true" className="field">
-                <TextField
-                  label="skills"
-                  onChange={(e) => setSkills(e.target.value)}
-                >
-                  Skills
-                </TextField>
-              </Stack>
-            </>
+          {isMentor && (
+            <Stack item="true" className="field">
+              <TextField
+                label="Skills"
+                placeholder={skills || "Skills"}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setSkills(e.target.value)}
+              ></TextField>
+            </Stack>
           )}
 
           {isMentor && (
             <Stack item="true" className="field">
               <TextField
-                label="about me"
+                label="About Me"
+                placeholder={aboutMe || "About Me"}
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 onChange={(e) => setAboutMe(e.target.value)}
-              >
-                About Me
-              </TextField>
+              ></TextField>
             </Stack>
           )}
 
           {isMentee && (
             <Stack item="true" className="field">
               <TextField
-                label="team number"
+                label="Team Number"
+                placeholder={teamNumber || "Team Number"}
                 onChange={(e) => setTeamNumber(e.target.value)}
-              >
-                Team Number
-              </TextField>
+              ></TextField>
             </Stack>
-          )} */}
+          )}
 
           <Stack item="true" className="button--edit-profile">
             {loading ? (
