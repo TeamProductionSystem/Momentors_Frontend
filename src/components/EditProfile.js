@@ -4,12 +4,8 @@ import axios from "axios";
 import { TextField, FormLabel, Input, Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
+import Select from "@mui/material/Select";
 
 export default function EditProfile({ token, pk, setAuth }) {
   const [error, setError] = useState("");
@@ -20,7 +16,7 @@ export default function EditProfile({ token, pk, setAuth }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const [aboutMe, setAboutMe] = useState("");
   const [teamNumber, setTeamNumber] = useState("");
   const [isMentor, setIsMentor] = useState("");
@@ -56,33 +52,48 @@ export default function EditProfile({ token, pk, setAuth }) {
         setIsMentor(res.data.is_mentor);
         setIsMentee(res.data.is_mentee);
         console.log(res.data);
-        // navigate("/profile");
+
+        if (res.data.is_mentor) {
+          axios
+            .get(`${process.env.REACT_APP_BE_URL}/mentorinfo/`, {
+              headers: { Authorization: `Token ${token}` },
+            })
+            .then((res) => {
+              setSkills(res.data[0].skills);
+              setAboutMe(res.data[0].about_me);
+              console.log(res.data);
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        } else if (res.data.is_mentee) {
+          axios
+            .get(`${process.env.REACT_APP_BE_URL}/menteeinfo/`, {
+              headers: { Authorization: `Token ${token}` },
+            })
+            .then((res) => {
+              setTeamNumber(res.data[0].team_number);
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        }
       })
       .catch((e) => {
         setLoading(false);
         setError(e.message);
       });
-    axios
-      .get(`${process.env.REACT_APP_BE_URL}/mentorinfo/`, {
-        headers: { Authorization: `Token ${token}` },
-      })
-      .then((res) => {
-        setSkills(res.data[0].skills);
-        setAboutMe(res.data[0].about_me);
-        console.log(res.data);
-      });
   }, [token]);
 
-  const [skillChoice, setSkillChoice] = useState([]);
-
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSkillChoice(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setSkills(value);
   };
 
   const editProfile = (e) => {
@@ -102,28 +113,55 @@ export default function EditProfile({ token, pk, setAuth }) {
     }
     // formData.append("profile_photo", profilePhoto);
 
-    const skillsObject = {
-      skills: skillChoice,
+    let mentorPatchObject = {
+      skills: skills,
+      about_me: aboutMe,
+    };
+
+    let teamNumberObject = {
+      team_number: teamNumber,
     };
 
     axios
-      .patch(`${process.env.REACT_APP_BE_URL}/myprofile/`, formData, {
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .patch(
+        `${process.env.REACT_APP_BE_URL}/myprofile/`,
+        formData && formData, // Only pass form data if it exists
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
-        axios.patch(
-          `${process.env.REACT_APP_BE_URL}/mentorinfoupdate/`,
-          JSON.stringify(skillsObject),
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-              "Content-Type": "application/json",
+        if (skills && aboutMe) {
+          axios.patch(
+            `${process.env.REACT_APP_BE_URL}/mentorinfoupdate/`,
+            {
+              skills: skills,
+              about_me: aboutMe,
             },
-          }
-        );
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        } else if (teamNumber) {
+          axios.patch(
+            `${process.env.REACT_APP_BE_URL}/menteeinfoupdate/`,
+            {
+              team_number: teamNumber,
+            },
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        }
       })
 
       .then((res) => {
@@ -179,7 +217,7 @@ export default function EditProfile({ token, pk, setAuth }) {
           <Stack item="true" className="field">
             <TextField
               label="Phone Number"
-              placeholder={phoneNumber !== "" ? phoneNumber : "Phone Number"}
+              placeholder={phoneNumber !== null ? phoneNumber : "Phone Number"}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -198,31 +236,22 @@ export default function EditProfile({ token, pk, setAuth }) {
 
           {isMentor && (
             <Stack item="true" className="field">
-              <InputLabel id="demo-multiple-checkbox-label">Skills</InputLabel>
+              <InputLabel shrink htmlFor="select-multiple-native">
+                Skills
+              </InputLabel>
               <Select
                 multiple
-                value={skillChoice}
+                native
+                value={skills}
                 onChange={handleChange}
-                input={<OutlinedInput label="Tag" />}
-                renderValue={(selected) => selected.join(", ")}
-                // MenuProps={MenuProps}
+                label="Skills"
               >
                 {skillsChoices.map((skill) => (
-                  <MenuItem key={skill} value={skill}>
-                    <Checkbox checked={skillChoice.indexOf(skill) > -1} />
-                    <ListItemText primary={skill} />
-                  </MenuItem>
+                  <option key={skill} value={skill}>
+                    {skill}
+                  </option>
                 ))}
               </Select>
-              {/* <TextField
-                label="Skills"
-                placeholder={skills !== [] ? skills : "Skills"}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                value={skills}
-                onChange={(e) => setSkills(e.target.value)}
-              ></TextField> */}
             </Stack>
           )}
 
@@ -231,13 +260,12 @@ export default function EditProfile({ token, pk, setAuth }) {
               <TextField
                 multiline
                 rows={3}
-                maxRows={5}
                 label="About Me"
-                placeholder={aboutMe !== "" ? aboutMe : "About Me"}
+                placeholder={aboutMe !== "About Me" ? aboutMe : "About Me"}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={aboutMe}
+                value={aboutMe !== "About Me" ? aboutMe : null}
                 onChange={(e) => setAboutMe(e.target.value)}
               ></TextField>
             </Stack>
