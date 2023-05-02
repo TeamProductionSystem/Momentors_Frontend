@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProfileBasicInfo from './ProfileBasicInfo';
-import { Avatar, Typography, Grid, Box } from '@mui/material';
-import { Switch } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import ProfileBasicInfo from "./ProfileBasicInfo";
+import { Avatar, Typography, Grid, Box } from "@mui/material";
+import { Switch } from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function ProfileMentee({ token, pk, setAuth }) {
   // first name, last name, phone number
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
-  const [teamNumber, setTeamNumber] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const [teamNumber, setTeamNumber] = useState("");
 
   useEffect(() => {
     axios
@@ -31,7 +31,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
         setPhoneNumber(
           res.data.phone_number
             .slice(2)
-            .replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3')
+            .replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3")
         ); // format phone number
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
       });
@@ -45,10 +45,10 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   }, [token, pk]);
 
   return (
-    <Box className="profile--page" style={{ marginTop: '2rem' }}>
-      <Grid container xs="auto" marginLeft={'1.5rem'}>
+    <Box className="profile--page" style={{ marginTop: "2rem" }}>
+      <Grid container xs="auto" marginLeft={"1.5rem"}>
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
-        <Grid marginLeft={'1rem'} paddingTop={'1rem'}>
+        <Grid marginLeft={"1rem"} paddingTop={"1rem"}>
           <Typography variant="h5">{`Team Number: ${teamNumber}`}</Typography>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
@@ -59,15 +59,15 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       </Grid>
       <Box
         className="menteeProfile--notifications"
-        style={{ marginTop: '50px', marginLeft: '1rem' }}
+        style={{ marginTop: "50px", marginLeft: "1rem" }}
       >
         <Box>
-          <Typography variant="h4" paddingLeft={'1rem'}>
+          <Typography variant="h4" paddingLeft={"1rem"}>
             Notifications:
           </Typography>
 
-          <Grid container direction={'row'} spacing={2}>
-            <Grid marginRight={'rem'} marginLeft={'4rem'} width={'30rem'}>
+          <Grid container direction={"row"} spacing={2}>
+            <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
               <Grid item>
                 {/* <FormControl width="1rem">
                       <InputLabel id="demo-simple-select-label">
@@ -91,31 +91,31 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                   <br></br>
                 </Grid>
                 <Grid item>
-                  <Typography fontSize={'18px'} paddingTop={'1.2rem'}>
+                  <Typography fontSize={"18px"} paddingTop={"1.2rem"}>
                     Notify me when a mentor confirms a session
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me when a mentor cancels a session
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 15 minutes before a session
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 60 minutes before a session
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid marginRight={'2rem'}>
+            <Grid marginRight={"2rem"}>
               <Typography variant="h6">Email Notifications</Typography>
 
-              <Grid item textAlign={'center'}>
+              <Grid item textAlign={"center"}>
                 <FormControlLabel control={<Switch />} />
                 <Grid Item>
                   <FormControlLabel control={<Switch />} />

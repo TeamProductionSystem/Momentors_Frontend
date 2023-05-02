@@ -5,7 +5,6 @@ import { Stack } from "@mui/system";
 import ProfileMentor from "./ProfileMentor";
 import ProfileMentee from "./ProfileMentee";
 
-
 export default function Profile({
   token,
   pk,
@@ -16,6 +15,7 @@ export default function Profile({
   setMentee,
 }) {
   const [error, setError] = useState("");
+  const [userPk, setUserPk] = useState(pk);
 
   const updateMentor = (event) => {
     event.preventDefault();
@@ -33,6 +33,23 @@ export default function Profile({
           },
         }
       )
+
+      .then((res) => {
+        axios.post(
+          `${process.env.REACT_APP_BE_URL}/mentorinfo/`,
+          {
+            about_me: "About Me",
+            skills: ["HTML"],
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+      })
+
       .then((res) => {
         setMentor(true);
       })
@@ -57,6 +74,22 @@ export default function Profile({
           },
         }
       )
+
+      .then((res) => {
+        axios.post(
+          `${process.env.REACT_APP_BE_URL}/menteeinfo/`,
+          {
+            team_number: 0,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+      })
+
       .then((res) => {
         setMentee(true);
       })
