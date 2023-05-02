@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProfileBasicInfo from './ProfileBasicInfo';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import ProfileBasicInfo from "./ProfileBasicInfo";
 import {
   Avatar,
   Typography,
@@ -12,20 +12,20 @@ import {
   MenuItem,
   List,
   ListItem,
-} from '@mui/material';
-import { Switch } from '@mui/material';
-import FormControl from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import TimeSlot from './TimeSlot';
+} from "@mui/material";
+import { Switch } from "@mui/material";
+import FormControl from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TimeSlot from "./TimeSlot";
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
   const [skills, setSkills] = useState([]);
-  const [about_me, setAboutMe] = useState('');
+  const [about_me, setAboutMe] = useState("");
 
   useEffect(() => {
     axios
@@ -44,7 +44,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
         setPhoneNumber(
           res.data.phone_number
             .slice(2)
-            .replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3')
+            .replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3")
         ); // format phone number
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
       });
@@ -55,6 +55,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setSkills(res.data[0].skills);
         setAboutMe(res.data[0].about_me);
+        console.log(res.data);
       });
   }, [token, pk]);
 
@@ -62,34 +63,34 @@ export default function ProfileMentor({ token, pk, setAuth }) {
     <Box className="mentorprofile--page" margin="1rem">
       <Stack container spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
-        <Box sx={{ fontSize: '20px' }} textAlign={'Center'}>
+        <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
             lastName={`Last Name: ${lastName}`}
             phoneNumber={`Phone Number: ${phoneNumber}`}
           />
         </Box>
-        <Box sx={{ border: '2px solid', borderRadius: '16px' }} width="100%">
+        <Box sx={{ border: "2px solid", borderRadius: "16px" }} width="100%">
           <Typography
             variant="h5"
-            textAlign={'Center'}
-            sx={{ textDecoration: 'underline' }}
+            textAlign={"Center"}
+            sx={{ textDecoration: "underline" }}
           >
             About Me
           </Typography>
-          <Box sx={{ fontSize: '20px', padding: '.5rem' }}>{about_me}</Box>
+          <Box sx={{ fontSize: "20px", padding: ".5rem" }}>{about_me}</Box>
         </Box>
       </Stack>
-      <Stack direction="row" marginTop={'1.5rem'}>
+      <Stack direction="row" marginTop={"1.5rem"}>
         <Box
-          sx={{ border: '2px solid', borderRadius: '16px' }}
-          width={'15rem'}
-          marginRight={'.5rem'}
+          sx={{ border: "2px solid", borderRadius: "16px" }}
+          width={"15rem"}
+          marginRight={".5rem"}
         >
           <Typography
             variant="h5"
-            textAlign={'Center'}
-            sx={{ textDecoration: 'underline' }}
+            textAlign={"Center"}
+            sx={{ textDecoration: "underline" }}
           >
             What You Know
           </Typography>
@@ -98,8 +99,8 @@ export default function ProfileMentor({ token, pk, setAuth }) {
               {skills.map((skill) => (
                 <ListItem
                   sx={{
-                    fontSize: '20px',
-                    justifyContent: 'center',
+                    fontSize: "20px",
+                    justifyContent: "center",
                   }}
                 >
                   {skill}
@@ -108,14 +109,14 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             </List>
           </Box>
         </Box>
-        <Box width={'100%'} className="mentorProfile--notifications">
+        <Box width={"100%"} className="mentorProfile--notifications">
           <Box>
-            <Typography variant="h4" paddingLeft={'1rem'}>
+            <Typography variant="h4" paddingLeft={"1rem"}>
               Notifications:
             </Typography>
 
-            <Grid container direction={'row'} spacing={2}>
-              <Grid marginRight={'rem'} marginLeft={'4rem'} width={'30rem'}>
+            <Grid container direction={"row"} spacing={2}>
+              <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
                 <Grid item>
                   {/* <FormControl width="1rem">
                       <InputLabel id="demo-simple-select-label">
@@ -139,31 +140,31 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     <br></br>
                   </Grid>
                   <Grid item>
-                    <Typography fontSize={'18px'} paddingTop={'1.2rem'}>
+                    <Typography fontSize={"18px"} paddingTop={"1.2rem"}>
                       Notify me when a mentee schedules a session
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
                       Notify me when a mentee cancels a session
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
                       Notify me 15 minutes before a session
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography fontSize={'18px'} paddingTop={'.75rem'}>
+                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
                       Notify me 60 minutes before a session
                     </Typography>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid marginRight={'2rem'}>
+              <Grid marginRight={"2rem"}>
                 <Typography variant="h6">Email Notifications</Typography>
 
-                <Grid item textAlign={'center'}>
+                <Grid item textAlign={"center"}>
                   <FormControlLabel control={<Switch />} />
                   <Grid item>
                     <FormControlLabel control={<Switch />} />
@@ -196,7 +197,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           </Box>
         </Box>
       </Stack>
-      <Box sx={{ marginTop: '4rem' }}>
+      <Box sx={{ marginTop: "4rem" }}>
         <Typography variant="h4">Time Slots:</Typography>
         <Box>
           <TimeSlot />
