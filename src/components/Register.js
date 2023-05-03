@@ -9,6 +9,7 @@ const Register = ({ setAuth }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,17 +24,15 @@ const Register = ({ setAuth }) => {
       .post(`${process.env.REACT_APP_BE_URL}/auth/users/`, {
         username: userName,
         password: password,
+        re_password: rePassword,
         email: email,
       })
       .then(() => {
         axios
-          .post(
-            `${process.env.REACT_APP_BE_URL}/auth/token/login`,
-            {
-              username: userName,
-              password: password,
-            }
-          )
+          .post(`${process.env.REACT_APP_BE_URL}/auth/token/login`, {
+            username: userName,
+            password: password,
+          })
 
           .then((res) => {
             setLoading(false);
@@ -79,6 +78,16 @@ const Register = ({ setAuth }) => {
               onChange={(e) => setPassword(e.target.value)}
             >
               Password
+            </TextField>
+          </Stack>
+
+          <Stack item="true" className="field">
+            <TextField
+              label="confirm password"
+              type="password"
+              onChange={(e) => setRePassword(e.target.value)}
+            >
+              Confirm Password
             </TextField>
           </Stack>
 
