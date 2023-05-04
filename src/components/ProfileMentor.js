@@ -61,7 +61,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
   return (
     <Box className="mentorprofile--page" margin="1rem">
-      <Stack container spacing={1} direction="row">
+      <Stack container spacing={1} direction="row"> 
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
           <ProfileBasicInfo
