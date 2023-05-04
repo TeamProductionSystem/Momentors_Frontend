@@ -111,7 +111,10 @@ export default function EditProfile({ token, pk, setAuth }) {
     if (phoneNumber !== originalProfile.phone_number) {
       formData.append("phone_number", formattedPhoneNumber);
     }
-    // formData.append("profile_photo", profilePhoto);
+    if (profilePhoto) {
+      formData.append("profile_photo", profilePhoto);
+    }
+  
 
     let mentorPatchObject = {
       skills: skills,
