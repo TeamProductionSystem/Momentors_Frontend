@@ -42,9 +42,17 @@ export default function Login({ setAuth, setMentor, setMentee }) {
           });
       })
       .catch((e) => {
+        if (e.response && e.response.data) {
+          setError(e.response.data);
+        } else {
+          setError({ submit: e.message });
+        }
         setLoading(false);
-        setError(e.message);
       });
+    // .catch((e) => {
+    //   setLoading(false);
+    //   setError(e.message);
+    // });
   };
 
   return (
@@ -53,8 +61,10 @@ export default function Login({ setAuth, setMentor, setMentee }) {
         <Stack container="true" justifyContent="center" alignItems="center">
           <Stack item="true" className="field">
             <TextField
+              error={error.username ? true : false}
               label="username"
               onChange={(e) => setUserName(e.target.value)}
+              helperText={error.username}
             >
               Username
             </TextField>
@@ -62,9 +72,11 @@ export default function Login({ setAuth, setMentor, setMentee }) {
 
           <Stack item="true" className="field">
             <TextField
+              error={error.password || error.non_field_errors ? true : false}
               label="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              helperText={error.password || error.non_field_errors}
             >
               Password
             </TextField>
