@@ -41,11 +41,13 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           res.data.last_name.charAt(0).toUpperCase() +
             res.data.last_name.slice(1)
         );
-        setPhoneNumber(
-          res.data.phone_number
-            .slice(2)
-            .replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3")
-        ); // format phone number
+        if (res.data.phone_number) {
+          setPhoneNumber(
+            // format phone number to (xxx) xxx-xxxx
+            res.data.phone_number.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+          );
+        }
+
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
       });
     axios
@@ -61,7 +63,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
   return (
     <Box className="mentorprofile--page" margin="1rem">
-      <Stack container spacing={1} direction="row"> 
+      <Stack container spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
           <ProfileBasicInfo
