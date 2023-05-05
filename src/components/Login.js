@@ -49,10 +49,6 @@ export default function Login({ setAuth, setMentor, setMentee }) {
         }
         setLoading(false);
       });
-    // .catch((e) => {
-    //   setLoading(false);
-    //   setError(e.message);
-    // });
   };
 
   return (
