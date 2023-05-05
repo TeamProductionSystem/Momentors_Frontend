@@ -48,8 +48,12 @@ const Register = ({ setAuth }) => {
           });
       })
       .catch((e) => {
+        if (e.response && e.response.data) {
+          setError(e.response.data);
+        } else {
+          setError({ submit: e.message });
+        }
         setLoading(false);
-        setError(e.message);
       });
   };
 
@@ -58,24 +62,34 @@ const Register = ({ setAuth }) => {
       <form onSubmit={handleRegister} id="registration-form">
         <Stack container="true" justifyContent="center" alignItems="center">
           <Stack item="true" className="field">
-            <TextField label="email" onChange={(e) => setEmail(e.target.value)}>
+            <TextField
+              error={error.email ? true : false}
+              label="email"
+              onChange={(e) => setEmail(e.target.value)}
+              helperText={error.email}
+            >
               E-mail
             </TextField>
           </Stack>
 
           <Stack item="true" className="field">
             <TextField
+              error={error.username ? true : false}
               label="username"
               onChange={(e) => setUserName(e.target.value)}
+              helperText={error.username}
             >
               Username
             </TextField>
           </Stack>
+
           <Stack item="true" className="field">
             <TextField
+              error={error.password ? true : false}
               label="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              helperText={error.password}
             >
               Password
             </TextField>
@@ -83,9 +97,11 @@ const Register = ({ setAuth }) => {
 
           <Stack item="true" className="field">
             <TextField
+              error={error.non_field_errors ? true : false}
               label="confirm password"
               type="password"
               onChange={(e) => setRePassword(e.target.value)}
+              helperText={error.non_field_errors}
             >
               Confirm Password
             </TextField>
