@@ -10,6 +10,7 @@ import EditProfile from "./components/EditProfile";
 import MentorSessions from "./components/MentorSessions";
 import SessionSignup from "./components/SessionSignup";
 import MenteeSessions from "./components/MenteeSessions";
+import TimeSlot from "./components/TimeSlot";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -102,6 +103,11 @@ function App() {
           path="/sessionsignup"
           element={<SessionSignup token={token} setAuth={setAuth} isLoggedIn={isLoggedIn}/>}
         />
+        <Route
+          path="/timeslot"
+          element={<TimeSlot token={token} setAuth={setAuth} isLoggedIn={isLoggedIn}/>}
+        />
+
       </Routes>
     </div>
   );
