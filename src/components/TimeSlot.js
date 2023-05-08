@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import {
-  Box,
-  Stack,
-  Typography,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, Stack, Typography, Button, TextField } from "@mui/material";
 
 export default function TimeSlot({ token, pk, setAuth }) {
+  console.log(token);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
@@ -26,18 +17,20 @@ export default function TimeSlot({ token, pk, setAuth }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`https://team-production-system.onrender.com/availability/`, 
+    axios.post(
+      `https://team-production-system.onrender.com/availability/`,
+
       {
         start_time: startTime,
         end_time: endTime,
       },
       {
         headers: { Authorization: `Token ${token}` },
-      },
-      )
+      }
+    )
       .then((response) => {
         console.log(response.data);
+        console.log(token);
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +41,7 @@ export default function TimeSlot({ token, pk, setAuth }) {
     <Box>
       <Stack spacing={2} sx={{ mb: 2 }}>
         <Typography variant="h6">Post Availability</Typography>
-        <form onSubmit={handleSubmit} token={token}>
+        <form onSubmit={handleSubmit}>
           <Stack spacing={2} direction="row">
             <TextField
               id="start-time"
@@ -72,7 +65,7 @@ export default function TimeSlot({ token, pk, setAuth }) {
               }}
               required
             />
-            <Button type="submit" variant="contained" token={token}>
+            <Button type="submit" variant="contained">
               Submit
             </Button>
           </Stack>
