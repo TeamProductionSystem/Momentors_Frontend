@@ -202,7 +202,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       <Box sx={{ marginTop: "4rem" }}>
         <Typography variant="h4">Time Slots:</Typography>
         <Box>
-          <TimeSlot />
+          <TimeSlot token={token}/>
         </Box>
       </Box>
     </Box>

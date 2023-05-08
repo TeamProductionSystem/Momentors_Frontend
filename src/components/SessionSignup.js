@@ -35,6 +35,7 @@ export default function SessionSignup({ token }) {
 
       .then((response) => {
         console.log(response.data);
+        console.log(token)
 
         const mentorsWithAvailableSlots = [];
         response.data.forEach((mentor) => {
