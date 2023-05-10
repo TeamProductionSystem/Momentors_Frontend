@@ -43,8 +43,9 @@ export default function ProfileMentor({ token, pk, setAuth }) {
         );
         if (res.data.phone_number) {
           setPhoneNumber(
-            // format phone number to (xxx) xxx-xxxx
-            res.data.phone_number.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+            res.data.phone_number
+              .slice(2)
+              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3")
           );
         }
 
@@ -202,7 +203,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       <Box sx={{ marginTop: "4rem" }}>
         <Typography variant="h4">Time Slots:</Typography>
         <Box>
-          <TimeSlot token={token}/>
+          <TimeSlot token={token} />
         </Box>
       </Box>
     </Box>
