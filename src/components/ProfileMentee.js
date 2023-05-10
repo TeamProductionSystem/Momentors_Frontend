@@ -28,11 +28,13 @@ export default function ProfileMentee({ token, pk, setAuth }) {
           res.data.last_name.charAt(0).toUpperCase() +
             res.data.last_name.slice(1)
         );
-        setPhoneNumber(
-          res.data.phone_number
-            .slice(2)
-            .replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3")
-        ); // format phone number
+        if (res.data.phone_number) {
+          setPhoneNumber(
+            res.data.phone_number
+              .slice(2)
+              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3")
+          );
+        }
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
       });
     axios
