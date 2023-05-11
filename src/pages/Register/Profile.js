@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
-import ProfileMentor from "./ProfileMentor";
-import ProfileMentee from "./ProfileMentee";
+import ProfileMentor from "../Profile/ProfileMentor";
+import ProfileMentee from "../Profile/ProfileMentee";
 
 export default function Profile({
   token,
