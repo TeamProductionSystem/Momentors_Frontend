@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ProfileBasicInfo from "./ProfileBasicInfo";
+import ProfileBasicInfo from "../Profile/ProfileBasicInfo";
 import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 
 export default function MentorCard({ token, pk, setAuth }) {
@@ -40,8 +40,8 @@ export default function MentorCard({ token, pk, setAuth }) {
       <Grid container alignItems="center" justifyContent="center">
         <Card sx={{ minWidth: 400, maxWidth: 400 }} elevation="4">
           <CardMedia
-            sx={{ 
-              height: 400, 
+            sx={{
+              height: 400,
             }}
             image={profilePhoto}
             title="Profile Photo"
