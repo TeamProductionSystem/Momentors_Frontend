@@ -1,4 +1,4 @@
-import yoda from '../mentor-yoda.jpeg';
+import yoda from '../../assets/mentor-yoda.jpeg';
 
 export default function Hero() {
   return (

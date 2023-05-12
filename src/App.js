@@ -1,19 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import Hero from "./components/Hero";
+import Hero from "./pages/Home/Hero";
 import NavBar from "./components/NavBar";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import EditProfile from "./components/EditProfile";
-import MentorSessions from "./components/MentorSessions";
-import SessionSignup from "./components/SessionSignup";
-import MenteeSessions from "./components/MenteeSessions";
-import TimeSlot from "./components/TimeSlot";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Register/Profile";
+import EditProfile from "./pages/Profile/EditProfile";
+import MentorSessions from "./pages/Sessions/MentorSessions";
+import SessionSignup from "./pages/SessionSignup/SessionSignup";
+import MenteeSessions from "./pages/Sessions/MenteeSessions";
+import TimeSlot from "./pages/Profile/TimeSlot";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
-import "./App.css";
+import "./assets/App.css";
 
 function App() {
   const [token, setToken] = useLocalStorageState("momentorsToken", null);
@@ -92,22 +92,41 @@ function App() {
           element={<EditProfile token={token} pk={pk} />}
         />
         <Route
-          path='/mentorsessions'
-          element={<MentorSessions token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+          path="/mentorsessions"
+          element={
+            <MentorSessions
+              token={token}
+              setAuth={setAuth}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route
-          path='/menteesessions'
-          element={<MenteeSessions  token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />}
+          path="/menteesessions"
+          element={
+            <MenteeSessions
+              token={token}
+              setAuth={setAuth}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route
           path="/sessionsignup"
-          element={<SessionSignup token={token} setAuth={setAuth} isLoggedIn={isLoggedIn}/>}
+          element={
+            <SessionSignup
+              token={token}
+              setAuth={setAuth}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route
           path="/timeslot"
-          element={<TimeSlot token={token} setAuth={setAuth} isLoggedIn={isLoggedIn}/>}
+          element={
+            <TimeSlot token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />
+          }
         />
-
       </Routes>
     </div>
   );
