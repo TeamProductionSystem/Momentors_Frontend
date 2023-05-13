@@ -1,11 +1,9 @@
-import { Box, Button, Grid, Typography, Chip } from "@mui/material";
+import { Box, Grid, Typography, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MenteeRequest from "./MenteeRequest";
-import MenteeScheduled from "./MenteeScheduled";
 
 export default function MenteeSessions({ token, pk, setAuth }) {
-  const [cancelsessions, setCancelSessions] = useState([]);
+  const [confrimedsessions, setConfirmedSessions] = useState([]);
 
   useEffect(() => {
     axios
@@ -13,16 +11,17 @@ export default function MenteeSessions({ token, pk, setAuth }) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        setCancelSessions(
-          res.data.filter((session) => session.status === "Canceled")
+        setConfirmedSessions(
+          res.data.filter((session) => session.status === "Confirmed")
         );
       })
       .catch((err) => {
         console.log("error", err);
       });
   }, [token, pk]);
+
   return (
-    <Box className="menteesessions--page">
+    <Box className="menteescheduled--page">
       <Typography
         variant="h2"
         component="div"
@@ -32,22 +31,14 @@ export default function MenteeSessions({ token, pk, setAuth }) {
           marginTop: "2rem",
           textDecoration: "underline",
         }}
-      >
-        Mentee Session
-      </Typography>
-      {/* Filter and add only pending sessions */}
-      <MenteeRequest token={token} pk={pk} setAuth={setAuth} />
-
+      ></Typography>
       {/* Filter and add only confirmed sessions */}
-      <MenteeScheduled token={token} pk={pk} setAuth={setAuth} />
-
-      {/* filter and add only canceled sessions */}
       <Typography
         variant="h2"
         component="div"
         sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
       >
-        Canceled:
+        Scheduled:
       </Typography>
       <Box margin={"1rem"}>
         <hr style={{ color: "black" }} />
@@ -75,7 +66,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
             <Box>Status:</Box>
           </Grid>
         </Grid>
-        {cancelsessions.map((session) => {
+        {confrimedsessions.map((session) => {
           return (
             <Grid
               container
@@ -116,17 +107,13 @@ export default function MenteeSessions({ token, pk, setAuth }) {
                   label={
                     session.status === "Confirmed"
                       ? "Confirmed"
-                      : session.status === "Pending"
-                      ? "Pending"
-                      : "Canceled"
+                        : session.status === "Pending"
                   }
                   variant="outlined"
                   color={
                     session.status === "Confirmed"
                       ? "success"
-                      : session.status === "Pending"
-                      ? "warning"
-                      : "error"
+                        : session.status === "Pending"
                   }
                   size="md"
                   sx={{ margin: ".25rem" }}
