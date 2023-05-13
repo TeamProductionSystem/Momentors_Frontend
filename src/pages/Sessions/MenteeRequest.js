@@ -11,7 +11,6 @@ export default function MenteeSessions({ token, pk, setAuth }) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        console.log(res.data);
         setPendingSessions(
           res.data.filter((session) => session.status === "Pending")
         );
@@ -21,7 +20,6 @@ export default function MenteeSessions({ token, pk, setAuth }) {
       });
   }, [token, pk]);
 
-  console.log(token);
   return (
     <Box className="menteerequest--component">
       {/* Filter and add only pending sessions */}

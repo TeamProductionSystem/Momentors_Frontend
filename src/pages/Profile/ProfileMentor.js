@@ -58,7 +58,6 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setSkills(res.data[0].skills);
         setAboutMe(res.data[0].about_me);
-        console.log(res.data);
       });
   }, [token, pk]);
 

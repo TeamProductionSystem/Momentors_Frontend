@@ -51,7 +51,6 @@ export default function EditProfile({ token, pk, setAuth }) {
         setPhoneNumber(res.data.phone_number);
         setIsMentor(res.data.is_mentor);
         setIsMentee(res.data.is_mentee);
-        console.log(res.data);
 
         if (res.data.is_mentor) {
           axios
@@ -61,7 +60,6 @@ export default function EditProfile({ token, pk, setAuth }) {
             .then((res) => {
               setSkills(res.data[0].skills);
               setAboutMe(res.data[0].about_me);
-              console.log(res.data);
             })
             .catch((e) => {
               console.error(e);
