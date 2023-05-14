@@ -84,14 +84,13 @@ export default function EditProfile({ token, pk, setAuth }) {
   }, [token]);
 
   const handleChange = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setSkills(value);
+    const { value: selectedValue } = event.target;
+    setSkills((prevSkills) => {
+      const isSelected = prevSkills.includes(selectedValue);
+      return isSelected
+        ? prevSkills.filter((skill) => skill !== selectedValue)
+        : [...prevSkills, selectedValue];
+    });
   };
 
   const editProfile = (e) => {
@@ -112,16 +111,6 @@ export default function EditProfile({ token, pk, setAuth }) {
     if (profilePhoto) {
       formData.append("profile_photo", profilePhoto);
     }
-  
-
-    let mentorPatchObject = {
-      skills: skills,
-      about_me: aboutMe,
-    };
-
-    let teamNumberObject = {
-      team_number: teamNumber,
-    };
 
     axios
       .patch(
