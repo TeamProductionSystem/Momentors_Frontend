@@ -23,7 +23,6 @@ export default function Login({ setAuth, setMentor, setMentee }) {
       })
       .then((res) => {
         const token = res.data.auth_token;
-        console.log(res);
         axios
           .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
             headers: { Authorization: `Token ${token}` },
@@ -33,7 +32,6 @@ export default function Login({ setAuth, setMentor, setMentee }) {
             setAuth(userName, token, res.data.pk);
             setMentor(res.data.is_mentor);
             setMentee(res.data.is_mentee);
-            console.log(res.data);
             navigate("/profile");
           })
           .catch((e) => {
