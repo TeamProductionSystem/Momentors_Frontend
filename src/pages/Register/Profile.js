@@ -24,11 +24,11 @@ export default function Profile({
       .patch(
         `${process.env.REACT_APP_BE_URL}/myprofile/`,
         {
-          is_mentor: true,
+          is_mentor: "True",
         },
         {
           headers: {
-            "Content-type": "multipart/form-data; charset=UTF-8",
+            "Content-type": "multipart/form-data",
             Authorization: `Token ${token}`,
           },
         }
@@ -65,11 +65,11 @@ export default function Profile({
       .patch(
         `${process.env.REACT_APP_BE_URL}/myprofile/`,
         {
-          is_mentee: true,
+          is_mentee: "True",
         },
         {
           headers: {
-            "Content-type": "multipart/form-data; charset=UTF-8",
+            "Content-type": "multipart/form-data",
             Authorization: `Token ${token}`,
           },
         }
