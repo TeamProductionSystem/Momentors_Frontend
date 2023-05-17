@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ProfileBasicInfo from "./ProfileBasicInfo";
+import ProfileBasicInfo from "../Profile/ProfileBasicInfo";
 import {
   Avatar,
   Typography,
@@ -16,7 +16,7 @@ import {
 import { Switch } from "@mui/material";
 import FormControl from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import TimeSlot from "./TimeSlot";
+import TimeSlot from "../Profile/TimeSlot"
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
