@@ -90,10 +90,10 @@ export default function SessionSignup({ token }) {
           marginTop={"2rem"}
           sx={{ textDecoration: "underline" }}
         >
-          Mentor Sessions
+          Sessions Signup
         </Typography>
-        <Box>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
+        <Box border="10px solid blue" textAlign={"center"}>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem", border: "2px solid red"}}>
             <InputLabel id="skills">Select A Topic</InputLabel>
             <Select
               labelId="skills"
@@ -138,7 +138,7 @@ export default function SessionSignup({ token }) {
             {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
             <Grid container spacing={2} marginTop={"2rem"}>
               {filteredMentors.map((mentor) => (
-                <Grid item xs={12} sm={6} md={4} key={mentor.id}>
+                <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
                   <MentorCard mentor={mentor} token={token} />
                 </Grid>
               ))}
