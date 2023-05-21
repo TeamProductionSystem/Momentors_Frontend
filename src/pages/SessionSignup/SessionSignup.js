@@ -20,6 +20,34 @@ export default function SessionSignup({ token }) {
   const [filteredMentors, setFilteredMentors] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
+  const [timeBlock, setTimeBlock] = useState(30);
+
+  const handleTimeBlockChange = (event) => {
+    setTimeBlock(event.target.value);
+  };
+
+  const getTimeBlocks = (start, end, blockLength) => {
+    const startTime = start instanceof Date ? start : new Date(start);
+  const endTime = end instanceof Date ? end : new Date(end);
+    const timeBlocks = [];
+
+    while (startTime < endTime) {
+      const blockEnd = new Date(startTime.getTime() + blockLength * 60000);
+
+      if (blockEnd > endTime) {
+        break;
+      }
+
+      timeBlocks.push({
+        start: new Date(startTime),
+        end: blockEnd,
+      });
+
+      startTime.setTime(blockEnd.getTime());
+    }
+
+    return timeBlocks;
+  };
 
   const handleDayChange = (day) => {
     const today = new Date();
@@ -61,21 +89,66 @@ export default function SessionSignup({ token }) {
 
   useEffect(() => {
     if (selectedSkill && selectedDay) {
-      const filteredMentors = mentors.filter((mentor) => {
-        if (mentor.skills && mentor.skills.includes(selectedSkill)) {
-          return mentor.availabilities.some((slot) => {
-            const startTime = new Date(slot.start_time)
-              .toISOString()
-              .slice(0, 10);
-            const endTime = new Date(slot.end_time).toISOString().slice(0, 10);
-            return startTime <= selectedDay && endTime >= selectedDay;
-          });
-        }
-        return false;
-      });
+      const filteredMentors = mentors
+        .map((mentor) => {
+          const copyMentor = { ...mentor };
+          if (copyMentor.availabilities) {
+            copyMentor.availabilities = copyMentor.availabilities.flatMap(
+              (slot) => {
+                const start = new Date(slot.start_time);
+                const end = new Date(slot.end_time);
+                const selected = new Date(selectedDay);
+
+                const startDay = new Date(
+                  start.getFullYear(),
+                  start.getMonth(),
+                  start.getDate()
+                );
+                const endDay = new Date(
+                  end.getFullYear(),
+                  end.getMonth(),
+                  end.getDate()
+                );
+                const selectedDayOnly = new Date(
+                  selected.getFullYear(),
+                  selected.getMonth(),
+                  selected.getDate()
+                );
+
+                // Check if selected day is in the range of the slot's start and end days
+                if (selectedDayOnly >= startDay && selectedDayOnly <= endDay) {
+                  const blockStartTime =
+                    selectedDayOnly > startDay ? selected : start;
+                  const blockEndTime =
+                    selectedDayOnly < endDay
+                      ? new Date(
+                          selected.getFullYear(),
+                          selected.getMonth(),
+                          selected.getDate(),
+                          23,
+                          59,
+                          59
+                        )
+                      : end;
+                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock);
+                }
+
+                return [];
+              }
+            );
+          } else {
+            copyMentor.availabilities = [];
+          }
+          if (copyMentor.availabilities.length > 0) {
+            return copyMentor;
+          }
+
+          return null;
+        })
+        .filter(Boolean);
       setFilteredMentors(filteredMentors);
     }
-  }, [selectedSkill, selectedDay, mentors]);
+  }, [selectedSkill, selectedDay, mentors, timeBlock]);
 
   const handleSkillChange = (event) => {
     setSelectedSkill(event.target.value);
@@ -93,7 +166,7 @@ export default function SessionSignup({ token }) {
           Sessions Signup
         </Typography>
         <Box textAlign={"center"}>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem"}}>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
             <InputLabel id="skills">Select A Topic</InputLabel>
             <Select
               labelId="skills"
@@ -113,7 +186,12 @@ export default function SessionSignup({ token }) {
               Select a Day
             </Typography>
             {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
-            <Stack direction="row" spacing={2} marginTop={"2rem"} justifyContent={"center"}>
+            <Stack
+              direction="row"
+              spacing={2}
+              marginTop={"2rem"}
+              justifyContent={"center"}
+            >
               <Button variant="text" onClick={() => handleDayChange("Today")}>
                 Today
               </Button>
@@ -131,19 +209,43 @@ export default function SessionSignup({ token }) {
               </Button>
             </Stack>
           </Box>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
+            <InputLabel id="time-block">Select Time Block</InputLabel>
+            <Select
+              labelId="time-block"
+              label="Select Time Block"
+              value={timeBlock}
+              onChange={handleTimeBlockChange}
+            >
+              <MenuItem value={30}>30 minutes</MenuItem>
+              <MenuItem value={60}>60 minutes</MenuItem>
+            </Select>
+          </FormControl>
           <Box>
             <Typography variant="h4" marginTop={"2rem"}>
               Select a Mentor
             </Typography>
             {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
-            <Grid container spacing={2} marginTop={"2rem"} justifyContent={"center"}>
-              {filteredMentors.map((mentor) => (
-                <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
-                  <MentorCard mentor={mentor} token={token} />
-                </Grid>
-              ))}
+            <Grid
+              container
+              spacing={2}
+              marginTop={"2rem"}
+              justifyContent={"center"}
+            >
+              {filteredMentors.map((mentor) =>
+                mentor.skills ? (
+                  <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
+                    <MentorCard
+                      mentor={mentor}
+                      token={token}
+                      selectedDay={selectedDay}
+                    />
+                  </Grid>
+                ) : null
+              )}
             </Grid>
           </Box>
+
           {/* <SessionForm /> */}
         </Box>
       </Box>
