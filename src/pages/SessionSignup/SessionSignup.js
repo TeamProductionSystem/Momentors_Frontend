@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
-import SessionForm from "./SessionForm";
+// import SessionForm from "./SessionForm";
 import {
   Box,
   InputLabel,
@@ -17,11 +17,19 @@ import {
 export default function SessionSignup({ token }) {
   const [skills, setSkills] = useState([]);
   const [mentors, setMentors] = useState([]);
+  const [filteredMentors, setFilteredMentors] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
 
-  const handleDayChange = () => {
+  const handleDayChange = (day) => {
     const today = new Date();
+    if (day === "Tomorrow") {
+      today.setDate(today.getDate() + 1);
+    } else if (day === "The Next Day") {
+      today.setDate(today.getDate() + 2);
+    } else if (day === "Today") {
+      // Just leave the date as it is
+    }
 
     const selectedDate = today.toISOString().slice(0, 10);
     setSelectedDay(selectedDate);
@@ -34,42 +42,12 @@ export default function SessionSignup({ token }) {
       })
 
       .then((response) => {
-        console.log(response.data);
-        console.log(token);
-
-        const mentorsWithAvailableSlots = [];
-        response.data.forEach((mentor) => {
-          let availableSlots = [];
-          console.log(mentor);
-          console.log(mentor.availabilities);
-          if (mentor.availabilities.length > 0) {
-            availableSlots = mentor.availabilities;
-
-            mentorsWithAvailableSlots.push({
-              ...mentor,
-              availableSlots,
-            });
-          }
-        });
-
-        setMentors(mentorsWithAvailableSlots);
-        console.log(mentors);
-        console.log(mentorsWithAvailableSlots);
+        setMentors(response.data);
 
         const skillsSet = new Set(); // create a new Set to store unique skills
         response.data.forEach((mentor) => {
-          if (mentor.mentor_profile && mentor.mentor_profile.skills) {
-            const mentorSkills = Array.isArray(mentor.mentor_profile.skills)
-              ? mentor.mentor_profile.skills
-              : [mentor.mentor_profile.skills];
-            mentorSkills.forEach((skill) => {
-              skillsSet.add(skill); // add each skill to the Set
-            });
-          } else if (mentor.skills) {
-            const mentorSkills = Array.isArray(mentor.skills)
-              ? mentor.skills
-              : [mentor.skills];
-            mentorSkills.forEach((skill) => {
+          if (mentor.skills) {
+            mentor.skills.forEach((skill) => {
               skillsSet.add(skill); // add each skill to the Set
             });
           }
@@ -77,28 +55,25 @@ export default function SessionSignup({ token }) {
         setSkills(Array.from(skillsSet)); // convert Set to array and set as state
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error", error);
       });
   }, [token]);
 
   useEffect(() => {
     if (selectedSkill && selectedDay) {
       const filteredMentors = mentors.filter((mentor) => {
-        if (
-          mentor.mentor_profile &&
-          mentor.mentor_profile.skills &&
-          mentor.availableSlots.includes(selectedDay)
-        ) {
-          return mentor.mentor_profile.skills.includes(selectedSkill);
-        } else if (
-          mentor.skills &&
-          mentor.availableSlots.includes(selectedDay)
-        ) {
-          return mentor.skills.includes(selectedSkill);
+        if (mentor.skills && mentor.skills.includes(selectedSkill)) {
+          return mentor.availabilities.some((slot) => {
+            const startTime = new Date(slot.start_time)
+              .toISOString()
+              .slice(0, 10);
+            const endTime = new Date(slot.end_time).toISOString().slice(0, 10);
+            return startTime <= selectedDay && endTime >= selectedDay;
+          });
         }
         return false;
       });
-      setMentors(filteredMentors);
+      setFilteredMentors(filteredMentors);
     }
   }, [selectedSkill, selectedDay, mentors]);
 
@@ -139,10 +114,9 @@ export default function SessionSignup({ token }) {
             </Typography>
             {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
             <Stack direction="row" spacing={2} marginTop={"2rem"}>
-              <Button variant="text" onClick={handleDayChange}>
+              <Button variant="text" onClick={() => handleDayChange("Today")}>
                 Today
               </Button>
-
               <Button
                 variant="text"
                 onClick={() => handleDayChange("Tomorrow")}
@@ -163,14 +137,14 @@ export default function SessionSignup({ token }) {
             </Typography>
             {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
             <Grid container spacing={2} marginTop={"2rem"}>
-              {mentors.map((mentor) => (
+              {filteredMentors.map((mentor) => (
                 <Grid item xs={12} sm={6} md={4} key={mentor.id}>
                   <MentorCard mentor={mentor} token={token} />
                 </Grid>
               ))}
             </Grid>
           </Box>
-          <SessionForm />
+          {/* <SessionForm /> */}
         </Box>
       </Box>
     </Box>
