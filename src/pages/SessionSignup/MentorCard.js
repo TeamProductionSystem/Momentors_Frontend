@@ -2,13 +2,17 @@ import { Grid, Card, CardMedia, CardContent, Typography, ToggleButton, ToggleBut
 import { useState } from "react";
 
 export default function MentorCard({ mentor, selectedDay }) {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(null);
+
+  const handleButtonChange = (event, index) => {
+    setSelected(index)
+  }
 
   return (
     <>
       <Grid container alignItems="center" justifyContent="center">
         <Card
-          sx={{ minWidth: 300, maxWidth: 350, minHeight: 300 }}
+          sx={{ minWidth: 300, maxWidth: 375, minHeight: 300 }}
           elevation={4}
         >
           {mentor.profile_photo ? (
@@ -35,29 +39,36 @@ export default function MentorCard({ mentor, selectedDay }) {
               {mentor.skills ? mentor.skills.join(", ") : "No skills listed"}
             </Typography>
             <Typography>Available Time Slots:</Typography>
+            <ToggleButtonGroup
+            sx={{
+              marginTop: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+              exclusive
+              value={selected}
+              onChange={handleButtonChange}
+              >
         {mentor.availabilities && mentor.availabilities
             .filter(availability => new Date(availability.start).toDateString() === new Date(selectedDay).toDateString())
             .map((availability, index) => (
-              <ToggleButtonGroup
-              sx={{
-                marginTop: '1rem'
-              }}
-                exclusive
-                >
                   <ToggleButton
-                  selected={selected}
-                  onClick={() => {
-                  setSelected(!selected);
-                }}
-                  value={`${new Date(availability.start).toLocaleTimeString()} - ${new Date(availability.end).toLocaleTimeString()}`}>
-                  <Typography key={index} sx={{
+                  key={index}
+                  value={index}
+                sx={{
+                  marginTop: '1rem',
+                  alignSelf: 'center',
+                  width: '90%',
+                  border: 'darkgrey solid',
+                }}>
+                    <Typography sx={{
                     cursor: 'pointer',
                     }}>
                     {new Date(availability.start).toLocaleTimeString()} - {new Date(availability.end).toLocaleTimeString()}
-                </Typography>
-                </ToggleButton>
-                </ToggleButtonGroup>
+                    </Typography>
+                  </ToggleButton> 
             ))}
+            </ToggleButtonGroup>
           </CardContent>
         </Card>
       </Grid>
