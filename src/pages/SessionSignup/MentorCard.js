@@ -1,6 +1,9 @@
-import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { Grid, Card, CardMedia, CardContent, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import { useState } from "react";
 
 export default function MentorCard({ mentor, selectedDay }) {
+  const [selected, setSelected] = useState(false);
+
   return (
     <>
       <Grid container alignItems="center" justifyContent="center">
@@ -35,12 +38,26 @@ export default function MentorCard({ mentor, selectedDay }) {
         {mentor.availabilities && mentor.availabilities
             .filter(availability => new Date(availability.start).toDateString() === new Date(selectedDay).toDateString())
             .map((availability, index) => (
-                <Typography key={index}>
+              <ToggleButtonGroup
+              sx={{
+                marginTop: '1rem'
+              }}
+                exclusive
+                >
+                  <ToggleButton
+                  selected={selected}
+                  onClick={() => {
+                  setSelected(!selected);
+                }}
+                  value={`${new Date(availability.start).toLocaleTimeString()} - ${new Date(availability.end).toLocaleTimeString()}`}>
+                  <Typography key={index} sx={{
+                    cursor: 'pointer',
+                    }}>
                     {new Date(availability.start).toLocaleTimeString()} - {new Date(availability.end).toLocaleTimeString()}
                 </Typography>
+                </ToggleButton>
+                </ToggleButtonGroup>
             ))}
-               
-            
           </CardContent>
         </Card>
       </Grid>

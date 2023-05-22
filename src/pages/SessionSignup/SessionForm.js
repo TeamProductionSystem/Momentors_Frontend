@@ -12,22 +12,22 @@ export default function SessionForm({ token, pk, setAuth }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_BE_URL}/session/`, {
-        headers: { Authorization: `Token ${token}` },
-        project: project,
-        helptext: helptext,
-        gitlink: gitlink,
-      })
-      .then((res) => {
-        console.log(res);
-        navigate("/menteesessions");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [token, project, helptext, gitlink]);
+  // useEffect(() => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_BE_URL}/session/`, {
+  //       headers: { Authorization: `Token ${token}` },
+  //       project: project,
+  //       helptext: helptext,
+  //       gitlink: gitlink,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       navigate("/menteesessions");
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, [token, project, helptext, gitlink]);
 
   return (
     <Box
