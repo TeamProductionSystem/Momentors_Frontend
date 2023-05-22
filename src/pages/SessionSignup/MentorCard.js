@@ -1,68 +1,49 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import ProfileBasicInfo from "../Profile/ProfileBasicInfo";
 import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 
-export default function MentorCard({ token, pk, setAuth }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState("");
-  const [aboutMe, setAboutMe] = useState("");
-  const [skills, setSkills] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
-        headers: { Authorization: `Token ${token}` },
-      })
-      .then((res) => {
-        setFirstName(res.data.first_name);
-        setLastName(res.data.last_name);
-        setPhoneNumber(res.data.phone_number);
-        setProfilePhoto(res.data.profile_photo); // set profilePhoto state
-        console.log(res);
-      });
-
-    axios
-      .get(`${process.env.REACT_APP_BE_URL}/mentorinfo/`, {
-        headers: { Authorization: `Token ${token}` },
-      })
-      .then((res) => {
-        setAboutMe(res.data[0].about_me);
-        setSkills(res.data[0].skills);
-        console.log(res.data);
-      });
-  }, [token, pk]);
-
+export default function MentorCard({ mentor, selectedDay }) {
   return (
-    <div>
+    <>
       <Grid container alignItems="center" justifyContent="center">
-        <Card sx={{ minWidth: 400, maxWidth: 400 }} elevation="4">
-          <CardMedia
-            sx={{
-              height: 400,
-            }}
-            image={profilePhoto}
-            title="Profile Photo"
-          />
+        <Card
+          sx={{ minWidth: 300, maxWidth: 350, minHeight: 300 }}
+          elevation={4}
+        >
+          {mentor.profile_photo ? (
+            <CardMedia
+              sx={{
+                height: 300,
+              }}
+              image={mentor.profile_photo}
+              title="Profile Photo"
+            />
+          ) : (
+            <CardMedia
+              sx={{ height: 300 }}
+              image="path_to_default_image.jpg" // path to your default image
+              title="Profile Photo"
+            />
+          )}
           <CardContent>
-            <Typography gutterBottom>{aboutMe}</Typography>
+            {mentor.first_name} {mentor.last_name}
+            <Typography>Bio: {mentor.about_me}</Typography>
             {/* Pull in bio from database */}
             <Typography>
-              <h4>Skills:</h4>
-              {skills}
+              Skills:{" "}
+              {mentor.skills ? mentor.skills.join(", ") : "No skills listed"}
             </Typography>
+            <Typography>Available Time Slots:</Typography>
+        {mentor.availabilities && mentor.availabilities
+            .filter(availability => new Date(availability.start).toDateString() === new Date(selectedDay).toDateString())
+            .map((availability, index) => (
+                <Typography key={index}>
+                    {new Date(availability.start).toLocaleTimeString()} - {new Date(availability.end).toLocaleTimeString()}
+                </Typography>
+            ))}
+               
+            
           </CardContent>
-          {/* Pull in marked skills from database */}
         </Card>
       </Grid>
-      <ProfileBasicInfo
-        firstName={firstName}
-        lastName={lastName}
-        phoneNumber={phoneNumber}
-      />
-      ;
-    </div>
+    </>
   );
 }
