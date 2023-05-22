@@ -1,5 +1,7 @@
 import { Grid, Card, CardMedia, CardContent, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import { useState } from "react";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 export default function MentorCard({ mentor, selectedDay }) {
   const [selected, setSelected] = useState(null);
@@ -8,8 +10,21 @@ export default function MentorCard({ mentor, selectedDay }) {
     setSelected(index)
   }
 
+  const theme = createTheme({
+    components: {
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: {
+            borderLeft: 'none', 
+          },
+        },
+      },
+    },
+  });
+
   return (
     <>
+    
       <Grid container alignItems="center" justifyContent="center">
         <Card
           sx={{ minWidth: 300, maxWidth: 375, minHeight: 300 }}
@@ -44,6 +59,7 @@ export default function MentorCard({ mentor, selectedDay }) {
               marginTop: '1rem',
               display: 'flex',
               flexDirection: 'column',
+              
             }}
               exclusive
               value={selected}
@@ -52,13 +68,14 @@ export default function MentorCard({ mentor, selectedDay }) {
         {mentor.availabilities && mentor.availabilities
             .filter(availability => new Date(availability.start).toDateString() === new Date(selectedDay).toDateString())
             .map((availability, index) => (
+              <ThemeProvider theme={theme}>
                   <ToggleButton
                   key={index}
                   value={index}
                 sx={{
                   marginTop: '1rem',
                   alignSelf: 'center',
-                  width: '90%',
+                  width: '100%',
                   border: 'darkgrey solid',
                 }}>
                     <Typography sx={{
@@ -67,6 +84,7 @@ export default function MentorCard({ mentor, selectedDay }) {
                     {new Date(availability.start).toLocaleTimeString()} - {new Date(availability.end).toLocaleTimeString()}
                     </Typography>
                   </ToggleButton> 
+                    </ThemeProvider>
             ))}
             </ToggleButtonGroup>
           </CardContent>
