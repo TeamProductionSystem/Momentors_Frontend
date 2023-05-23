@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
 // import SessionForm from "./SessionForm";
+
 import {
   Box,
   InputLabel,
@@ -154,6 +155,10 @@ export default function SessionSignup({ token }) {
     setSelectedSkill(event.target.value);
   };
 
+
+    function handleSubmitSession(){
+      
+    }
   return (
     <Box className="SessionRequest">
       <Box className="SessionRequest-Header">
@@ -166,7 +171,7 @@ export default function SessionSignup({ token }) {
           Sessions Signup
         </Typography>
         <Box textAlign={"center"}>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem"}}>
             <InputLabel id="skills">Select A Topic</InputLabel>
             <Select
               labelId="skills"
