@@ -1,11 +1,33 @@
-import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { Grid, Card, CardMedia, CardContent, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import { useState } from "react";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 export default function MentorCard({ mentor, selectedDay }) {
+  const [selected, setSelected] = useState(null);
+
+  const handleButtonChange = (event, index) => {
+    setSelected(index)
+  }
+
+  const theme = createTheme({
+    components: {
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: {
+            borderLeft: 'none', 
+          },
+        },
+      },
+    },
+  });
+
   return (
     <>
+    
       <Grid container alignItems="center" justifyContent="center">
         <Card
-          sx={{ minWidth: 300, maxWidth: 350, minHeight: 300 }}
+          sx={{ minWidth: 300, maxWidth: 375, minHeight: 300 }}
           elevation={4}
         >
           {mentor.profile_photo ? (
@@ -32,15 +54,39 @@ export default function MentorCard({ mentor, selectedDay }) {
               {mentor.skills ? mentor.skills.join(", ") : "No skills listed"}
             </Typography>
             <Typography>Available Time Slots:</Typography>
+            <ToggleButtonGroup
+            sx={{
+              marginTop: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              
+            }}
+              exclusive
+              value={selected}
+              onChange={handleButtonChange}
+              >
         {mentor.availabilities && mentor.availabilities
             .filter(availability => new Date(availability.start).toDateString() === new Date(selectedDay).toDateString())
             .map((availability, index) => (
-                <Typography key={index}>
+              <ThemeProvider theme={theme}>
+                  <ToggleButton
+                  key={index}
+                  value={index}
+                sx={{
+                  marginTop: '1rem',
+                  alignSelf: 'center',
+                  width: '100%',
+                  border: 'darkgrey solid',
+                }}>
+                    <Typography sx={{
+                    cursor: 'pointer',
+                    }}>
                     {new Date(availability.start).toLocaleTimeString()} - {new Date(availability.end).toLocaleTimeString()}
-                </Typography>
+                    </Typography>
+                  </ToggleButton> 
+                    </ThemeProvider>
             ))}
-               
-            
+            </ToggleButtonGroup>
           </CardContent>
         </Card>
       </Grid>
