@@ -26,11 +26,9 @@ export default function MentorCard({ mentor, selectedDay, onSlotSelect }) {
   const [selected, setSelected] = useState(null);
 
   const handleButtonChange = (event, newSelectedAvailability) => {
-    console.log(newSelectedAvailability);
     setSelected(newSelectedAvailability);
     if (newSelectedAvailability) {
-      onSlotSelect(newSelectedAvailability.pk, new Date(newSelectedAvailability.start));
-
+      onSlotSelect(newSelectedAvailability.availabilityPk, newSelectedAvailability.start, newSelectedAvailability.end)
     }
 
   };
@@ -78,11 +76,11 @@ export default function MentorCard({ mentor, selectedDay, onSlotSelect }) {
             >
               {mentor.availabilities &&
                 mentor.availabilities
-                  .filter(
-                    (availability) =>
+                  .filter(availability => (
                       new Date(availability.start).toDateString() ===
                       new Date(selectedDay).toDateString()
-                  )
+                    )
+                  ) 
                   .map((availability) => (
                     <ToggleButton
                       key={availability.pk}
