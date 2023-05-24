@@ -22,8 +22,6 @@ export default function SessionSignup({ token }) {
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [timeBlock, setTimeBlock] = useState(30);
-  const [selectedMentorAvailability, setSelectedMentorAvailability] =
-    useState(null);
   const [selectedAvailabilityPk, setSelectedAvailabilityPk] = useState(null);
   const [selectedStartTime, setSelectedStartTime] = useState(null);
 
@@ -31,8 +29,9 @@ export default function SessionSignup({ token }) {
     setTimeBlock(event.target.value);
   };
 
-  const handleSlotSelect = (pk, start) => {
-    setSelectedAvailabilityPk(pk);
+  const handleSlotSelect = (availPk, start, end) => {
+    console.log({ availPk, start, end })
+    setSelectedAvailabilityPk(availPk);
     setSelectedStartTime(start);
   };
 
@@ -40,7 +39,7 @@ export default function SessionSignup({ token }) {
     console.log("selectedStartTime updated", selectedStartTime);
   }, [selectedStartTime]);
 
-  const getTimeBlocks = (start, end, blockLength) => {
+  const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
     const endTime = end instanceof Date ? end : new Date(end);
     const timeBlocks = [];
@@ -53,6 +52,7 @@ export default function SessionSignup({ token }) {
       }
 
       timeBlocks.push({
+        availabilityPk: slotPk,
         start: new Date(startTime),
         end: blockEnd,
       });
@@ -144,7 +144,7 @@ export default function SessionSignup({ token }) {
                           59
                         )
                       : end;
-                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock);
+                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock, slot.pk);
                 }
 
                 return [];
@@ -169,7 +169,7 @@ export default function SessionSignup({ token }) {
   };
 
   function handleSubmitSession() {
-    if (!selectedMentorAvailability) {
+    if (!selectedAvailabilityPk) {
       alert("Please select a mentor");
       return;
     }
@@ -179,13 +179,13 @@ export default function SessionSignup({ token }) {
     }
 
     const startTime = new Date(selectedStartTime.toISOString());
-
     axios
       .post(
         `${process.env.REACT_APP_BE_URL}/sessionrequest/`,
         {
-          mentor_availability: selectedMentorAvailability,
+          mentor_availability: selectedAvailabilityPk,
           start_time: startTime,
+          session_length: timeBlock,
         },
         {
           headers: { Authorization: `Token ${token}` },
