@@ -22,14 +22,26 @@ export default function SessionSignup({ token }) {
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [timeBlock, setTimeBlock] = useState(30);
+  const [selectedAvailabilityPk, setSelectedAvailabilityPk] = useState(null);
+  const [selectedStartTime, setSelectedStartTime] = useState(null);
 
   const handleTimeBlockChange = (event) => {
     setTimeBlock(event.target.value);
   };
 
-  const getTimeBlocks = (start, end, blockLength) => {
+  const handleSlotSelect = (availPk, start, end) => {
+    console.log({ availPk, start, end })
+    setSelectedAvailabilityPk(availPk);
+    setSelectedStartTime(start);
+  };
+
+  useEffect(() => {
+    console.log("selectedStartTime updated", selectedStartTime);
+  }, [selectedStartTime]);
+
+  const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
-  const endTime = end instanceof Date ? end : new Date(end);
+    const endTime = end instanceof Date ? end : new Date(end);
     const timeBlocks = [];
 
     while (startTime < endTime) {
@@ -40,6 +52,7 @@ export default function SessionSignup({ token }) {
       }
 
       timeBlocks.push({
+        availabilityPk: slotPk,
         start: new Date(startTime),
         end: blockEnd,
       });
@@ -131,7 +144,7 @@ export default function SessionSignup({ token }) {
                           59
                         )
                       : end;
-                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock);
+                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock, slot.pk);
                 }
 
                 return [];
@@ -155,10 +168,38 @@ export default function SessionSignup({ token }) {
     setSelectedSkill(event.target.value);
   };
 
-
-    function handleSubmitSession(){
-      
+  function handleSubmitSession() {
+    if (!selectedAvailabilityPk) {
+      alert("Please select a mentor");
+      return;
     }
+    if (!selectedStartTime) {
+      alert("Please select a start time");
+      return;
+    }
+
+    const startTime = new Date(selectedStartTime.toISOString());
+    axios
+      .post(
+        `${process.env.REACT_APP_BE_URL}/sessionrequest/`,
+        {
+          mentor_availability: selectedAvailabilityPk,
+          start_time: startTime,
+          session_length: timeBlock,
+        },
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        console.log(token);
+        console.log("Session created successfully");
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
+  }
   return (
     <Box className="SessionRequest">
       <Box className="SessionRequest-Header">
@@ -171,7 +212,7 @@ export default function SessionSignup({ token }) {
           Sessions Signup
         </Typography>
         <Box textAlign={"center"}>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem"}}>
+          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
             <InputLabel id="skills">Select A Topic</InputLabel>
             <Select
               labelId="skills"
@@ -244,12 +285,20 @@ export default function SessionSignup({ token }) {
                       mentor={mentor}
                       token={token}
                       selectedDay={selectedDay}
+                      onSlotSelect={handleSlotSelect}
                     />
                   </Grid>
                 ) : null
               )}
             </Grid>
           </Box>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmitSession}
+          >
+            Submit Session
+          </Button>
 
           {/* <SessionForm /> */}
         </Box>
