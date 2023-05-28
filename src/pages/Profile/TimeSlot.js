@@ -1,11 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
-import { Box, Stack, Typography, Button, TextField } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  Button,
+  TextField,
+  Snackbar,
+} from "@mui/material";
+import Alert from "@mui/material/Alert";
 
 export default function TimeSlot({ token, pk, setAuth }) {
-  console.log(token);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -17,24 +25,35 @@ export default function TimeSlot({ token, pk, setAuth }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(
-      `https://team-production-system.onrender.com/availability/`,
+    axios
+      .post(
+        `https://team-production-system.onrender.com/availability/`,
 
-      {
-        start_time: startTime,
-        end_time: endTime,
-      },
-      {
-        headers: { Authorization: `Token ${token}` },
-      }
-    )
+        {
+          start_time: startTime,
+          end_time: endTime,
+        },
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
+      )
       .then((response) => {
-        console.log(response.data);
-        console.log(token);
+     
+    
+        setOpenSnackbar(true);
+        setStartTime("");
+        setEndTime("");
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
@@ -70,6 +89,19 @@ export default function TimeSlot({ token, pk, setAuth }) {
             </Button>
           </Stack>
         </form>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Availability Posted!
+          </Alert>
+        </Snackbar>
       </Stack>
     </Box>
   );
