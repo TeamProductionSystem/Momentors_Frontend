@@ -38,8 +38,6 @@ export default function TimeSlot({ token, pk, setAuth }) {
         }
       )
       .then((response) => {
-     
-    
         setOpenSnackbar(true);
         setStartTime("");
         setEndTime("");

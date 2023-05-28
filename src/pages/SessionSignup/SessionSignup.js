@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
+import Alert from "@mui/material/Alert";
 // import SessionForm from "./SessionForm";
 
 import {
@@ -13,6 +15,7 @@ import {
   Typography,
   Stack,
   Button,
+  Snackbar,
 } from "@mui/material";
 
 export default function SessionSignup({ token }) {
@@ -24,13 +27,15 @@ export default function SessionSignup({ token }) {
   const [timeBlock, setTimeBlock] = useState(30);
   const [selectedAvailabilityPk, setSelectedAvailabilityPk] = useState(null);
   const [selectedStartTime, setSelectedStartTime] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
+  
 
   const handleTimeBlockChange = (event) => {
     setTimeBlock(event.target.value);
   };
 
   const handleSlotSelect = (availPk, start, end) => {
-    console.log({ availPk, start, end })
     setSelectedAvailabilityPk(availPk);
     setSelectedStartTime(start);
   };
@@ -144,7 +149,12 @@ export default function SessionSignup({ token }) {
                           59
                         )
                       : end;
-                  return getTimeBlocks(blockStartTime, blockEndTime, timeBlock, slot.pk);
+                  return getTimeBlocks(
+                    blockStartTime,
+                    blockEndTime,
+                    timeBlock,
+                    slot.pk
+                  );
                 }
 
                 return [];
@@ -192,14 +202,22 @@ export default function SessionSignup({ token }) {
         }
       )
       .then((response) => {
-        console.log(response.data);
-        console.log(token);
         console.log("Session created successfully");
+        navigate("/menteesessions");
+        setOpenSnackbar(true);
       })
       .catch((error) => {
         console.log("error:", error);
       });
   }
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
   return (
     <Box className="SessionRequest">
       <Box className="SessionRequest-Header">
@@ -302,6 +320,19 @@ export default function SessionSignup({ token }) {
 
           {/* <SessionForm /> */}
         </Box>
+         <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Session Requested!
+          </Alert>
+        </Snackbar>
       </Box>
     </Box>
   );
