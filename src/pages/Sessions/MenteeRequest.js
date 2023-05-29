@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Chip } from "@mui/material";
+import { Box, Grid, Typography, Chip, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -19,6 +19,31 @@ export default function MenteeSessions({ token, pk, setAuth }) {
         console.log("error", err);
       });
   }, [token, pk]);
+
+  const handleCancel = (sessionPK) => {
+    axios
+      .patch(
+        `${process.env.REACT_APP_BE_URL}/sessionrequest/${sessionPK}/`,
+        { status: "Canceled" },
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
+      )
+      .then((res) => {
+        // Upon successful cancellation, update the state
+        console.log("Session Canceled", res);
+        setPendingSessions((prevSessions) =>
+          prevSessions.map((session) =>
+            session.pk === sessionPK
+              ? { ...session, status: "Canceled" }
+              : session
+          )
+        );
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
 
   return (
     <Box className="menteerequest--component">
@@ -100,6 +125,18 @@ export default function MenteeSessions({ token, pk, setAuth }) {
                   size="md"
                   sx={{ margin: ".25rem" }}
                 ></Chip>
+                {/* Hide the Cancel button if the session is canceled */}
+                {session.status === "Pending" ? (
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="md"
+                  sx={{ margin: ".25rem" }}
+                  onClick={() => handleCancel(session.pk)}
+                >
+                  Cancel
+                </Button>
+                ) : null}
               </Grid>
             </Grid>
           );
