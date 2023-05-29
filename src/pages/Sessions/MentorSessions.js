@@ -1,6 +1,22 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import MentorScheduledSessions from "./MentorScheduled";
+import MentorRequestedSessions from "./MentorRequest";
+import MentorCancledSessions from "./MentorCanceled";
+import { useEffect } from "react";
+import axios from "axios";
 
-export default function MentorSessions(token, pk, setAuth) {
+export default function MentorSessions({token, pk, setAuth}) {
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BE_URL}/session/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
+
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }, [token, pk]);
+
   return (
     <Box className="mentorsessions--page">
       <Typography
@@ -15,141 +31,12 @@ export default function MentorSessions(token, pk, setAuth) {
       >
         Mentor Session
       </Typography>
-
-      <Typography
-        variant="h2"
-        component="div"
-        sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
-      >
-        Request:
-      </Typography>
-      <Box margin={"1rem"}>
-        <hr style={{ color: "black" }} />
-      </Box>
-      <Box>
-        <Grid
-          container
-          sx={{
-            flexGrow: 1,
-            marginLeft: "1rem",
-            fontSize: "25px",
-            textAlign: "center",
-          }}
-        >
-          <Grid item xs={3}>
-            <Box>Name:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Date:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Time:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Confirm?</Box>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          sx={{
-            flexGrow: 1,
-            marginLeft: "1rem",
-            marginTop: "1.75rem",
-            fontSize: "25px",
-            textAlign: "center",
-          }}
-        >
-          <Grid item xs={3}>
-            <Box>Bob</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>3/7/2020</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>11:00am</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="outlined"
-              color="success"
-              size="md"
-              sx={{ margin: ".25rem" }}
-            >
-              Yes
-            </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              size="md"
-              sx={{ margin: ".25rem" }}
-            >
-              No
-            </Button>
-          </Grid>
-        </Grid>
-        <Typography
-          variant="h2"
-          component="div"
-          sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
-        >
-          Scheduled:
-        </Typography>
-        <Box margin={"1rem"}>
-          <hr style={{ color: "black" }} />
-        </Box>
-        <Grid
-          container
-          sx={{
-            flexGrow: 1,
-            marginLeft: "1rem",
-            fontSize: "25px",
-            textAlign: "center",
-          }}
-        >
-          <Grid item xs={3}>
-            <Box>Name:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Date:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Time:</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>Cancele? </Box>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          sx={{
-            flexGrow: 1,
-            marginLeft: "1rem",
-            marginTop: "1.75rem",
-            fontSize: "25px",
-            textAlign: "center",
-          }}
-        >
-          <Grid item xs={3}>
-            <Box>Bob</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>3/7/2020</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box>11:00am</Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="outlined"
-              color="error"
-              size="md"
-              sx={{ margin: ".25rem" }}
-            >
-              Cancel
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+      {/* Filter and add only pending sessions */}
+      <MentorRequestedSessions token={token} pk={pk} setAuth={setAuth} />
+      {/* Filter and add only confirmed sessions */}
+      <MentorScheduledSessions token={token} pk={pk} setAuth={setAuth} />
+      {/* Filter and add only canceled sessions */}
+      <MentorCancledSessions token={token} pk={pk} setAuth={setAuth} />
     </Box>
   );
 }
