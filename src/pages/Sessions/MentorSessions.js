@@ -145,7 +145,7 @@ export default function MentorSessions(token, pk, setAuth) {
               size="md"
               sx={{ margin: ".25rem" }}
             >
-              Cancele
+              Cancel
             </Button>
           </Grid>
         </Grid>
