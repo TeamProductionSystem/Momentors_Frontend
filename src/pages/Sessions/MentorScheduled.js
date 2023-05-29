@@ -2,7 +2,7 @@ import { Box, Grid, Typography, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function MenteeSessions({ token, pk, setAuth }) {
+export default function MentorScheduledSessions({ token, pk, setAuth }) {
   const [confrimedsessions, setConfirmedSessions] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
   }, [token, pk]);
 
   return (
-    <Box className="menteescheduled--page">
+    <Box className="mentorscheduled--page">
       {/* Filter and add only confirmed sessions */}
       <Typography
         variant="h2"
@@ -72,7 +72,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
               <Grid item xs={3}>
                 {
                   <Box>
-                    {session.mentor_first_name} {session.mentor_last_name}
+                    {session.mentee_first_name} {session.mentee_last_name}
                   </Box>
                 }
               </Grid>
