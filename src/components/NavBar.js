@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,9 +9,12 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 
-const NavBar = ({ handleLogout, isLoggedIn }) => {
+
+const NavBar = ({ handleLogout, isLoggedIn, token }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [user, setUser] = useState({});
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,6 +22,30 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if(isLoggedIn){
+      axios
+      .get(
+        `${process.env.REACT_APP_BE_URL}/myprofile/`,
+        {
+          headers:{
+            authorization: `token ${token}`
+          }, 
+      
+        }
+      )
+      .then((response) => {
+        setUser(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+
+  },[isLoggedIn, token])
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -48,6 +75,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             <MenuItem onClick={handleClose} component={Link} to="/profile">
               Profile
             </MenuItem>
+            {user.is_mentor && (
             <MenuItem
               onClick={handleClose}
               component={Link}
@@ -55,6 +83,8 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             >
               Mentor Sessions
             </MenuItem>
+            )}
+            {user.is_mentee && (
             <MenuItem
               onClick={handleClose}
               component={Link}
@@ -62,6 +92,7 @@ const NavBar = ({ handleLogout, isLoggedIn }) => {
             >
               Mentee Sessions
             </MenuItem>
+            )}
             <MenuItem
               onClick={handleClose}
               component={Link}
