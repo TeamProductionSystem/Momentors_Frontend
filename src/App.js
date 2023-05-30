@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div>
-      <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      <NavBar isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route
