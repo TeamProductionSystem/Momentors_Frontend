@@ -98,8 +98,9 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           </Typography>
           <Box>
             <List>
-              {skills.map((skill) => (
+              {skills.map((skill, index) => (
                 <ListItem
+                  key={index}
                   sx={{
                     fontSize: "20px",
                     justifyContent: "center",
