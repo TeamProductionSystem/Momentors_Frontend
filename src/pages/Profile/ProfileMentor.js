@@ -7,16 +7,12 @@ import {
   Box,
   Stack,
   Grid,
-  InputLabel,
-  Select,
-  MenuItem,
   List,
   ListItem,
 } from "@mui/material";
 import { Switch } from "@mui/material";
-import FormControl from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import TimeSlot from "../Profile/TimeSlot"
+import TimeSlot from "../Profile/TimeSlot";
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -63,7 +59,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
   return (
     <Box className="mentorprofile--page" margin="1rem">
-      <Stack container spacing={1} direction="row">
+      <Stack spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
           <ProfileBasicInfo
