@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,12 +10,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
-
-const NavBar = ({ handleLogout, isLoggedIn, token }) => {
+const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({});
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -24,27 +25,21 @@ const NavBar = ({ handleLogout, isLoggedIn, token }) => {
   };
 
   useEffect(() => {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       axios
-      .get(
-        `${process.env.REACT_APP_BE_URL}/myprofile/`,
-        {
-          headers:{
-            authorization: `token ${token}`
-          }, 
-      
-        }
-      )
-      .then((response) => {
-        setUser(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
+          headers: {
+            authorization: `token ${token}`,
+          },
+        })
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-
-  },[isLoggedIn, token])
-
+  }, [isLoggedIn, token]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -76,22 +71,22 @@ const NavBar = ({ handleLogout, isLoggedIn, token }) => {
               Profile
             </MenuItem>
             {user.is_mentor && (
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to="/mentorsessions"
-            >
-              Mentor Sessions
-            </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/mentorsessions"
+              >
+                Mentor Sessions
+              </MenuItem>
             )}
             {user.is_mentee && (
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to="/menteesessions"
-            >
-              Mentee Sessions
-            </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/menteesessions"
+              >
+                Mentee Sessions
+              </MenuItem>
             )}
             <MenuItem
               onClick={handleClose}
@@ -131,7 +126,35 @@ const NavBar = ({ handleLogout, isLoggedIn, token }) => {
               </div>
             ) : (
               <Link to="/" onClick={handleLogout}>
-                <Button type="submit">Log out</Button>
+                {loading ? (
+                  <Button
+                    id="loading--button"
+                    style={
+                      loading
+                        ? { backgroundColor: "black", color: "yellow" }
+                        : {}
+                    }
+                  >
+                    <PacmanLoader size={12} color="yellow"/>
+                    {!loading && "Loading..."}
+                  </Button>
+                ) : (
+                  <Button
+                    id="logout--button"
+                    onClick={handleLogout}
+                    style={
+                      loading
+                        ? {
+                            backgroundColor: "black",
+                            color: "yellow",
+                            width: "20px",
+                          }
+                        : {}
+                    }
+                  >
+                    Logout
+                  </Button>
+                )}
               </Link>
             )}
           </div>
