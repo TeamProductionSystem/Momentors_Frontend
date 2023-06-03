@@ -22,6 +22,7 @@ function App() {
   const [pk, setPk] = useLocalStorageState("pk", "");
   const [mentor, setMentor] = useState(false);
   const [mentee, setMentee] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const setAuth = (userName, token, pk) => {
     setUserName(userName);
@@ -30,6 +31,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    setLoading(true);
     axios
       .post(
         "https://team-production-system.onrender.com/auth/token/logout/",
@@ -39,12 +41,14 @@ function App() {
         }
       )
       .then((res) => {
+        setLoading(false);
         setAuth("", null);
         setMentor(false);
         setMentee(false);
       })
       .catch((error) => {
         if (error.response.status === 401) {
+          setLoading(false);
           setAuth("", null);
           setMentor(false);
           setMentee(false);
@@ -56,7 +60,7 @@ function App() {
 
   return (
     <div>
-      <NavBar isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} />
+      <NavBar isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} loading={loading} />
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route
