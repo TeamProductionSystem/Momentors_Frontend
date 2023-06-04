@@ -36,10 +36,11 @@ const Register = ({ setAuth }) => {
 
           .then((res) => {
             setLoading(false);
-            console.log(res.data.auth_token);
             setToken(res.data.auth_token);
             setIsRegistered(true);
             setAuth(userName, res.data.auth_token);
+            sessionStorage.setItem("is_mentor", false);
+            sessionStorage.setItem("is_mentee", false);
             navigate("/profile");
           })
           .catch((e) => {
