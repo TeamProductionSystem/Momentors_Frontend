@@ -30,8 +30,8 @@ export default function Login({ setAuth, setMentor, setMentee }) {
           .then((res) => {
             setLoading(false);
             sessionStorage.setItem("authToken", token);
-            sessionStorage.setItem("isMentor", res.data.is_mentor);
-            sessionStorage.setItem("isMentee", res.data.is_mentee);
+            sessionStorage.setItem("is_mentor", res.data.is_mentor);
+            sessionStorage.setItem("is_mentee", res.data.is_mentee);
             setAuth(userName, token, res.data.pk);
             setMentor(res.data.is_mentor);
             setMentee(res.data.is_mentee);
