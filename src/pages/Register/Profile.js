@@ -51,6 +51,7 @@ export default function Profile({
       })
 
       .then((res) => {
+        sessionStorage.setItem("is_mentor", true);
         setMentor(true);
       })
       .catch((e) => {
@@ -91,6 +92,7 @@ export default function Profile({
       })
 
       .then((res) => {
+        sessionStorage.setItem("is_mentee", true);
         setMentee(true);
       })
       .catch((e) => {
