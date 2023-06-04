@@ -78,17 +78,28 @@ export default function Login({ setAuth, setMentor, setMentee }) {
 
           <Stack item="true" className="button--login">
             {loading ? (
-              <Button
-                id="loading--button"
-                spinner={<PacmanLoader size={20} color="yellow" />}
-              >
-                loading...
-              </Button>
+          <Button 
+          id="loading--button"
+          style={{ 
+            backgroundColor: loading ? 'black' : '', 
+            color: 'yellow', 
+            height: '40px',
+            width: '100px',
+          }}
+        >
+          <PacmanLoader size={20} color="yellow" />
+          {!loading && "Loading..."}
+        </Button>
             ) : (
-              <Button type="submit" form="login-form" variant="outlined">
-                Log in
+              <Button
+                id="login--button"
+                type="submit"
+                style={loading ? { backgroundColor: 'black', color: 'yellow' } : {}}
+              >
+                Login
               </Button>
             )}
+            
           </Stack>
         </Stack>
       </form>
