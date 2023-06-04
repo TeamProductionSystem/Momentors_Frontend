@@ -9,17 +9,18 @@ export default function Profile({
   token,
   pk,
   setAuth,
-  mentor,
-  setMentor,
-  mentee,
-  setMentee,
 }) {
   const [error, setError] = useState("");
   const [userPk, setUserPk] = useState(pk);
+  // Get user type from localStorage when component mounts
+  const [mentor, setMentor] = useState(JSON.parse(sessionStorage.getItem("isMentor")));
+  const [mentee, setMentee] = useState(JSON.parse(sessionStorage.getItem("isMentee")));
 
   const updateMentor = (event) => {
     event.preventDefault();
     setError("");
+    // Update the state immediately
+    setMentor(true);
     axios
       .patch(
         `${process.env.REACT_APP_BE_URL}/myprofile/`,
@@ -51,16 +52,21 @@ export default function Profile({
       })
 
       .then((res) => {
+        sessionStorage.setItem("isMentor", true);
         setMentor(true);
       })
       .catch((e) => {
         setError(e.message);
+        // If there's an error, reset the state.
+        setMentor(false);
       });
   };
 
   const updateMentee = (event) => {
     event.preventDefault();
     setError("");
+    // Update the state immediately
+    setMentee(true);
     axios
       .patch(
         `${process.env.REACT_APP_BE_URL}/myprofile/`,
@@ -91,9 +97,12 @@ export default function Profile({
       })
 
       .then((res) => {
+        sessionStorage.setItem("isMentee", true);
         setMentee(true);
       })
       .catch((e) => {
+        // If there's an error, reset the state.
+        setMentee(false);
         setError(e.message);
       });
   };

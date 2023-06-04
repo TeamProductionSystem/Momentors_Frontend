@@ -29,6 +29,9 @@ export default function Login({ setAuth, setMentor, setMentee }) {
           })
           .then((res) => {
             setLoading(false);
+            sessionStorage.setItem("authToken", token);
+            sessionStorage.setItem("isMentor", res.data.is_mentor);
+            sessionStorage.setItem("isMentee", res.data.is_mentee);
             setAuth(userName, token, res.data.pk);
             setMentor(res.data.is_mentor);
             setMentee(res.data.is_mentee);
@@ -78,28 +81,29 @@ export default function Login({ setAuth, setMentor, setMentee }) {
 
           <Stack item="true" className="button--login">
             {loading ? (
-          <Button 
-          id="loading--button"
-          style={{ 
-            backgroundColor: loading ? 'black' : '', 
-            color: 'yellow', 
-            height: '40px',
-            width: '100px',
-          }}
-        >
-          <PacmanLoader size={20} color="yellow" />
-          {!loading && "Loading..."}
-        </Button>
+              <Button
+                id="loading--button"
+                style={{
+                  backgroundColor: loading ? "black" : "",
+                  color: "yellow",
+                  height: "40px",
+                  width: "100px",
+                }}
+              >
+                <PacmanLoader size={20} color="yellow" />
+                {!loading && "Loading..."}
+              </Button>
             ) : (
               <Button
                 id="login--button"
                 type="submit"
-                style={loading ? { backgroundColor: 'black', color: 'yellow' } : {}}
+                style={
+                  loading ? { backgroundColor: "black", color: "yellow" } : {}
+                }
               >
                 Login
               </Button>
             )}
-            
           </Stack>
         </Stack>
       </form>
