@@ -20,8 +20,10 @@ function App() {
 
   const [userName, setUserName] = useLocalStorageState("momentorsUserName", "");
   const [pk, setPk] = useLocalStorageState("pk", "");
-  const [mentor, setMentor] = useState(false);
-  const [mentee, setMentee] = useState(false);
+  // const [mentor, setMentor] = useState(false);
+  // const [mentee, setMentee] = useState(false);
+  const [mentor, setMentor] = useState(JSON.parse(sessionStorage.getItem("is_mentor")));
+  const [mentee, setMentee] = useState(JSON.parse(sessionStorage.getItem("is_mentee")));
   const [loading, setLoading] = useState(false);
 
   const setAuth = (userName, token, pk) => {
