@@ -111,12 +111,23 @@ const Register = ({ setAuth }) => {
             {loading ? (
               <Button
                 id="loading--button"
-                spinner={<PacmanLoader size={20} color="yellow" />}
+                style={{
+                  backgroundColor: loading ? "black" : "",
+                  color: "yellow",
+                  height: "40px",
+                  width: "100px",
+                }}
               >
-                loading...
+                <PacmanLoader size={20} color="yellow" />
+                {!loading && "Loading..."}
               </Button>
             ) : (
-              <Button type="submit" form="registration-form">
+              <Button
+                id="register--button"
+                type="submit"
+                form="registration-form"
+                style={loading ? { backgroundColor: 'black', color: 'yellow' } : {}}
+              >
                 Register
               </Button>
             )}
