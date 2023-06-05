@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Chip, Button } from "@mui/material";
+import { Box, Grid, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -6,7 +6,6 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
   const [pendingsessions, setPendingSessions] = useState([]);
 
   useEffect(() => {
-    console.log(`Token is: ${token}`);
     axios
       .get(`${process.env.REACT_APP_BE_URL}/session/`, {
         headers: { Authorization: `Token ${token}` },
@@ -33,7 +32,6 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
       .then((res) => {
         // Upon successful cancellation, update the state
         console.log("Session Canceled", res);
-        console.log(token);
         setPendingSessions((prevSessions) =>
           prevSessions.map((session) =>
             session.pk === sessionPK
@@ -58,7 +56,6 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
         }
       )
       .then((res) => {
-        console.log("Session Confirmed", res);
         setPendingSessions((prevSessions) =>
           prevSessions.map((session) =>
             session.pk === sessionPK
@@ -177,15 +174,15 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
                   >
                     Cancel
                   </Button>
-               ) : session.status === "Canceled" ? (
-                <Typography
-                  variant="button"
-                  display="block"
-                  sx={{ color: "error.main" }}
-                >
-                  Canceled 
-                </Typography>
-              ) : null}
+                ) : session.status === "Canceled" ? (
+                  <Typography
+                    variant="button"
+                    display="block"
+                    sx={{ color: "error.main" }}
+                  >
+                    Canceled
+                  </Typography>
+                ) : null}
               </Grid>
             </Grid>
           );

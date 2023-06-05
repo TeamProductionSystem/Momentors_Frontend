@@ -29,7 +29,6 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleTimeBlockChange = (event) => {
     setTimeBlock(event.target.value);
@@ -40,9 +39,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => {
-    console.log("selectedStartTime updated", selectedStartTime);
-  }, [selectedStartTime]);
+  useEffect(() => {}, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -70,16 +67,16 @@ export default function SessionSignup({ token }) {
 
   const handleDayChange = (day) => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // set time to 00:00:00
     if (day === "Tomorrow") {
       today.setDate(today.getDate() + 1);
     } else if (day === "The Next Day") {
       today.setDate(today.getDate() + 2);
     } else if (day === "Today") {
-      // Just leave the date as it is
+      // no need to change the date, it's already today
     }
 
-    const selectedDate = today.toISOString().slice(0, 10);
-    setSelectedDay(selectedDate);
+    setSelectedDay(today);
   };
 
   useEffect(() => {
@@ -93,13 +90,20 @@ export default function SessionSignup({ token }) {
 
         const skillsSet = new Set(); // create a new Set to store unique skills
         response.data.forEach((mentor) => {
-          if (mentor.skills) {
+          // Check if the mentor is available
+          if (
+            mentor.availabilities &&
+            mentor.availabilities.length > 0 &&
+            mentor.skills
+          ) {
+            // If mentor is available, add their skills to the set
             mentor.skills.forEach((skill) => {
               skillsSet.add(skill); // add each skill to the Set
             });
           }
         });
-        setSkills(Array.from(skillsSet)); // convert Set to array and set as state
+        // convert Set to array and set as state
+        setSkills(Array.from(skillsSet));
       })
       .catch((error) => {
         console.log("error", error);
@@ -320,7 +324,7 @@ export default function SessionSignup({ token }) {
 
           {/* <SessionForm /> */}
         </Box>
-         <Snackbar
+        <Snackbar
           open={openSnackbar}
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
