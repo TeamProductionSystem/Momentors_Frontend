@@ -31,7 +31,6 @@ export default function MenteeSessions({ token, pk, setAuth }) {
       )
       .then((res) => {
         // Upon successful cancellation, update the state
-        console.log("Session Canceled", res);
         setPendingSessions((prevSessions) =>
           prevSessions.map((session) =>
             session.pk === sessionPK
