@@ -28,13 +28,7 @@ export default function EditProfile({ token, pk, setAuth }) {
     : `+1${phoneNumber}`;
 
   const skillsChoices = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Python",
-    "Django",
-    "Django REST",
+    'AWS S3','Bootstrap', 'CSS', 'Django', 'Git', 'GitHub', 'HTML', 'Insomnia', 'JavaScript', 'MUI', 'Other', 'PostgreSQL', 'Postico', 'Python', 'React', 'SQL', 'Time Management'
   ];
 
   useEffect(() => {
