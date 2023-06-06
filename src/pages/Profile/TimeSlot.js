@@ -57,7 +57,7 @@ export default function TimeSlot({ token, pk, setAuth }) {
   return (
     <Box>
       <Stack spacing={2} sx={{ mb: 2 }}>
-        <Typography variant="h6">Post Availability</Typography>
+        <Typography variant="h4">Post Availability</Typography>
         <form onSubmit={handleSubmit}>
           <Stack spacing={2} direction="row">
             <TextField
