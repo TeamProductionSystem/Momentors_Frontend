@@ -45,57 +45,64 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            // color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose} component={Link} to="/profile">
-              Profile
-            </MenuItem>
-            {user.is_mentor && (
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/mentorsessions"
+          {!isLoggedIn ? (
+            <>
+            </>
+          ) : (
+            <div>
+              <IconButton
+                size="large"
+                edge="start"
+                // color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
               >
-                Mentor Sessions
-              </MenuItem>
-            )}
-            {user.is_mentee && (
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/menteesessions"
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
               >
-                Mentee Sessions
-              </MenuItem>
-            )}
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to="/sessionsignup"
-            >
-              Session Signup
-            </MenuItem>
-          </Menu>
+                <MenuItem onClick={handleClose} component={Link} to="/profile">
+                  Profile
+                </MenuItem>
+                {user.is_mentor && (
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/mentorsessions"
+                  >
+                    Mentor Sessions
+                  </MenuItem>
+                )}
+                {user.is_mentee && (
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/menteesessions"
+                  >
+                    Mentee Sessions
+                  </MenuItem>
+                )}
+                <MenuItem
+                  onClick={handleClose}
+                  component={Link}
+                  to="/sessionsignup"
+                >
+                  Session Signup
+                </MenuItem>
+              </Menu>
+            </div>
+          )}
 
           <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
             <p className="nav--title">Momentum Mentors</p>
