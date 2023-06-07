@@ -113,9 +113,8 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             <Typography variant="h4" paddingLeft={"1rem"}>
               Notifications:
             </Typography>
-
             <Grid container direction={"row"} spacing={2}>
-              <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
+              <Grid marginRight={"rem"} marginLeft={"4rem"} width={"35rem"}>
                 <Grid item>
                   {/* <FormControl width="1rem">
                       <InputLabel id="demo-simple-select-label">
@@ -138,69 +137,41 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                   <Grid item>
                     <br></br>
                   </Grid>
-                  <Grid item>
-                    <Typography fontSize={"18px"} paddingTop={"1.2rem"}>
+                  <Grid item display={"flex"} justifyContent={"space-between"} >
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee schedules a session
                     </Typography>
+                  <FormControlLabel  control={<Switch />} />
                   </Grid>
-                  <Grid item>
-                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee cancels a session
                     </Typography>
+                    <FormControlLabel control={<Switch />} />
                   </Grid>
-                  <Grid item>
-                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me 15 minutes before a session
                     </Typography>
+                    <FormControlLabel control={<Switch />} />
                   </Grid>
-                  <Grid item>
-                    <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me 60 minutes before a session
                     </Typography>
+                    <FormControlLabel control={<Switch />} />
                   </Grid>
+                    <Box sx={{ marginTop: "4rem" }}>
+                    </Box>
                 </Grid>
               </Grid>
-              <Grid marginRight={"2rem"}>
-                <Typography variant="h6">Email Notifications</Typography>
-
-                <Grid item textAlign={"center"}>
-                  <FormControlLabel control={<Switch />} />
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                </Grid>
-              </Grid>
-              {/* <Grid>
-                <Typography variant="h6">Text Notifications</Typography>
-
-                <Grid item textAlign={"center"}>
-                  <FormControlLabel control={<Switch />} />
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                  <Grid item>
-                    <FormControlLabel control={<Switch />} />
-                  </Grid>
-                </Grid>
-              </Grid> */}
             </Grid>
+                      <Box marginLeft={"1rem"} >
+                        <TimeSlot token={token} />
+                      </Box>
           </Box>
         </Box>
       </Stack>
-      <Box sx={{ marginTop: "4rem" }}>
-        <Box>
-          <TimeSlot token={token} />
-        </Box>
-      </Box>
     </Box>
   );
 }
