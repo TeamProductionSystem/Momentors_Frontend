@@ -11,6 +11,7 @@ import MentorSessions from "./pages/Sessions/MentorSessions";
 import SessionSignup from "./pages/SessionSignup/SessionSignup";
 import MenteeSessions from "./pages/Sessions/MenteeSessions";
 import TimeSlot from "./pages/Profile/TimeSlot";
+import CurrentAvailabilities from "./pages/Profile/Current Availabilities";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./assets/App.css";
@@ -131,6 +132,17 @@ function App() {
           path="/timeslot"
           element={
             <TimeSlot token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />
+          }
+        />
+        <Route
+          path="/currentavailabilities"
+          element={
+            <CurrentAvailabilities
+              token={token}
+              pk={pk}
+              setAuth={setAuth}
+              isLoggedIn={isLoggedIn}
+            />
           }
         />
       </Routes>
