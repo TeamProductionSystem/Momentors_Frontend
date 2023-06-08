@@ -17,7 +17,11 @@ export default function CurrentAvailabilities({
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        setAvailabilities(res.data);
+        // Sort the availabilities by date
+        let sortedAvailabilities = res.data.sort((a, b) => {
+          return new Date(a.start_time) - new Date(b.start_time);
+        });
+        setAvailabilities(sortedAvailabilities);
         setRefreshAvailabilities(false);
       });
   }, [token, pk, refreshAvailabilities]);
@@ -47,6 +51,7 @@ export default function CurrentAvailabilities({
         {availabilities.map((availability) => (
           <Grid
             container
+            key={availability.pk}
             sx={{
               flexGrow: 1,
               marginLeft: "1rem",
