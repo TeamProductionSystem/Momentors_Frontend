@@ -10,7 +10,12 @@ import {
 } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-export default function TimeSlot({ token, pk, setAuth }) {
+export default function TimeSlot({
+  token,
+  pk,
+  setAuth,
+  setRefreshAvailabilities,
+}) {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -41,6 +46,7 @@ export default function TimeSlot({ token, pk, setAuth }) {
         setOpenSnackbar(true);
         setStartTime("");
         setEndTime("");
+        setRefreshAvailabilities(true);
       })
       .catch((error) => {
         console.log(error);
