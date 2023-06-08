@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProfileBasicInfo from "../Profile/ProfileBasicInfo";
+import CurrentAvailabilities from "./Current Availabilities";
 import {
   Avatar,
   Typography,
@@ -22,6 +23,8 @@ export default function ProfileMentor({ token, pk, setAuth }) {
   const [profilePhoto, setProfilePhoto] = useState("");
   const [skills, setSkills] = useState([]);
   const [about_me, setAboutMe] = useState("");
+  //Update the availabilities when the user adds a new availability
+  const [refreshAvailabilities, setRefreshAvailabilities] = useState(false);
 
   useEffect(() => {
     axios
@@ -137,11 +140,11 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                   <Grid item>
                     <br></br>
                   </Grid>
-                  <Grid item display={"flex"} justifyContent={"space-between"} >
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee schedules a session
                     </Typography>
-                  <FormControlLabel  control={<Switch />} />
+                    <FormControlLabel control={<Switch />} />
                   </Grid>
                   <Grid item display={"flex"} justifyContent={"space-between"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
@@ -161,17 +164,26 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     </Typography>
                     <FormControlLabel control={<Switch />} />
                   </Grid>
-                    <Box sx={{ marginTop: "4rem" }}>
-                    </Box>
+                  <Box sx={{ marginTop: "4rem" }}></Box>
                 </Grid>
               </Grid>
             </Grid>
-                      <Box marginLeft={"1rem"} >
-                        <TimeSlot token={token} />
-                      </Box>
+            <Box marginLeft={"1rem"}>
+              <TimeSlot
+                token={token}
+                setRefreshAvailabilities={setRefreshAvailabilities}
+              />
+            </Box>
           </Box>
         </Box>
       </Stack>
+      <CurrentAvailabilities
+        token={token}
+        pk={pk}
+        setAuth={setAuth}
+        refreshAvailabilities={refreshAvailabilities}
+        setRefreshAvailabilities={setRefreshAvailabilities}
+      />
     </Box>
   );
 }
