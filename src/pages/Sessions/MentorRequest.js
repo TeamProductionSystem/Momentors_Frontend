@@ -1,6 +1,7 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CancelSessionButton from "../../components/CancelSessionButton";
 
 export default function MentorRequestedSessions({ token, pk, setAuth }) {
   const [pendingsessions, setPendingSessions] = useState([]);
@@ -19,31 +20,6 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
         console.log("error", err);
       });
   }, [token, pk]);
-
-  const handleCancel = (sessionPK) => {
-    axios
-      .patch(
-        `${process.env.REACT_APP_BE_URL}/sessionrequest/${sessionPK}/`,
-        { status: "Canceled" },
-        {
-          headers: { Authorization: `Token ${token}` },
-        }
-      )
-      .then((res) => {
-        // Upon successful cancellation, update the state
-        console.log("Session Canceled", res);
-        setPendingSessions((prevSessions) =>
-          prevSessions.map((session) =>
-            session.pk === sessionPK
-              ? { ...session, status: "Canceled" }
-              : session
-          )
-        );
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-  };
 
   // Function to handle the confirm button
   const handleConfirm = (sessionPK) => {
@@ -144,44 +120,40 @@ export default function MentorRequestedSessions({ token, pk, setAuth }) {
               <Grid item xs={3}>
                 {/* Confirm button */}
                 {session.status === "Pending" ? (
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    size="md"
-                    sx={{ margin: ".25rem" }}
-                    onClick={() => handleConfirm(session.pk)}
-                  >
-                    Confirm
-                  </Button>
+                  <>
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      size="md"
+                      sx={{ margin: ".25rem" }}
+                      onClick={() => handleConfirm(session.pk)}
+                    >
+                      Confirm
+                    </Button>
+                    <CancelSessionButton
+                      token={token}
+                      sessionPK={session.pk}
+                      onSessionCancelled={(cancelledSessionPK) => {
+                        setPendingSessions((prevSessions) =>
+                          prevSessions.map((session) =>
+                            session.pk === cancelledSessionPK
+                              ? { ...session, status: "Canceled" }
+                              : session
+                          )
+                        );
+                      }}
+                    />
+                  </>
                 ) : session.status === "Confirmed" ? (
                   <Typography
-                    variant="button"
+                    variant="outlined"
                     display="block"
                     sx={{ color: "success.main" }}
                   >
                     Confirmed!
                   </Typography>
-                ) : null}
-
-                {/* Hide the Cancel button if the session is canceled */}
-                {session.status === "Pending" ? (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    size="md"
-                    sx={{ margin: ".25rem" }}
-                    onClick={() => handleCancel(session.pk)}
-                  >
-                    Cancel
-                  </Button>
                 ) : session.status === "Canceled" ? (
-                  <Typography
-                    variant="button"
-                    display="block"
-                    sx={{ color: "error.main" }}
-                  >
-                    Canceled
-                  </Typography>
+                  <Chip label="Canceled" color="error" variant="outlined" />
                 ) : null}
               </Grid>
             </Grid>
