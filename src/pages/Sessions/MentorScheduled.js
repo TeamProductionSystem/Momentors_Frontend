@@ -1,6 +1,7 @@
 import { Box, Grid, Typography, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CancelSessionButton from "../../components/CancelSessionButton";
 
 export default function MentorScheduledSessions({ token, pk, setAuth }) {
   const [confrimedsessions, setConfirmedSessions] = useState([]);
@@ -94,20 +95,27 @@ export default function MentorScheduledSessions({ token, pk, setAuth }) {
               </Grid>
               <Grid item xs={3}>
                 <Chip
-                  label={
-                    session.status === "Confirmed"
-                      ? "Confirmed"
-                        : session.status === "Pending"
-                  }
+                  label={session.status}
                   variant="outlined"
-                  color={
-                    session.status === "Confirmed"
-                      ? "success"
-                        : session.status === "Pending"
-                  }
-                  size="md"
+                  color={session.status === "Confirmed" ? "success" : "error"}
+                  size="medium"
                   sx={{ margin: ".25rem" }}
-                ></Chip>
+                />
+                {session.status !== "Canceled" && (
+                  <CancelSessionButton
+                    token={token}
+                    sessionPK={session.pk}
+                    onSessionCancelled={(cancelledSessionPK) => {
+                      setConfirmedSessions((confrimedsessions) =>
+                        confrimedsessions.map((session) =>
+                          session.pk === cancelledSessionPK
+                            ? { ...session, status: "Canceled" }
+                            : session
+                        )
+                      );
+                    }}
+                  />
+                )}
               </Grid>
             </Grid>
           );

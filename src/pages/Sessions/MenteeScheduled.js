@@ -1,6 +1,7 @@
 import { Box, Grid, Typography, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CancelSessionButton from "../../components/CancelSessionButton";
 
 export default function MenteeSessions({ token, pk, setAuth }) {
   const [confrimedsessions, setConfirmedSessions] = useState([]);
@@ -97,17 +98,36 @@ export default function MenteeSessions({ token, pk, setAuth }) {
                   label={
                     session.status === "Confirmed"
                       ? "Confirmed"
-                        : session.status === "Pending"
+                      : session.status === "Pending"
+                      ? "Pending"
+                      : "Canceled"
                   }
                   variant="outlined"
                   color={
                     session.status === "Confirmed"
                       ? "success"
-                        : session.status === "Pending"
+                      : session.status === "Pending"
+                      ? "warning"
+                      : "error"
                   }
                   size="md"
                   sx={{ margin: ".25rem" }}
                 ></Chip>
+                {session.status !== "Canceled" && (
+                <CancelSessionButton
+                  token={token}
+                  sessionPK={session.pk}
+                  onSessionCancelled={(cancelledSessionPK) => {
+                    setConfirmedSessions((confrimedsessions) =>
+                    confrimedsessions.map((session) =>
+                        session.pk === cancelledSessionPK
+                          ? { ...session, status: "Canceled" }
+                          : session
+                      )
+                    );
+                  }}
+                />
+                )}
               </Grid>
             </Grid>
           );
