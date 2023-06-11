@@ -14,6 +14,14 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   const [profilePhoto, setProfilePhoto] = useState("");
   const [teamNumber, setTeamNumber] = useState("");
 
+  // track notification switch settings
+  // set up similarly to https://webdevassist.com/reactjs-materialui/material-ui-switch
+  const [checkedSessionConf, setCheckedSessionConf] = useState(false);
+  const [checkedSessionCanc, setCheckedSessionCanc] = useState(false);
+  const [checked15Min, setChecked15Min] = useState(false);
+  const [checked60Min, setChecked60Min] = useState(false);
+
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
@@ -44,7 +52,33 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .then((res) => {
         setTeamNumber(res.data[0].team_number);
       });
-  }, [token, pk]);
+    axios
+      .get(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((res) => {
+        setCheckedSessionConf(res.data.session_confirmed);
+        setCheckedSessionCanc(res.data.session_canceled);
+        setChecked15Min(res.data.fifteen_minute_alert);
+        setChecked60Min(res.data.sixty_minute_alert);
+      });
+    }, [token, pk]);
+
+  // handle Switch functionality
+  const handleSessionConf = (event) => {
+    setCheckedSessionConf(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        session_confirmed: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
 
   return (
     <Box className="profile--page" style={{ marginTop: "2rem" }}>
@@ -118,7 +152,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
               <Typography variant="h6">Email Notifications</Typography>
 
               <Grid item textAlign={"center"}>
-                <FormControlLabel control={<Switch />} />
+                <FormControlLabel control={<Switch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
                 <Grid Item>
                   <FormControlLabel control={<Switch />} />
                 </Grid>
