@@ -79,6 +79,48 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       });
   }
 
+  const handleSessionCanc = (event) => {
+    setCheckedSessionCanc(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        session_canceled: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
+  const handle15Min = (event) => {
+    setChecked15Min(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        fifteen_minute_alert: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
+  const handle60Min = (event) => {
+    setChecked60Min(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        sixty_minute_alert: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
 
   return (
     <Box className="profile--page" style={{ marginTop: "2rem" }}>
@@ -154,13 +196,13 @@ export default function ProfileMentee({ token, pk, setAuth }) {
               <Grid item textAlign={"center"}>
                 <FormControlLabel control={<Switch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
                 <Grid Item>
-                  <FormControlLabel control={<Switch />} />
+                  <FormControlLabel control={<Switch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                 </Grid>
                 <Grid item>
-                  <FormControlLabel control={<Switch />} />
+                  <FormControlLabel control={<Switch checked={checked15Min} onChange={handle15Min} />} />
                 </Grid>
                 <Grid item>
-                  <FormControlLabel control={<Switch />} />
+                  <FormControlLabel control={<Switch checked={checked60Min} onChange={handle60Min} />} />
                 </Grid>
               </Grid>
             </Grid>
