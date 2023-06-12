@@ -195,7 +195,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
 
               <Grid item textAlign={"center"}>
                 <FormControlLabel control={<Switch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
-                <Grid Item>
+                <Grid item>
                   <FormControlLabel control={<Switch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                 </Grid>
                 <Grid item>
