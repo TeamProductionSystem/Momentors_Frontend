@@ -70,7 +70,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        setCheckedSessionReq(res.data.session_confirmed);
+        setCheckedSessionReq(res.data.session_requested);
         setCheckedSessionCanc(res.data.session_canceled);
         setChecked15Min(res.data.fifteen_minute_alert);
         setChecked60Min(res.data.sixty_minute_alert);
@@ -226,7 +226,9 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     </Typography>
                     <FormControlLabel control={<Switch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                   </Grid>
-                  <Grid item display={"flex"} justifyContent={"space-between"}>
+
+                  {/* Commenting out notification options until we're ready to use them */}
+                  {/* <Grid item display={"flex"} justifyContent={"space-between"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me 15 minutes before a session
                     </Typography>
@@ -237,7 +239,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       Notify me 60 minutes before a session
                     </Typography>
                     <FormControlLabel control={<Switch checked={checked60Min} onChange={handle60Min} />} />
-                  </Grid>
+                  </Grid> */}
                   <Box sx={{ marginTop: "4rem" }}></Box>
                 </Grid>
               </Grid>
