@@ -27,7 +27,8 @@ const Register = ({ setAuth }) => {
         re_password: rePassword,
         email: email,
       })
-      .then(() => {
+      .then((res) => {
+        const pk = res.data.id;
         axios
           .post(`${process.env.REACT_APP_BE_URL}/auth/token/login`, {
             username: userName,
@@ -38,7 +39,7 @@ const Register = ({ setAuth }) => {
             setLoading(false);
             setToken(res.data.auth_token);
             setIsRegistered(true);
-            setAuth(userName, res.data.auth_token);
+            setAuth(userName, token, pk);
             sessionStorage.setItem("is_mentor", false);
             sessionStorage.setItem("is_mentee", false);
             navigate("/profile");
