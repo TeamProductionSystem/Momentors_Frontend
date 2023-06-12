@@ -16,6 +16,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({});
   const open = Boolean(anchorEl);
+  const [isMentee, setIsMentee] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,12 +35,16 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
         })
         .then((response) => {
           setUser(response.data);
+          setIsMentee(response.data.is_mentee);
         })
         .catch((error) => {
           console.log(error);
         });
     }
   }, [isLoggedIn, token]);
+
+  console.log(user)
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -84,7 +89,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                     Mentor Sessions
                   </MenuItem>
                 )}
-                {user.is_mentee && (
+                {isMentee && (
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
