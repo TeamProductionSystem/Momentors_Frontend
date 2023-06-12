@@ -124,7 +124,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
 
   return (
     <Box className="profile--page" style={{ marginTop: "2rem" }}>
-      <Grid container xs="auto" marginLeft={"1.5rem"}>
+      <Grid container marginLeft={"1.5rem"}>
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Grid marginLeft={"1rem"} paddingTop={"1rem"}>
           <Typography variant="h5">{`Team Number: ${teamNumber}`}</Typography>
@@ -165,7 +165,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                       </Select>
                     </FormControl> */}
 
-                <Grid Item>
+                <Grid item>
                   <br></br>
                 </Grid>
                 <Grid item>
