@@ -14,6 +14,14 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   const [profilePhoto, setProfilePhoto] = useState("");
   const [teamNumber, setTeamNumber] = useState("");
 
+  // track notification switch settings
+  // set up similarly to https://webdevassist.com/reactjs-materialui/material-ui-switch
+  const [checkedSessionConf, setCheckedSessionConf] = useState(false);
+  const [checkedSessionCanc, setCheckedSessionCanc] = useState(false);
+  const [checked15Min, setChecked15Min] = useState(false);
+  const [checked60Min, setChecked60Min] = useState(false);
+
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
@@ -44,7 +52,75 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .then((res) => {
         setTeamNumber(res.data[0].team_number);
       });
-  }, [token, pk]);
+    axios
+      .get(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((res) => {
+        setCheckedSessionConf(res.data.session_confirmed);
+        setCheckedSessionCanc(res.data.session_canceled);
+        setChecked15Min(res.data.fifteen_minute_alert);
+        setChecked60Min(res.data.sixty_minute_alert);
+      });
+    }, [token, pk]);
+
+  // handle Switch functionality
+  const handleSessionConf = (event) => {
+    setCheckedSessionConf(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        session_confirmed: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
+  const handleSessionCanc = (event) => {
+    setCheckedSessionCanc(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        session_canceled: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
+  const handle15Min = (event) => {
+    setChecked15Min(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        fifteen_minute_alert: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
+  const handle60Min = (event) => {
+    setChecked60Min(event.target.checked);
+    axios
+      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+        sixty_minute_alert: event.target.checked,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  }
+
 
   return (
     <Box className="profile--page" style={{ marginTop: "2rem" }}>
@@ -102,7 +178,9 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                     Notify me when a mentor cancels a session
                   </Typography>
                 </Grid>
-                <Grid item>
+
+                {/* Commenting out notification options until we're ready to use them */}
+                {/* <Grid item>
                   <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 15 minutes before a session
                   </Typography>
@@ -111,23 +189,25 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                   <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 60 minutes before a session
                   </Typography>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
             <Grid marginRight={"2rem"}>
               <Typography variant="h6">Email Notifications</Typography>
 
               <Grid item textAlign={"center"}>
-                <FormControlLabel control={<Switch />} />
+                <FormControlLabel control={<Switch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
                 <Grid item>
-                  <FormControlLabel control={<Switch />} />
+                  <FormControlLabel control={<Switch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
+                </Grid>
+
+                {/* Commenting out notification options until we're ready to use them */}
+                {/* <Grid item>
+                  <FormControlLabel control={<Switch checked={checked15Min} onChange={handle15Min} />} />
                 </Grid>
                 <Grid item>
-                  <FormControlLabel control={<Switch />} />
-                </Grid>
-                <Grid item>
-                  <FormControlLabel control={<Switch />} />
-                </Grid>
+                  <FormControlLabel control={<Switch checked={checked60Min} onChange={handle60Min} />} />
+                </Grid> */}
               </Grid>
             </Grid>
             {/* <Grid>
