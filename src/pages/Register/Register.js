@@ -14,7 +14,6 @@ const Register = ({ setAuth }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [token, setToken] = useState(null);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -37,9 +36,8 @@ const Register = ({ setAuth }) => {
 
           .then((res) => {
             setLoading(false);
-            setToken(res.data.auth_token);
             setIsRegistered(true);
-            setAuth(userName, token, pk);
+            setAuth(userName, res.data.auth_token, pk);
             sessionStorage.setItem("is_mentor", false);
             sessionStorage.setItem("is_mentee", false);
             navigate("/profile");
