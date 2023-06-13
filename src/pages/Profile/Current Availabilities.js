@@ -23,6 +23,16 @@ export default function CurrentAvailabilities({
         });
         setAvailabilities(sortedAvailabilities);
         setRefreshAvailabilities(false);
+      })
+      .catch((err) => {
+        // Handle 'No open availabilities' case
+        if (err.response.data === "No open availabilities.") {
+          setAvailabilities([]);
+          setRefreshAvailabilities(false);
+        } else {
+          // Handle other errors
+          console.error(err);
+        }
       });
   }, [token, pk, refreshAvailabilities]);
 
@@ -48,38 +58,44 @@ export default function CurrentAvailabilities({
         </Grid>
 
         {/* Map over the availabilities array and display the date and time */}
-        {availabilities.map((availability) => (
-          <Grid
-            container
-            key={availability.pk}
-            sx={{
-              flexGrow: 1,
-              marginLeft: "1rem",
-              fontSize: "25px",
-              textAlign: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Grid item xs={3}>
-              <Box>
-                {new Date(availability.start_time).toLocaleDateString()}
-              </Box>
+        {availabilities.length > 0 ? (
+          availabilities.map((availability) => (
+            <Grid
+              container
+              key={availability.pk}
+              sx={{
+                flexGrow: 1,
+                marginLeft: "1rem",
+                fontSize: "25px",
+                textAlign: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <Grid item xs={3}>
+                <Box>
+                  {new Date(availability.start_time).toLocaleDateString()}
+                </Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box>
+                  {new Date(availability.start_time).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  -{" "}
+                  {new Date(availability.end_time).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-              <Box>
-                {new Date(availability.start_time).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}{" "}
-                -{" "}
-                {new Date(availability.end_time).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </Box>
-            </Grid>
-          </Grid>
-        ))}
+          ))
+        ) : (
+          <Typography variant="h6" paddingTop={"2rem"} paddingLeft={"7.5rem"}>
+            (No open availabilities)
+          </Typography>
+        )}
       </Box>
     </Box>
   );
