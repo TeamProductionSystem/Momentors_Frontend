@@ -37,6 +37,7 @@ const Register = ({ setAuth }) => {
           .then((res) => {
             setLoading(false);
             setIsRegistered(true);
+            sessionStorage.setItem("user_live", true);
             setAuth(userName, res.data.auth_token, pk);
             sessionStorage.setItem("is_mentor", false);
             sessionStorage.setItem("is_mentee", false);

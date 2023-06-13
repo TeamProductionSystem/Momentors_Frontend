@@ -29,6 +29,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
           })
           .then((res) => {
             setLoading(false);
+            sessionStorage.setItem("user_live", true);
             sessionStorage.setItem("authToken", token);
             sessionStorage.setItem("is_mentor", res.data.is_mentor);
             sessionStorage.setItem("is_mentee", res.data.is_mentee);

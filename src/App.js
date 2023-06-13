@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import Hero from "./pages/Home/Hero";
 import NavBar from "./components/NavBar";
@@ -15,6 +15,7 @@ import CurrentAvailabilities from "./pages/Profile/Current Availabilities";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./assets/App.css";
+import { act } from "react-dom/test-utils";
 
 function App() {
   const [token, setToken] = useLocalStorageState("momentorsToken", null);
@@ -48,6 +49,9 @@ function App() {
         setAuth("", null);
         setMentor(false);
         setMentee(false);
+        setToken(false);
+        setPk(false);
+        setUserLive(false);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -55,11 +59,24 @@ function App() {
           setAuth("", null);
           setMentor(false);
           setMentee(false);
+          setToken(false);
+          setPk(false);
+          setUserLive(false);
         }
       });
   };
 
   const isLoggedIn = userName && token;
+
+  // log user out if they close the tab
+  const [userLive, setUserLive] = useState(sessionStorage.getItem("user_live"));
+  useEffect( () => {
+    if (userLive !== true && token) {
+      handleLogout();
+    }
+  }, [])
+  
+
 
   return (
     <div>
