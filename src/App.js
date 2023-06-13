@@ -49,8 +49,8 @@ function App() {
         setAuth("", null);
         setMentor(false);
         setMentee(false);
-        setToken(false);
-        setPk(false);
+        setToken(null);
+        setPk("");
         setUserLive(false);
       })
       .catch((error) => {
@@ -59,8 +59,8 @@ function App() {
           setAuth("", null);
           setMentor(false);
           setMentee(false);
-          setToken(false);
-          setPk(false);
+          setToken(null);
+          setPk("");
           setUserLive(false);
         }
       });
