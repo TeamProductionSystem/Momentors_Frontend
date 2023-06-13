@@ -43,7 +43,6 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
     }
   }, [isLoggedIn, token]);
 
-  console.log(user)
 
 
   return (
