@@ -5,7 +5,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 
-export default function Login({ setAuth, setMentor, setMentee }) {
+export default function Login({ setAuth, setMentor, setMentee, setUserLive }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,7 +29,7 @@ export default function Login({ setAuth, setMentor, setMentee }) {
           })
           .then((res) => {
             setLoading(false);
-            sessionStorage.setItem("user_live", true);
+            setUserLive(true);
             sessionStorage.setItem("authToken", token);
             sessionStorage.setItem("is_mentor", res.data.is_mentor);
             sessionStorage.setItem("is_mentee", res.data.is_mentee);

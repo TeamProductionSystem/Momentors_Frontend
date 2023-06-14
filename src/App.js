@@ -69,14 +69,30 @@ function App() {
   const isLoggedIn = userName && token;
 
   // log user out if they close the tab
-  const [userLive, setUserLive] = useState(sessionStorage.getItem("user_live"));
+  // used for reference: https://typeofnan.dev/using-session-storage-in-react-with-hooks/
+const getSessionStorageDefault = (key, defaultValue) => {
+  const stored = sessionStorage.getItem(key);
+  if (!stored) {
+    return defaultValue;
+  }
+  return stored;
+};
+
+  const [userLive, setUserLive] = useState(getSessionStorageDefault("user_live", false));
+
   useEffect( () => {
-    if (userLive !== true && token) {
+    sessionStorage.setItem("user_live", userLive);
+  }, [userLive]);
+
+  // Not using any dependencies because I only want this to run on page load
+  useEffect( () => {
+    if (userLive === false && token) {
       handleLogout();
     }
-  }, [])
+  }, []);
   
-
+  console.log(userLive);
+  console.log(token);
 
   return (
     <div>
@@ -85,7 +101,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route
           path="/register"
-          element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
+          element={<Register setAuth={setAuth} setUserLive={setUserLive} />}
         />
         <Route
           path="/login"
@@ -94,6 +110,7 @@ function App() {
               setAuth={setAuth}
               setMentor={setMentor}
               setMentee={setMentee}
+              setUserLive={setUserLive}
             />
           }
         />
