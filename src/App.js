@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import Hero from "./pages/Home/Hero";
 import NavBar from "./components/NavBar";
@@ -15,6 +15,7 @@ import CurrentAvailabilities from "./pages/Profile/Current Availabilities";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./assets/App.css";
+import { act } from "react-dom/test-utils";
 
 function App() {
   const [token, setToken] = useLocalStorageState("momentorsToken", null);
@@ -48,6 +49,9 @@ function App() {
         setAuth("", null);
         setMentor(false);
         setMentee(false);
+        setToken(null);
+        setPk("");
+        setUserLive(false);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -55,11 +59,40 @@ function App() {
           setAuth("", null);
           setMentor(false);
           setMentee(false);
+          setToken(null);
+          setPk("");
+          setUserLive(false);
         }
       });
   };
 
   const isLoggedIn = userName && token;
+
+  // log user out if they close the tab
+  // used for reference: https://typeofnan.dev/using-session-storage-in-react-with-hooks/
+const getSessionStorageDefault = (key, defaultValue) => {
+  const stored = sessionStorage.getItem(key);
+  if (!stored) {
+    return defaultValue;
+  }
+  return stored;
+};
+
+  const [userLive, setUserLive] = useState(getSessionStorageDefault("user_live", false));
+
+  useEffect( () => {
+    sessionStorage.setItem("user_live", userLive);
+  }, [userLive]);
+
+  // Not using any dependencies because I only want this to run on page load
+  useEffect( () => {
+    if (userLive === false && token) {
+      handleLogout();
+    }
+  }, []);
+  
+  console.log(userLive);
+  console.log(token);
 
   return (
     <div>
@@ -68,7 +101,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route
           path="/register"
-          element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
+          element={<Register setAuth={setAuth} setUserLive={setUserLive} />}
         />
         <Route
           path="/login"
@@ -77,6 +110,7 @@ function App() {
               setAuth={setAuth}
               setMentor={setMentor}
               setMentee={setMentee}
+              setUserLive={setUserLive}
             />
           }
         />

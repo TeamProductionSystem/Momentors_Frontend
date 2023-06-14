@@ -5,7 +5,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 
-const Register = ({ setAuth }) => {
+const Register = ({ setAuth, setUserLive }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +37,7 @@ const Register = ({ setAuth }) => {
           .then((res) => {
             setLoading(false);
             setIsRegistered(true);
+            setUserLive(true);
             setAuth(userName, res.data.auth_token, pk);
             sessionStorage.setItem("is_mentor", false);
             sessionStorage.setItem("is_mentee", false);
