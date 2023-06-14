@@ -25,14 +25,7 @@ export default function CurrentAvailabilities({
         setRefreshAvailabilities(false);
       })
       .catch((err) => {
-        // Handle 'No open availabilities' case
-        if (err.response.data === "No open availabilities.") {
-          setAvailabilities([]);
-          setRefreshAvailabilities(false);
-        } else {
-          // Handle other errors
-          console.error(err);
-        }
+        console.log("error", err);
       });
   }, [token, pk, refreshAvailabilities]);
 
