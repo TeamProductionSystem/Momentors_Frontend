@@ -53,7 +53,6 @@ export default function Profile({
       .then((res) => {
         sessionStorage.setItem("is_mentor", true);
         setMentor(true);
-        window.location.reload(true)
       })
       .catch((e) => {
         setError(e.message);
@@ -95,7 +94,6 @@ export default function Profile({
       .then((res) => {
         sessionStorage.setItem("is_mentee", true);
         setMentee(true);
-        window.location.reload(true)
       })
       .catch((e) => {
         setError(e.message);
