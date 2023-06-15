@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import Hero from "./pages/Home/Hero";
 import NavBar from "./components/NavBar";
@@ -22,9 +22,13 @@ function App() {
   const [pk, setPk] = useLocalStorageState("pk", "");
 
   // Setting up in session storage so they're not lost on refresh
-  const [mentor, setMentor] = useState(JSON.parse(sessionStorage.getItem("is_mentor")));
-  const [mentee, setMentee] = useState(JSON.parse(sessionStorage.getItem("is_mentee")));
-  
+  const [mentor, setMentor] = useState(
+    JSON.parse(sessionStorage.getItem("is_mentor"))
+  );
+  const [mentee, setMentee] = useState(
+    JSON.parse(sessionStorage.getItem("is_mentee"))
+  );
+
   const [loading, setLoading] = useState(false);
 
   const setAuth = (userName, token, pk) => {
@@ -48,6 +52,9 @@ function App() {
         setAuth("", null);
         setMentor(false);
         setMentee(false);
+        setToken(null);
+        setPk("");
+        setUserLive(false);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -55,20 +62,53 @@ function App() {
           setAuth("", null);
           setMentor(false);
           setMentee(false);
+          setToken(null);
+          setPk("");
+          setUserLive(false);
         }
       });
   };
 
   const isLoggedIn = userName && token;
 
+  // log user out if they close the tab
+  // used for reference: https://typeofnan.dev/using-session-storage-in-react-with-hooks/
+  const getSessionStorageDefault = (key, defaultValue) => {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return stored;
+  };
+
+  const [userLive, setUserLive] = useState(
+    getSessionStorageDefault("user_live", false)
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem("user_live", userLive);
+  }, [userLive]);
+
+  // Not using any dependencies because I only want this to run on page load
+  useEffect(() => {
+    if (userLive === false && token) {
+      handleLogout();
+    }
+  }, []);
+
   return (
     <div>
-      <NavBar isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} loading={loading} />
+      <NavBar
+        isLoggedIn={isLoggedIn}
+        token={token}
+        handleLogout={handleLogout}
+        loading={loading}
+      />
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route
           path="/register"
-          element={<Register isLoggedIn={isLoggedIn} setAuth={setAuth} />}
+          element={<Register setAuth={setAuth} setUserLive={setUserLive} />}
         />
         <Route
           path="/login"
@@ -77,6 +117,7 @@ function App() {
               setAuth={setAuth}
               setMentor={setMentor}
               setMentee={setMentee}
+              setUserLive={setUserLive}
             />
           }
         />
