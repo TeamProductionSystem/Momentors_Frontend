@@ -20,6 +20,8 @@ export default function TimeSlot({
   const [endTime, setEndTime] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  console.log("start: " + startTime + ", end: " + endTime)
+
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
   };
@@ -30,13 +32,18 @@ export default function TimeSlot({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Convert time to UTC to send to back end
+    let startTimeSend = new Date(startTime);
+    startTimeSend.toISOString();
+    let endTimeSend = new Date(endTime);
+    endTimeSend.toISOString();
     axios
       .post(
         `https://team-production-system.onrender.com/availability/`,
 
         {
-          start_time: startTime,
-          end_time: endTime,
+          start_time: startTimeSend,
+          end_time: endTimeSend,
         },
         {
           headers: { Authorization: `Token ${token}` },
