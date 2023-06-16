@@ -67,11 +67,10 @@ export default function MentorCard({ mentor, selectedDay, onSlotSelect }) {
             <ToggleButtonGroup
               sx={{
                 marginTop: "1rem",
-                display: "flex",
-                flexDirection: "column",
               }}
               exclusive
               value={selected}
+              orientation='vertical'
               onChange={handleButtonChange}
             >
               {mentor.availabilities &&
