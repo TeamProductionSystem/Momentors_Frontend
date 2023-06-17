@@ -6,6 +6,7 @@ import {
   Typography,
   ToggleButton,
   ToggleButtonGroup,
+  Box,
 } from "@mui/material";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -64,6 +65,7 @@ export default function MentorCard({ mentor, selectedDay, onSlotSelect }) {
               {mentor.skills ? mentor.skills.join(", ") : "No skills listed"}
             </Typography>
             <Typography>Available Time Slots:</Typography>
+            <Box style={{maxHeight: '250px', overflowY: 'auto'}}> {/*Makes the time slots scrollable */}
             <ToggleButtonGroup
               sx={{
                 marginTop: "1rem",
@@ -102,6 +104,7 @@ export default function MentorCard({ mentor, selectedDay, onSlotSelect }) {
                     </ToggleButton>
                   ))}
             </ToggleButtonGroup>
+            </Box>
           </CardContent>
         </Card>
       </Grid>
