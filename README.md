@@ -58,7 +58,12 @@ To run this project, you will need to add the following environment variables to
 
 `REACT_APP_BE_URL='https://team-production-system.onrender.com'`
 
+## Endpoints
+
+Link to [Endpoints](https://github.com/TeamProductionSystem/Team_Production_System_BE/blob/main/README.md)
+
 ## Styling
 Currently using MUI for styling. 
 
 Link to [MUI](https://mui.com/material-ui/getting-started/overview/) documentation 
+
