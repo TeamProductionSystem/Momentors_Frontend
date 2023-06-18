@@ -18,7 +18,8 @@ export default function Login({ setAuth, setMentor, setMentee, setUserLive }) {
     setLoading(true);
     axios
       .post(`${process.env.REACT_APP_BE_URL}/auth/token/login/`, {
-        username: userName,
+        // Make username lowercase
+        username: userName.toLowerCase(),
         password: password,
       })
       .then((res) => {
