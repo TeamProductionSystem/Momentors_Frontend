@@ -21,7 +21,8 @@ const Register = ({ setAuth, setUserLive }) => {
     setLoading(true);
     axios
       .post(`${process.env.REACT_APP_BE_URL}/auth/users/`, {
-        username: userName,
+        // Make username lowercase
+        username: userName.toLowerCase(),
         password: password,
         re_password: rePassword,
         email: email,
@@ -30,7 +31,8 @@ const Register = ({ setAuth, setUserLive }) => {
         const pk = res.data.id;
         axios
           .post(`${process.env.REACT_APP_BE_URL}/auth/token/login`, {
-            username: userName,
+            // Make username lowercase
+            username: userName.toLowerCase(),
             password: password,
           })
 
@@ -127,7 +129,9 @@ const Register = ({ setAuth, setUserLive }) => {
                 id="register--button"
                 type="submit"
                 form="registration-form"
-                style={loading ? { backgroundColor: 'black', color: 'yellow' } : {}}
+                style={
+                  loading ? { backgroundColor: "black", color: "yellow" } : {}
+                }
               >
                 Register
               </Button>
