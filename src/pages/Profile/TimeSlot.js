@@ -20,8 +20,6 @@ export default function TimeSlot({
   const [endTime, setEndTime] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  console.log("start: " + startTime + ", end: " + endTime)
-
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
   };
