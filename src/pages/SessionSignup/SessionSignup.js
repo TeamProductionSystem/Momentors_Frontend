@@ -212,6 +212,10 @@ export default function SessionSignup({ token }) {
       })
       .catch((error) => {
         console.log("error:", error);
+        // Temporary solution in case mentor is already signed up during this time. Backend will be updated to prevent display of times they are already scheduled. Backend will also be updated to return a more specific error than 500 error just in case we display a scheduled time. Then we can update this logic to trigger the alert for that specific error return.
+        if (error.message === 'Request failed with status code 500') {
+          alert("A session with this mentor is already scheduled during this time.");
+        }
       });
   }
 
