@@ -48,6 +48,14 @@ header {
   margin-bottom: 1.75rem;
 }
 
+.hero--note {
+  font-size: 1.25rem;
+  color: #949aa5;
+  margin-bottom: 1.75rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .hero--yoda {
   max-width: 100%;
   height: auto;
