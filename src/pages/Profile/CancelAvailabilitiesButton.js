@@ -4,9 +4,12 @@ import React from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 
-const CancelAvailabilityButton = ({ availabilityPK, token, setRefreshAvailabilities }) => {
+const CancelAvailabilityButton = ({
+  availabilityPK,
+  token,
+  setRefreshAvailabilities,
+}) => {
   const handleClick = () => {
-    console.log("availabilityPK", availabilityPK);
     axios
       .delete(
         `${process.env.REACT_APP_BE_URL}/availability/${availabilityPK}/`,
