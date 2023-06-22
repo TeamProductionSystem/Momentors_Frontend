@@ -1,6 +1,9 @@
+// This Component is the current availabilities section of the mentor profile page
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Typography, Grid } from "@mui/material";
+import CancelAvailabilityButton from "./CancelAvailabilitiesButton";
 
 export default function CurrentAvailabilities({
   token,
@@ -82,6 +85,11 @@ export default function CurrentAvailabilities({
                   })}
                 </Box>
               </Grid>
+              <CancelAvailabilityButton
+                availabilityPK={availability.pk}
+                token={token}
+                setRefreshAvailabilities={setRefreshAvailabilities}
+              />
             </Grid>
           ))
         ) : (
