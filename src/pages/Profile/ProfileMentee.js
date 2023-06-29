@@ -3,8 +3,8 @@ import axios from "axios";
 import ProfileBasicInfo from "./ProfileBasicInfo";
 import { Avatar, Typography, Grid, Box } from "@mui/material";
 import { Switch } from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { styled } from "@mui/material/styles";
 
 export default function ProfileMentee({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -20,6 +20,58 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   const [checkedSessionCanc, setCheckedSessionCanc] = useState(false);
   const [checked15Min, setChecked15Min] = useState(false);
   const [checked60Min, setChecked60Min] = useState(false);
+
+  // custom switch styling like iOS
+  const IOSSwitch = styled((props) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  ))(({ theme }) => ({
+    width: 42,
+    height: 26,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
+      padding: 0,
+      margin: 2,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          opacity: 1,
+          border: 0,
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.5,
+        },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color:
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 22,
+      height: 22,
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      opacity: 1,
+      transition: theme.transitions.create(['background-color'], {
+        duration: 500,
+      }),
+    },
+  }));
 
 
   useEffect(() => {
@@ -196,9 +248,9 @@ export default function ProfileMentee({ token, pk, setAuth }) {
               <Typography variant="h6">Email Notifications</Typography>
 
               <Grid item textAlign={"center"}>
-                <FormControlLabel control={<Switch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
-                <Grid item>
-                  <FormControlLabel control={<Switch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
+                <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
+                <Grid item marginTop={"1rem"}>
+                  <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                 </Grid>
 
                 {/* Commenting out notification options until we're ready to use them */}
