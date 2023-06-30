@@ -43,15 +43,18 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
     }
   }, [isLoggedIn, token]);
 
-
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar
+          sx={{
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {!isLoggedIn ? (
-            <>
-            </>
+            <></>
           ) : (
             <div>
               <IconButton
@@ -112,9 +115,16 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
             <p className="nav--title">Momentum Mentors</p>
           </Typography>
 
-          <div className="nav--authentication">
+          <Box
+            className="nav--authentication"
+            sx={{
+              flexDirection: { xs: "column", sm: "row" },
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {!isLoggedIn ? (
-              <div>
+              <Box>
                 <Button
                   size="large"
                   type="submit"
@@ -134,7 +144,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 >
                   Log in
                 </Button>
-              </div>
+              </Box>
             ) : (
               <Link to="/" onClick={handleLogout}>
                 {loading ? (
@@ -146,7 +156,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                         : {}
                     }
                   >
-                    <PacmanLoader size={12} color="yellow"/>
+                    <PacmanLoader size={12} color="yellow" />
                     {!loading && "Loading..."}
                   </Button>
                 ) : (
@@ -168,7 +178,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 )}
               </Link>
             )}
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
