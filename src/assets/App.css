@@ -1,16 +1,19 @@
 /* Navigation Bar */
 
 header {
-  height: 6.5rem;
+  height: inherit;
   background-color: #ffffff !important;
 }
 
 .nav--title {
   font-family: 'Bungee Shade', sans-serif;
-  font-size: 50px;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #222222;
   text-align: center;
+  margin-bottom: 1.2rem;
+  margin-top: 1.75rem;
+
 }
 
 /* Hero Page */
