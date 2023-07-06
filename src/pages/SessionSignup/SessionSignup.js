@@ -28,6 +28,7 @@ export default function SessionSignup({ token }) {
   const [selectedAvailabilityPk, setSelectedAvailabilityPk] = useState(null);
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -77,6 +78,7 @@ export default function SessionSignup({ token }) {
     }
 
     setSelectedDay(today);
+    setSelectedDayLabel(day); // set the selected day's label for highlighting
   };
 
   useEffect(() => {
@@ -213,8 +215,10 @@ export default function SessionSignup({ token }) {
       .catch((error) => {
         console.log("error:", error);
         // Temporary solution in case mentor is already signed up during this time. Backend will be updated to prevent display of times they are already scheduled. Backend will also be updated to return a more specific error than 500 error just in case we display a scheduled time. Then we can update this logic to trigger the alert for that specific error return.
-        if (error.message === 'Request failed with status code 500') {
-          alert("A session with this mentor is already scheduled during this time.");
+        if (error.message === "Request failed with status code 500") {
+          alert(
+            "A session with this mentor is already scheduled during this time."
+          );
         }
       });
   }
@@ -264,18 +268,39 @@ export default function SessionSignup({ token }) {
               marginTop={"2rem"}
               justifyContent={"center"}
             >
-              <Button variant="text" onClick={() => handleDayChange("Today")}>
+              <Button
+                variant="text"
+                onClick={() => handleDayChange("Today")}
+                style={{
+                  backgroundColor:
+                    selectedDayLabel === "Today" ? "#000000" : "transparent",
+                  color: selectedDayLabel === "Today" ? "white" : "inherit",
+                }}
+              >
                 Today
               </Button>
               <Button
                 variant="text"
                 onClick={() => handleDayChange("Tomorrow")}
+                style={{
+                  backgroundColor:
+                    selectedDayLabel === "Tomorrow" ? "#000000" : "transparent",
+                  color: selectedDayLabel === "Tomorrow" ? "white" : "inherit",
+                }}
               >
                 Tomorrow
               </Button>
               <Button
                 variant="text"
                 onClick={() => handleDayChange("The Next Day")}
+                style={{
+                  backgroundColor:
+                    selectedDayLabel === "The Next Day"
+                      ? "#000000"
+                      : "transparent",
+                  color:
+                    selectedDayLabel === "The Next Day" ? "white" : "inherit",
+                }}
               >
                 The Next Day
               </Button>
