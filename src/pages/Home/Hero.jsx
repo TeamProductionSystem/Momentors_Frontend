@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import yoda from "../../assets/mentor-yoda.jpeg";
+import LoginButton from "../../components/LoginButton";
 
 export default function Hero() {
   return (
@@ -13,16 +14,15 @@ export default function Hero() {
       <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography
-            h3
+            variant="h3"
             sx={{
-              border: "1px solid #808080",
               color: "#808080",
               textAlign: "center",
               fontFamily: "Roboto",
               fontSize: { xs: "2rem", sm: "3.25rem" },
               fontWeight: "400",
               lineHeight: "116.7%",
-              mt: { xs: 2, sm: 35 },
+              mt: { xs: 2, sm: 32 },
               ml: { xs: 1, sm: 5 },
               width: "85%",
             }}
@@ -30,6 +30,7 @@ export default function Hero() {
             Find a mentor to help achieve your goals and a Master you will
             become...
           </Typography>
+          <LoginButton />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box sx={{ mt: { xs: "2rem", sm: "12.38rem" } }}>
