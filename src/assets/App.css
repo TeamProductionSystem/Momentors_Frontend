@@ -16,55 +16,7 @@ header {
 
 }
 
-/* Hero Page */
 
-.hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding-top: 2rem;
-  background-color: #232222;
-}
-
-.hero--content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.hero--title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1.15rem;
-  margin-top: 2rem;
-  color: #ffffff;
-}
-
-.hero--subtitle {
-  font-size: 1.75rem;
-  color: #949aa5;
-  margin-bottom: 1.75rem;
-}
-
-.hero--note {
-  font-size: 1.25rem;
-  color: #949aa5;
-  margin-bottom: 1.75rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-.hero--yoda {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 8px;
-}
 
 /* authentication */
 
@@ -113,3 +65,22 @@ header {
   text-align: center;
 }
 
+
+
+/* // <div className="hero">
+//   <div className="hero--content">
+//     <p className="hero--subtitle">
+//       Find a mentor to help achieve your goals and a Master you will
+//       become...
+//     </p>
+//     <h4 className="hero--note">
+//       ** As we continue to refine our Beta version, we recommend using
+//       Google Chrome for the best experience. Please also allow for some
+//       extra time, as server response may be slower than usual during this
+//       period. We appreciate your patience and understanding. Improved
+//       cross-platform compatibility and performance enhancements are on their
+//       way! **
+//     </h4>
+//   </div>
+//   <img className="hero--yoda" src={yoda} alt="the best mentor he is yoda" />
+// </div>  */
