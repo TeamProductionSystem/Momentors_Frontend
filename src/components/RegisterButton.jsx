@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { useState } from "react";
 
-export default function LoginButton({ loading }) {
+export default function RegisterButton({ loading }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseOver = () => {
@@ -20,12 +20,13 @@ export default function LoginButton({ loading }) {
         size="large"
         type="submit"
         component={Link}
-        to="/login"
+        to="/register"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
         sx={{
           width: "6.8125rem",
           height: "2.8125rem",
+          marginLeft: { xs: 1, sm: 5 },
           marginTop: { xs: 2, sm: 10 },
           alignItems: "center",
           borderRadius: "0.25rem",
@@ -33,7 +34,7 @@ export default function LoginButton({ loading }) {
           fontSize: isHovered ? '2rem' : '1rem',
         }}
       >
-        {isHovered ? '🙌' : 'Sign In'}
+        {isHovered ? '🫶' : 'Register'}
       </Button>
       {loading && <PacmanLoader size={12} color="yellow" />}
     </>
