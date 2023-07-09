@@ -5,11 +5,11 @@ import { useState } from "react";
 
 export default function RegisterButton({ loading }) {
   const [isHovered, setIsHovered] = useState(false);
-
+  // This was created to handle the hover state of the Register button.
   const handleMouseOver = () => {
     setIsHovered(true);
   };
-
+  
   const handleMouseOut = () => {
     setIsHovered(false);
   };
@@ -31,11 +31,15 @@ export default function RegisterButton({ loading }) {
           alignItems: "center",
           borderRadius: "0.25rem",
           background: "rgba(216, 216, 216, 0.90)",
-          fontSize: isHovered ? '2rem' : '1rem',
+          fontSize: isHovered ? "2rem" : "1rem",
         }}
       >
-        {isHovered ? '🫶' : 'Register'}
+        {/* If the user is hovering over the button, 
+        it will show them a friendly hand heart. 
+        If not, it will just say "Sign In". */}
+        {isHovered ? "🫶" : "Register"}
       </Button>
+      {/* Fun Pacman Loader if the app takes to long to load the page */}
       {loading && <PacmanLoader size={12} color="yellow" />}
     </>
   );
