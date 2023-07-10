@@ -31,9 +31,17 @@ export default function Hero() {
             Find a mentor to help achieve your goals and a Master you will
             become...
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: { xs: 2, sm: 10 },
+            }}
+          >
             <LoginButton />
-            <RegisterButton />
+            <Box sx={{ marginLeft: { xs: 1, sm: 5 } }}>
+              <RegisterButton />
+            </Box>
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>

@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import PacmanLoader from "react-spinners/PacmanLoader";
 import { useState } from "react";
 
-export default function RegisterButton({ loading }) {
+export default function RegisterButton() {
   const [isHovered, setIsHovered] = useState(false);
   // This was created to handle the hover state of the Register button.
   const handleMouseOver = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseOut = () => {
     setIsHovered(false);
   };
@@ -26,8 +25,6 @@ export default function RegisterButton({ loading }) {
         sx={{
           width: "6.8125rem",
           height: "2.8125rem",
-          marginLeft: { xs: 1, sm: 5 },
-          marginTop: { xs: 2, sm: 10 },
           alignItems: "center",
           borderRadius: "0.25rem",
           background: "rgba(216, 216, 216, 0.90)",
@@ -39,8 +36,6 @@ export default function RegisterButton({ loading }) {
         If not, it will just say "Sign In". */}
         {isHovered ? "🫶" : "Register"}
       </Button>
-      {/* Fun Pacman Loader if the app takes to long to load the page */}
-      {loading && <PacmanLoader size={12} color="yellow" />}
     </>
   );
 }
