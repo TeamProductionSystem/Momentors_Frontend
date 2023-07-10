@@ -6,69 +6,20 @@ header {
 }
 
 .nav--title {
-  font-family: 'Bungee Shade', sans-serif;
+  font-family: "Bungee Shade", sans-serif;
   font-size: 3rem;
   font-weight: 700;
   color: #222222;
   text-align: center;
   margin-bottom: 1.2rem;
   margin-top: 1.75rem;
-
-}
-
-/* Hero Page */
-
-.hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding-top: 2rem;
-  background-color: #232222;
-}
-
-.hero--content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.hero--title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1.15rem;
-  margin-top: 2rem;
-  color: #ffffff;
-}
-
-.hero--subtitle {
-  font-size: 1.75rem;
-  color: #949aa5;
-  margin-bottom: 1.75rem;
-}
-
-.hero--note {
-  font-size: 1.25rem;
-  color: #949aa5;
-  margin-bottom: 1.75rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-.hero--yoda {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 8px;
 }
 
 /* authentication */
 
-.button--login, .button--edit-profile, .button--register {
+.button--login,
+.button--edit-profile,
+.button--register {
   margin-top: 1rem;
   text-align: center;
 }
@@ -77,16 +28,16 @@ header {
   margin: auto;
   margin-top: 1rem;
   width: 20rem;
-
 }
 
- #loading--button {
-  background-color: black;  
+#loading--button {
+  background-color: black;
   color: yellow;
 }
 /* Profile Page */
 
-.profile--heading, .profile--bio {
+.profile--heading,
+.profile--bio {
   margin: 1rem;
 }
 
@@ -99,8 +50,6 @@ header {
   margin: 1rem;
 }
 
-/* Sessions Page */
-
 
 /* Session Singup Page */
 
@@ -112,4 +61,3 @@ header {
   color: #000000;
   text-align: center;
 }
-
