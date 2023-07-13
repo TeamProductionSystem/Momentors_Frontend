@@ -74,11 +74,10 @@ export default function SessionSignup({ token }) {
     } else if (day === "The Next Day") {
       today.setDate(today.getDate() + 2);
     } else if (day === "Today") {
-      // no need to change the date, it's already today
     }
 
     setSelectedDay(today);
-    setSelectedDayLabel(day); // set the selected day's label for highlighting
+    setSelectedDayLabel(day); // sets the selected day's label for highlighting
   };
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export default function SessionSignup({ token }) {
       .then((response) => {
         setMentors(response.data);
 
-        const skillsSet = new Set(); // create a new Set to store unique skills
+        const skillsSet = new Set(); // creates a new Set to store unique skills
         response.data.forEach((mentor) => {
           // Check if the mentor is available
           if (
