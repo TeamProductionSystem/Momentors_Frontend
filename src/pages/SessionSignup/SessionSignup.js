@@ -236,7 +236,7 @@ export default function SessionSignup({ token }) {
         variant="h3"
         textAlign={"center"}
         paddingTop={"2.5rem"}
-        sx={{ color: "#FFFFFF", fontWeight: "700"}}
+        sx={{ color: "#FFFFFF", fontWeight: "700" }}
       >
         Sessions Sign Up
       </Typography>
@@ -323,7 +323,10 @@ export default function SessionSignup({ token }) {
         </Grid>
       </Grid>
       <Box>
-        <Typography variant="h4" sx={{marginTop:"7.62rem", marginLeft:"1.5rem", color:"#FFFFFF"}} >
+        <Typography
+          variant="h4"
+          sx={{ marginTop: "7.62rem", marginLeft: "1.5rem", color: "#FFFFFF" }}
+        >
           Select a Mentor for {selectedDayLabel}:
         </Typography>
         {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
@@ -347,9 +350,20 @@ export default function SessionSignup({ token }) {
           )}
         </Grid>
       </Box>
-      <Button variant="contained" color="primary" onClick={handleSubmitSession} sx={{justifyContent:"center"}}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginTop="1rem" // Adjust as necessary
+      >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmitSession}
+        sx={{ justifyContent: "center" }}
+      >
         Submit Session
       </Button>
+      </Box>
 
       {/* <SessionForm /> */}
 
