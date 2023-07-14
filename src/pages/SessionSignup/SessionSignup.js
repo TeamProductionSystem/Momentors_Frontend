@@ -74,11 +74,10 @@ export default function SessionSignup({ token }) {
     } else if (day === "The Next Day") {
       today.setDate(today.getDate() + 2);
     } else if (day === "Today") {
-      // no need to change the date, it's already today
     }
 
     setSelectedDay(today);
-    setSelectedDayLabel(day); // set the selected day's label for highlighting
+    setSelectedDayLabel(day); // sets the selected day's label for highlighting
   };
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export default function SessionSignup({ token }) {
       .then((response) => {
         setMentors(response.data);
 
-        const skillsSet = new Set(); // create a new Set to store unique skills
+        const skillsSet = new Set(); // creates a new Set to store unique skills
         response.data.forEach((mentor) => {
           // Check if the mentor is available
           if (
@@ -231,24 +230,46 @@ export default function SessionSignup({ token }) {
   };
 
   return (
-    <Box className="SessionRequest">
-      <Box className="SessionRequest-Header">
-        <Typography
-          variant="h4"
-          textAlign={"center"}
-          marginTop={"2rem"}
-          sx={{ textDecoration: "underline" }}
-        >
-          Sessions Signup
-        </Typography>
-        <Box textAlign={"center"}>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
-            <InputLabel id="skills">Select A Topic</InputLabel>
+    <Box sx={{ backgroundColor: "#1E1E1E", minHeight: "100vh" }}>
+      <Typography
+        variant="h3"
+        textAlign={"center"}
+        paddingTop={"2.5rem"}
+        sx={{ color: "#FFFFFF", fontWeight: "700" }}
+      >
+        Sessions Sign Up
+      </Typography>
+      <Grid
+        container
+        justifyContent="center"
+        sx={{ marginTop: "3rem", padding: "0 10%" }}
+      >
+        <Grid item xs={8} sm={6} md={4}>
+          <FormControl
+            sx={{
+              minWidth: "13.75rem",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 4,
+            }}
+          >
+            <InputLabel
+              id="skills"
+              sx={{
+                color: "#000",
+                "&.Mui-focused": { color: "#000" },
+                "&.MuiInputLabel-shrink": { color: "#000" },
+              }}
+            >
+              Select A Topic
+            </InputLabel>
             <Select
               labelId="skills"
               label="Select A Topic"
               value={selectedSkill}
               onChange={handleSkillChange}
+              sx={{
+                "& .MuiSelect-icon": { color: "#000" },
+              }}
             >
               {skills.map((skill) => (
                 <MenuItem key={skill} value={skill}>
@@ -257,56 +278,36 @@ export default function SessionSignup({ token }) {
               ))}
             </Select>
           </FormControl>
-          <Box>
-            <Typography variant="h4" marginTop={"2rem"}>
-              Select a Day
-            </Typography>
-            {/* Create three choices, Today, Tomorrow, The Next Day that when selected gives a list of users that have the skill selected and have an open avaliblity on the day they selected */}
-            <Stack
-              direction="row"
-              spacing={2}
-              marginTop={"2rem"}
-              justifyContent={"center"}
+        </Grid>
+        <Grid item xs={8} sm={6} md={4}>
+          <FormControl
+            sx={{
+              minWidth: "13.75rem",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 4,
+            }}
+          >
+            <InputLabel id="select-day">Select a Day</InputLabel>
+            <Select
+              labelId="select-day"
+              label="Select a Day"
+              value={selectedDayLabel} // Use selectedDayLabel instead of selectedDay for displaying the label
+              onChange={(event) => handleDayChange(event.target.value)}
             >
-              <Button
-                variant="text"
-                onClick={() => handleDayChange("Today")}
-                style={{
-                  backgroundColor:
-                    selectedDayLabel === "Today" ? "#000000" : "transparent",
-                  color: selectedDayLabel === "Today" ? "white" : "inherit",
-                }}
-              >
-                Today
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => handleDayChange("Tomorrow")}
-                style={{
-                  backgroundColor:
-                    selectedDayLabel === "Tomorrow" ? "#000000" : "transparent",
-                  color: selectedDayLabel === "Tomorrow" ? "white" : "inherit",
-                }}
-              >
-                Tomorrow
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => handleDayChange("The Next Day")}
-                style={{
-                  backgroundColor:
-                    selectedDayLabel === "The Next Day"
-                      ? "#000000"
-                      : "transparent",
-                  color:
-                    selectedDayLabel === "The Next Day" ? "white" : "inherit",
-                }}
-              >
-                The Next Day
-              </Button>
-            </Stack>
-          </Box>
-          <FormControl sx={{ minWidth: 140, marginTop: "2rem" }}>
+              <MenuItem value="Today">Today</MenuItem>
+              <MenuItem value="Tomorrow">Tomorrow</MenuItem>
+              <MenuItem value="The Next Day">The Next Day</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={8} sm={6} md={4}>
+          <FormControl
+            sx={{
+              minWidth: "13.75rem",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 4,
+            }}
+          >
             <InputLabel id="time-block">Select Time Block</InputLabel>
             <Select
               labelId="time-block"
@@ -318,55 +319,66 @@ export default function SessionSignup({ token }) {
               <MenuItem value={60}>60 minutes</MenuItem>
             </Select>
           </FormControl>
-          <Box>
-            <Typography variant="h4" marginTop={"2rem"}>
-              Select a Mentor
-            </Typography>
-            {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
-            <Grid
-              container
-              spacing={2}
-              marginTop={"2rem"}
-              justifyContent={"center"}
-            >
-              {filteredMentors.map((mentor) =>
-                mentor.skills ? (
-                  <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
-                    <MentorCard
-                      mentor={mentor}
-                      token={token}
-                      selectedDay={selectedDay}
-                      onSlotSelect={handleSlotSelect}
-                    />
-                  </Grid>
-                ) : null
-              )}
-            </Grid>
-          </Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmitSession}
-          >
-            Submit Session
-          </Button>
-
-          {/* <SessionForm /> */}
-        </Box>
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
+        </Grid>
+      </Grid>
+      <Box>
+        <Typography
+          variant="h4"
+          sx={{ marginTop: "7.62rem", marginLeft: "1.5rem", color: "#FFFFFF" }}
         >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Session Requested!
-          </Alert>
-        </Snackbar>
+          Select a Mentor for {selectedDayLabel}:
+        </Typography>
+        {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
+        <Grid
+          container
+          spacing={2}
+          marginTop={"2rem"}
+          justifyContent={"center"}
+        >
+          {filteredMentors.map((mentor) =>
+            mentor.skills ? (
+              <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
+                <MentorCard
+                  mentor={mentor}
+                  token={token}
+                  selectedDay={selectedDay}
+                  onSlotSelect={handleSlotSelect}
+                />
+              </Grid>
+            ) : null
+          )}
+        </Grid>
       </Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginTop="1rem" // Adjust as necessary
+      >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmitSession}
+        sx={{ justifyContent: "center" }}
+      >
+        Submit Session
+      </Button>
+      </Box>
+
+      {/* <SessionForm /> */}
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Session Requested!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
