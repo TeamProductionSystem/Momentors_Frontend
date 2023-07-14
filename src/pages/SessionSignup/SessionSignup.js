@@ -2,7 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
-import Alert from "@mui/material/Alert";
+import SubmitButton from "./SubmitButton";
 // import SessionForm from "./SessionForm";
 
 import {
@@ -13,9 +13,6 @@ import {
   Select,
   Grid,
   Typography,
-  Stack,
-  Button,
-  Snackbar,
 } from "@mui/material";
 
 export default function SessionSignup({ token }) {
@@ -208,8 +205,8 @@ export default function SessionSignup({ token }) {
       )
       .then((response) => {
         console.log("Session created successfully");
-        navigate("/menteesessions");
         setOpenSnackbar(true);
+        navigate("/menteesessions");
       })
       .catch((error) => {
         console.log("error:", error);
@@ -234,7 +231,7 @@ export default function SessionSignup({ token }) {
       <Typography
         variant="h3"
         textAlign={"center"}
-        paddingTop={"2.5rem"}
+        paddingTop={"4.5rem"}
         sx={{ color: "#FFFFFF", fontWeight: "700" }}
       >
         Sessions Sign Up
@@ -267,9 +264,6 @@ export default function SessionSignup({ token }) {
               label="Select A Topic"
               value={selectedSkill}
               onChange={handleSkillChange}
-              sx={{
-                "& .MuiSelect-icon": { color: "#000" },
-              }}
             >
               {skills.map((skill) => (
                 <MenuItem key={skill} value={skill}>
@@ -291,7 +285,7 @@ export default function SessionSignup({ token }) {
             <Select
               labelId="select-day"
               label="Select a Day"
-              value={selectedDayLabel} // Use selectedDayLabel instead of selectedDay for displaying the label
+              value={selectedDayLabel}
               onChange={(event) => handleDayChange(event.target.value)}
             >
               <MenuItem value="Today">Today</MenuItem>
@@ -349,36 +343,20 @@ export default function SessionSignup({ token }) {
           )}
         </Grid>
       </Box>
+      {/* The Submit button. It's only be visible if a mentor is selected */}
       <Box
-        display="flex"
-        justifyContent="center"
-        marginTop="1rem" // Adjust as necessary
+        sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
       >
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSubmitSession}
-        sx={{ justifyContent: "center" }}
-      >
-        Submit Session
-      </Button>
+        {filteredMentors.length > 0 && (
+          <SubmitButton
+            handleSubmitSession={handleSubmitSession}
+            openSnackbar={openSnackbar}
+            handleCloseSnackbar={handleCloseSnackbar}
+          />
+        )}
       </Box>
 
       {/* <SessionForm /> */}
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Session Requested!
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }
