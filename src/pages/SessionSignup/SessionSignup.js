@@ -31,7 +31,7 @@ export default function SessionSignup({ token }) {
     setTimeBlock(event.target.value);
   };
 
-  const handleSlotSelect = (availPk, start, end) => {
+  const handleSlotSelect = (availPk, start) => {
     setSelectedAvailabilityPk(availPk);
     setSelectedStartTime(start);
   };
@@ -342,7 +342,7 @@ export default function SessionSignup({ token }) {
                   mentor={mentor}
                   token={token}
                   selectedDay={selectedDay}
-                  onSlotSelect={handleSlotSelect}
+                  handleSlotSelect={handleSlotSelect}
                   handleSubmitSession={handleSubmitSession}
                 />
               </Grid>
