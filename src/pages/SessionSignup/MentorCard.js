@@ -54,7 +54,7 @@ export default function MentorCard({
           alignItems="center"
           justifyContent="center"
         >
-          <Card sx={{ width: 260, maxHeight: 600 }}>
+          <Card sx={{ display: 'flex', flexDirection: 'column', width: 260, maxHeight: 600 }}>
             {mentor.profile_photo ? (
               <CardMedia
                 sx={{
@@ -70,7 +70,7 @@ export default function MentorCard({
                 title="Profile Photo"
               />
             )}
-            <CardContent sx={{ overflowY: "auto" }}>
+            <CardContent sx={{ flexGrow: 1, overflowY: "auto"  }}>
               <Typography gutterBottom variant="h5" component="div">
                 {mentor.first_name}
               </Typography>
@@ -87,7 +87,7 @@ export default function MentorCard({
               ) : (
                 <>
                   <Typography sx={{ fontWeight: "bold" }} component="span">
-                    Bio: 
+                    Bio:
                   </Typography>
                   <Typography component="span"> {mentor.about_me}</Typography>
 
@@ -109,6 +109,7 @@ export default function MentorCard({
                     style={{
                       maxHeight: "250px",
                       textAlign: "center",
+                      overflowY: "auto",
                     }}
                   >
                     {/*Makes the time slots scrollable */}
@@ -117,6 +118,7 @@ export default function MentorCard({
                       value={selected}
                       orientation="vertical"
                       onChange={handleButtonChange}
+                      sx={{paddingBottom: "2rem"}}
                     >
                       {mentor.availabilities &&
                         mentor.availabilities
@@ -134,6 +136,7 @@ export default function MentorCard({
                                 alignSelf: "center",
                                 width: "100%",
                                 border: "darkgrey solid",
+                                
                               }}
                             >
                               <Typography
