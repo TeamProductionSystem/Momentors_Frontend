@@ -9,7 +9,7 @@ const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar }
         onClick={handleSubmitSession}
         sx={{ justifyContent: "center", backgroundColor: "#0EC202"  }}
       >
-        Submit Session
+        Request
       </Button>
       <Snackbar
         open={openSnackbar}
