@@ -27,7 +27,7 @@ const theme = createTheme({
 export default function MentorCard({
   mentor,
   selectedDay,
-  onSlotSelect,
+  handleSlotSelect,
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
@@ -37,10 +37,9 @@ export default function MentorCard({
   const handleButtonChange = (event, newSelectedAvailability) => {
     setSelected(newSelectedAvailability);
     if (newSelectedAvailability) {
-      onSlotSelect(
+      handleSlotSelect(
         newSelectedAvailability.availabilityPk,
-        newSelectedAvailability.start,
-        newSelectedAvailability.end
+        newSelectedAvailability.start
       );
     }
   };
@@ -54,18 +53,18 @@ export default function MentorCard({
           alignItems="center"
           justifyContent="center"
         >
-          <Card sx={{ display: 'flex', flexDirection: 'column', width: 260, maxHeight: 600 }}>
+          <Card sx={{ display: 'flex', flexDirection: 'column', width: 260, height: 550 }}>
             {mentor.profile_photo ? (
               <CardMedia
                 sx={{
-                  height: 200,
+                  height: 300,
                 }}
                 image={mentor.profile_photo}
                 title="Profile Photo"
               />
             ) : (
               <CardMedia
-                sx={{ height: 300 }}
+                sx={{ height: 200 }}
                 image="null"
                 title="Profile Photo"
               />
@@ -79,7 +78,6 @@ export default function MentorCard({
                 <Preview
                   selected={selected}
                   onCancel={() => setSelected(null)}
-                  onSlotSelect={onSlotSelect}
                   openSnackbar={openSnackbar}
                   handleCloseSnackbar={handleCloseSnackbar}
                   handleSubmitSession={handleSubmitSession}
@@ -107,7 +105,7 @@ export default function MentorCard({
                   </Typography>
                   <Box
                     style={{
-                      maxHeight: "250px",
+                      height: "20rem",
                       textAlign: "center",
                     }}
                   >
