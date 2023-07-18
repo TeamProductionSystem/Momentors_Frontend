@@ -109,7 +109,6 @@ export default function MentorCard({
                     style={{
                       maxHeight: "250px",
                       textAlign: "center",
-                      overflowY: "auto",
                     }}
                   >
                     {/*Makes the time slots scrollable */}
