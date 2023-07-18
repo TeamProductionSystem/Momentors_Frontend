@@ -2,7 +2,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
-import SubmitButton from "./SubmitButton";
 // import SessionForm from "./SessionForm";
 
 import {
@@ -32,7 +31,7 @@ export default function SessionSignup({ token }) {
     setTimeBlock(event.target.value);
   };
 
-  const handleSlotSelect = (availPk, start, end) => {
+  const handleSlotSelect = (availPk, start) => {
     setSelectedAvailabilityPk(availPk);
     setSelectedStartTime(start);
   };
@@ -325,35 +324,31 @@ export default function SessionSignup({ token }) {
         {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
         <Grid
           container
-          spacing={2}
           marginTop={"2rem"}
           justifyContent={"center"}
+          sx={{ paddingBottom: "5rem" }}
         >
           {filteredMentors.map((mentor) =>
             mentor.skills ? (
-              <Grid item xs={12} sm={6} md={4} key={mentor.pk}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                key={mentor.pk}
+                sx={{ padding: 1 }}
+              >
                 <MentorCard
                   mentor={mentor}
                   token={token}
                   selectedDay={selectedDay}
-                  onSlotSelect={handleSlotSelect}
+                  handleSlotSelect={handleSlotSelect}
+                  handleSubmitSession={handleSubmitSession}
                 />
               </Grid>
             ) : null
           )}
         </Grid>
-      </Box>
-      {/* The Submit button. It's only be visible if a mentor is selected */}
-      <Box
-        sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
-      >
-        {filteredMentors.length > 0 && (
-          <SubmitButton
-            handleSubmitSession={handleSubmitSession}
-            openSnackbar={openSnackbar}
-            handleCloseSnackbar={handleCloseSnackbar}
-          />
-        )}
       </Box>
 
       {/* <SessionForm /> */}
