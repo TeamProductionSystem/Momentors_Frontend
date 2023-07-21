@@ -8,6 +8,7 @@ const Preview = ({
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
+  issue
 }) => {
   return (
     <div>
@@ -38,6 +39,7 @@ const Preview = ({
           handleSubmitSession={handleSubmitSession}
           openSnackbar={openSnackbar}
           handleCloseSnackbar={handleCloseSnackbar}
+          issue={issue}
         />
         <Button variant="outlined" onClick={onCancel}>
           Cancel
