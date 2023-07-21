@@ -25,6 +25,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
+  const [issue, setIssue] = useState('')
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -36,7 +37,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => {}, [selectedStartTime]);
+  useEffect(() => { }, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -142,13 +143,13 @@ export default function SessionSignup({ token }) {
                   const blockEndTime =
                     selectedDayOnly < endDay
                       ? new Date(
-                          selected.getFullYear(),
-                          selected.getMonth(),
-                          selected.getDate(),
-                          23,
-                          59,
-                          59
-                        )
+                        selected.getFullYear(),
+                        selected.getMonth(),
+                        selected.getDate(),
+                        23,
+                        59,
+                        59
+                      )
                       : end;
                   return getTimeBlocks(
                     blockStartTime,
@@ -209,12 +210,7 @@ export default function SessionSignup({ token }) {
       })
       .catch((error) => {
         console.log("error:", error);
-        // Temporary solution in case mentor is already signed up during this time. Backend will be updated to prevent display of times they are already scheduled. Backend will also be updated to return a more specific error than 500 error just in case we display a scheduled time. Then we can update this logic to trigger the alert for that specific error return.
-        if (error.message === "Request failed with status code 500") {
-          alert(
-            "A session with this mentor is already scheduled during this time."
-          );
-        }
+        setIssue(error.message);
       });
   }
 
@@ -344,6 +340,7 @@ export default function SessionSignup({ token }) {
                   selectedDay={selectedDay}
                   handleSlotSelect={handleSlotSelect}
                   handleSubmitSession={handleSubmitSession}
+                  issue={issue}
                 />
               </Grid>
             ) : null

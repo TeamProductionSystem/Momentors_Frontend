@@ -1,29 +1,35 @@
-import { Button, Snackbar } from "@mui/material";
+import { Box, Button, Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar }) => {
+const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar, issue }) => {
   return (
     <>
       <Button
         variant="contained"
         onClick={handleSubmitSession}
-        sx={{ justifyContent: "center", backgroundColor: "#0EC202"  }}
+        sx={{ justifyContent: "center", backgroundColor: "#0EC202" }}
       >
         Request
       </Button>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Session Requested!
+      {issue ? (
+        <Alert className="errorPassword">
+          A session with this mentor is already scheduled during this time.
         </Alert>
-      </Snackbar>
+      ) : (
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Session Requested!
+          </Alert>
+        </Snackbar>
+      )}
     </>
   );
 };
