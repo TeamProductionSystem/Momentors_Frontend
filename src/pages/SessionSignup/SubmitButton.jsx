@@ -11,25 +11,20 @@ const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar, 
       >
         Request
       </Button>
-      {issue ? (
-        <Alert className="errorPassword">
-          A session with this mentor is already scheduled during this time.
-        </Alert>
-      ) : (
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={6000}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
           onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Session Requested!
-          </Alert>
-        </Snackbar>
-      )}
+          Session Requested!
+        </Alert>
+      </Snackbar>
+
     </>
   );
 };
