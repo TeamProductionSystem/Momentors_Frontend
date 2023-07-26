@@ -30,7 +30,7 @@ const Preview = ({
       </Typography>
       {issue ? (
         <>
-          <Alert>
+          <Alert severity="error">
             A session with this mentor is already scheduled during this time.
           </Alert>
           <Button variant="outlined" onClick={onCancel}>
