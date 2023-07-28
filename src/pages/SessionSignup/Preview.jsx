@@ -1,6 +1,6 @@
 // Component for previewing the session time prior to submitting the request.
 import SubmitButton from "./SubmitButton";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Alert } from "@mui/material";
 
 const Preview = ({
   selected,
@@ -8,6 +8,8 @@ const Preview = ({
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
+  issue,
+  handleOnBack
 }) => {
   return (
     <div>
@@ -27,22 +29,34 @@ const Preview = ({
           minute: "2-digit",
         })}
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <SubmitButton
-          handleSubmitSession={handleSubmitSession}
-          openSnackbar={openSnackbar}
-          handleCloseSnackbar={handleCloseSnackbar}
-        />
-        <Button variant="outlined" onClick={onCancel}>
-          Cancel
-        </Button>
-      </Box>
+      {issue ? (
+        <>
+          <Alert severity="error">
+            A session with this mentor is already scheduled during this time.
+          </Alert>
+          <Button variant="outlined" onClick={handleOnBack}>
+            Back
+          </Button>
+        </>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <SubmitButton
+            handleSubmitSession={handleSubmitSession}
+            openSnackbar={openSnackbar}
+            handleCloseSnackbar={handleCloseSnackbar}
+            issue={issue}
+          />
+          <Button variant="outlined" onClick={onCancel}>
+            Cancel
+          </Button>
+        </Box>
+      )}
     </div>
   );
 };

@@ -1,13 +1,13 @@
-import { Button, Snackbar } from "@mui/material";
+import { Box, Button, Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar }) => {
+const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar, issue }) => {
   return (
     <>
       <Button
         variant="contained"
         onClick={handleSubmitSession}
-        sx={{ justifyContent: "center", backgroundColor: "#0EC202"  }}
+        sx={{ justifyContent: "center", backgroundColor: "#0EC202" }}
       >
         Request
       </Button>
@@ -24,6 +24,7 @@ const SubmitButton = ({ handleSubmitSession, openSnackbar, handleCloseSnackbar }
           Session Requested!
         </Alert>
       </Snackbar>
+
     </>
   );
 };

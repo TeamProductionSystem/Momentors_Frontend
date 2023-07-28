@@ -31,6 +31,8 @@ export default function MentorCard({
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
+  issue,
+  setIssue
 }) {
   const [selected, setSelected] = useState(null);
 
@@ -43,6 +45,11 @@ export default function MentorCard({
       );
     }
   };
+
+  const handleOnBack = () => {
+    setSelected(null);
+    setIssue(false)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -69,7 +76,7 @@ export default function MentorCard({
                 title="Profile Photo"
               />
             )}
-            <CardContent sx={{ flexGrow: 1, overflowY: "auto"  }}>
+            <CardContent sx={{ flexGrow: 1, overflowY: "auto" }}>
               <Typography gutterBottom variant="h5" component="div">
                 {mentor.first_name}
               </Typography>
@@ -81,6 +88,8 @@ export default function MentorCard({
                   openSnackbar={openSnackbar}
                   handleCloseSnackbar={handleCloseSnackbar}
                   handleSubmitSession={handleSubmitSession}
+                  issue={issue}
+                  handleOnBack={handleOnBack}
                 />
               ) : (
                 <>
@@ -115,7 +124,7 @@ export default function MentorCard({
                       value={selected}
                       orientation="vertical"
                       onChange={handleButtonChange}
-                      sx={{paddingBottom: "2rem"}}
+                      sx={{ paddingBottom: "2rem" }}
                     >
                       {mentor.availabilities &&
                         mentor.availabilities
@@ -133,7 +142,7 @@ export default function MentorCard({
                                 alignSelf: "center",
                                 width: "100%",
                                 border: "darkgrey solid",
-                                
+
                               }}
                             >
                               <Typography
