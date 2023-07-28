@@ -31,7 +31,8 @@ export default function MentorCard({
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
-  issue
+  issue,
+  setIssue
 }) {
   const [selected, setSelected] = useState(null);
 
@@ -44,6 +45,11 @@ export default function MentorCard({
       );
     }
   };
+
+  const handleOnBack = () => {
+    setSelected(null);
+    setIssue(false)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -83,6 +89,7 @@ export default function MentorCard({
                   handleCloseSnackbar={handleCloseSnackbar}
                   handleSubmitSession={handleSubmitSession}
                   issue={issue}
+                  handleOnBack={handleOnBack}
                 />
               ) : (
                 <>
