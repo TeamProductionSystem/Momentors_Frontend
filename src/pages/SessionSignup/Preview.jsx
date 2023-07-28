@@ -8,7 +8,8 @@ const Preview = ({
   openSnackbar,
   handleCloseSnackbar,
   handleSubmitSession,
-  issue
+  issue,
+  handleOnBack
 }) => {
   return (
     <div>
@@ -33,7 +34,7 @@ const Preview = ({
           <Alert severity="error">
             A session with this mentor is already scheduled during this time.
           </Alert>
-          <Button variant="outlined" onClick={onCancel}>
+          <Button variant="outlined" onClick={handleOnBack}>
             Back
           </Button>
         </>

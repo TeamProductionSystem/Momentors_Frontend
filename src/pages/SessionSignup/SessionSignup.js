@@ -25,7 +25,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
-  const [issue, setIssue] = useState('')
+  const [issue, setIssue] = useState(false)
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -341,6 +341,7 @@ export default function SessionSignup({ token }) {
                   handleSlotSelect={handleSlotSelect}
                   handleSubmitSession={handleSubmitSession}
                   issue={issue}
+                  setIssue={setIssue}
                 />
               </Grid>
             ) : null
