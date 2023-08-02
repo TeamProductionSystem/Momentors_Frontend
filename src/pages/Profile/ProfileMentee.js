@@ -233,7 +233,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
 
                 {/* Commenting out notification options until we're ready to use them */}
                 <Grid item>
-                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
+                  <Typography fontSize={"18px"} paddingTop={".75rem"} color={"#CCCCCC"}>
                     Notify me 15 minutes before a session
                   </Typography>
                 </Grid>
@@ -253,7 +253,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                   <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                 </Grid>
                 <Grid item marginTop={"1rem"}>
-                  <FormControlLabel control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
+                  <FormControlLabel disabled control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
                 </Grid >
                 {/* <Grid item>
                   <FormControlLabel control={<Switch checked={checked60Min} onChange={handle60Min} />} />
