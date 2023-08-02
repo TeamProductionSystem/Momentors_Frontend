@@ -196,88 +196,42 @@ export default function ProfileMentee({ token, pk, setAuth }) {
             Notifications:
           </Typography>
 
-          <Grid container direction={"row"} spacing={2}>
-            <Grid marginRight={"rem"} marginLeft={"4rem"} width={"30rem"}>
-              <Grid item>
-                {/* <FormControl width="1rem">
-                      <InputLabel id="demo-simple-select-label">
-                        Time
-                      </InputLabel>{" "}
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={age}
-                        // label="Age"
-                        // onChange={handleChange}
-                      >
-                        <MenuItem value={10}>15 Mintues</MenuItem>
-                        <MenuItem value={20}>30 Mintues</MenuItem>
-                        <MenuItem value={45}>45 Minutes</MenuItem>
-                        <MenuItem value={60}>60 Minutes</MenuItem>
-                      </Select>
-                    </FormControl> */}
 
-                <Grid item>
-                  <br></br>
-                </Grid>
-                <Grid item>
-                  <Typography fontSize={"18px"} paddingTop={"1.2rem"}>
-                    Notify me when a mentor confirms a session
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography fontSize={"18px"} paddingTop={".75rem"}>
-                    Notify me when a mentor cancels a session
-                  </Typography>
-                </Grid>
+          <Grid sx={{ marginLeft: "4rem", width: "35rem" }} >
 
-                <Grid item>
-                  <Typography fontSize={"18px"} paddingTop={".75rem"} color={"#CCCCCC"}>
-                    Notify me 15 minutes before a session
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography fontSize={"18px"} paddingTop={".75rem"} color={"#CCCCCC"}>
-                    Notify me 60 minutes before a session
-                  </Typography>
-                </Grid>
-              </Grid>
+            {/* <Typography variant="h6">Email Notifications</Typography> */}
+
+            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+              <Typography fontSize={"18px"}>
+                Notify me when a mentor confirms a session
+              </Typography>
+              <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} />} />
             </Grid>
-            <Grid marginRight={"2rem"}>
-              <Typography variant="h6">Email Notifications</Typography>
 
-              <Grid item textAlign={"center"}>
-                <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} />} />
-                <Grid item marginTop={"1rem"}>
-                  <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
-                </Grid>
-                <Grid item marginTop={"1rem"}>
-                  <FormControlLabel disabled control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
-                </Grid >
-                <Grid item marginTop={"1rem"}>
-                  <FormControlLabel disabled control={<IOSSwitch checked={checked60Min} onChange={handle60Min} />} />
-                </Grid>
-              </Grid>
+            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+              <Typography fontSize={"18px"}>
+                Notify me when a mentor cancels a session
+              </Typography>
+              <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
             </Grid>
-            {/* <Grid>
-              <Typography variant="h6">Text Notifications</Typography>
 
-              <Grid item textAlign={"center"}>
-                <FormControlLabel control={<Switch />} />
-                <Grid Item>
-                  <FormControlLabel control={<Switch />} />
-                </Grid>
-                <Grid item>
-                  <FormControlLabel control={<Switch />} />
-                </Grid>
-                <Grid item>
-                  <FormControlLabel control={<Switch />} />
-                </Grid>
-              </Grid>
-            </Grid> */}
+            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+              <Typography fontSize={"18px"} color={"#CCCCCC"}>
+                Notify me 15 minutes before a session
+              </Typography>
+              <FormControlLabel disabled control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
+            </Grid >
+
+            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+              <Typography fontSize={"18px"} color={"#CCCCCC"}>
+                Notify me 60 minutes before a session
+              </Typography>
+              <FormControlLabel disabled control={<IOSSwitch checked={checked60Min} onChange={handle60Min} />} />
+            </Grid>
+
           </Grid>
         </Box>
       </Box>
-    </Box>
+    </Box >
   );
 }
