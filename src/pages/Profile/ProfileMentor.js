@@ -274,13 +274,12 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             <Typography variant="h4" paddingLeft={"1rem"}>
               Notifications:
             </Typography>
+            {/* spacing should be 12 perhaps */}
             <Grid container direction={"row"} spacing={2}>
-              <Grid marginRight={"rem"} marginLeft={"4rem"} width={"35rem"}>
+              <Grid sx={{ marginLeft: "4rem", width: "35rem" }}>
                 <Grid item>
-                  <Grid item>
-                    <br></br>
-                  </Grid>
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+
+                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"} marginTop={"1.5rem"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee schedules a session
                     </Typography>
@@ -293,6 +292,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       }
                     />
                   </Grid>
+
                   <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a session is confirmed
@@ -306,6 +306,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       }
                     />
                   </Grid>
+
                   <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee cancels a session
@@ -319,6 +320,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       }
                     />
                   </Grid>
+
                   <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
                     <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
                       Notify me 15 minutes before a session
@@ -332,6 +334,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       }
                     />
                   </Grid>
+
                   <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
                     <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
                       Notify me 60 minutes before a session
@@ -345,6 +348,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                       }
                     />
                   </Grid>
+
                   <Box sx={{ marginTop: "4rem" }}></Box>
                 </Grid>
               </Grid>
