@@ -43,11 +43,11 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setFirstName(
           res.data.first_name.charAt(0).toUpperCase() +
-            res.data.first_name.slice(1)
+          res.data.first_name.slice(1)
         );
         setLastName(
           res.data.last_name.charAt(0).toUpperCase() +
-            res.data.last_name.slice(1)
+          res.data.last_name.slice(1)
         );
         if (res.data.phone_number) {
           setPhoneNumber(
@@ -315,6 +315,32 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                         <IOSSwitch
                           checked={checkedSessionCanc}
                           onChange={handleSessionCanc}
+                        />
+                      }
+                    />
+                  </Grid>
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
+                    <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
+                      Notify me 15 minutes before a session
+                    </Typography>
+                    <FormControlLabel disabled
+                      control={
+                        <IOSSwitch
+                          checked={checked15Min}
+                          onChange={handle15Min}
+                        />
+                      }
+                    />
+                  </Grid>
+                  <Grid item display={"flex"} justifyContent={"space-between"}>
+                    <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
+                      Notify me 60 minutes before a session
+                    </Typography>
+                    <FormControlLabel disabled
+                      control={
+                        <IOSSwitch
+                          checked={checked60Min}
+                          onChange={handle60Min}
                         />
                       }
                     />
