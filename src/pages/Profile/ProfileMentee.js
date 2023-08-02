@@ -82,11 +82,11 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .then((res) => {
         setFirstName(
           res.data.first_name.charAt(0).toUpperCase() +
-            res.data.first_name.slice(1)
+          res.data.first_name.slice(1)
         );
         setLastName(
           res.data.last_name.charAt(0).toUpperCase() +
-            res.data.last_name.slice(1)
+          res.data.last_name.slice(1)
         );
         if (res.data.phone_number) {
           setPhoneNumber(
@@ -114,7 +114,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
         setChecked15Min(res.data.fifteen_minute_alert);
         setChecked60Min(res.data.sixty_minute_alert);
       });
-    }, [token, pk]);
+  }, [token, pk]);
 
   // handle Switch functionality
   const handleSessionConf = (event) => {
@@ -123,12 +123,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
         session_confirmed: event.target.checked,
       },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
   }
 
   const handleSessionCanc = (event) => {
@@ -137,12 +137,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
         session_canceled: event.target.checked,
       },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
   }
 
   const handle15Min = (event) => {
@@ -151,12 +151,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
         fifteen_minute_alert: event.target.checked,
       },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
   }
 
   const handle60Min = (event) => {
@@ -165,12 +165,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
         sixty_minute_alert: event.target.checked,
       },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
   }
 
 
@@ -232,12 +232,12 @@ export default function ProfileMentee({ token, pk, setAuth }) {
                 </Grid>
 
                 {/* Commenting out notification options until we're ready to use them */}
-                {/* <Grid item>
+                <Grid item>
                   <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 15 minutes before a session
                   </Typography>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Typography fontSize={"18px"} paddingTop={".75rem"}>
                     Notify me 60 minutes before a session
                   </Typography>
@@ -248,16 +248,14 @@ export default function ProfileMentee({ token, pk, setAuth }) {
               <Typography variant="h6">Email Notifications</Typography>
 
               <Grid item textAlign={"center"}>
-                <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} /> } />
+                <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} />} />
                 <Grid item marginTop={"1rem"}>
                   <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
                 </Grid>
-
-                {/* Commenting out notification options until we're ready to use them */}
+                <Grid item marginTop={"1rem"}>
+                  <FormControlLabel control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
+                </Grid >
                 {/* <Grid item>
-                  <FormControlLabel control={<Switch checked={checked15Min} onChange={handle15Min} />} />
-                </Grid>
-                <Grid item>
                   <FormControlLabel control={<Switch checked={checked60Min} onChange={handle60Min} />} />
                 </Grid> */}
               </Grid>
