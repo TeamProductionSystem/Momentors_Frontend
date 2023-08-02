@@ -25,6 +25,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
     setAnchorEl(null);
   };
 
+  // don't need, call in the session state from session storage 
   useEffect(() => {
     if (isLoggedIn) {
       axios
@@ -130,7 +131,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                   type="submit"
                   component={Link}
                   to="/register"
-                  // color="inherit"
+                // color="inherit"
                 >
                   Sign up
                 </Button>
@@ -140,7 +141,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                   type="submit"
                   component={Link}
                   to="/login"
-                  // color="inherit"
+                // color="inherit"
                 >
                   Log in
                 </Button>
@@ -166,10 +167,10 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                     style={
                       loading
                         ? {
-                            backgroundColor: "black",
-                            color: "yellow",
-                            width: "20px",
-                          }
+                          backgroundColor: "black",
+                          color: "yellow",
+                          width: "20px",
+                        }
                         : {}
                     }
                   >
