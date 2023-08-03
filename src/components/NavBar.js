@@ -14,9 +14,9 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 
 const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [user, setUser] = useState({});
   const open = Boolean(anchorEl);
-  const [isMentee, setIsMentee] = useState(false);
+  const isMentor = sessionStorage.getItem("is_mentor") === "true";
+  const isMentee = sessionStorage.getItem("is_mentee") === "true";
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,25 +24,6 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // don't need, call in the session state from session storage 
-  useEffect(() => {
-    if (isLoggedIn) {
-      axios
-        .get(`${process.env.REACT_APP_BE_URL}/myprofile/`, {
-          headers: {
-            authorization: `token ${token}`,
-          },
-        })
-        .then((response) => {
-          setUser(response.data);
-          setIsMentee(response.data.is_mentee);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [isLoggedIn, token]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -83,7 +64,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 <MenuItem onClick={handleClose} component={Link} to="/profile">
                   Profile
                 </MenuItem>
-                {user.is_mentor && (
+                {isMentor && (
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
@@ -131,7 +112,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                   type="submit"
                   component={Link}
                   to="/register"
-                // color="inherit"
+                  // color="inherit"
                 >
                   Sign up
                 </Button>
@@ -141,7 +122,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                   type="submit"
                   component={Link}
                   to="/login"
-                // color="inherit"
+                  // color="inherit"
                 >
                   Log in
                 </Button>
@@ -167,10 +148,10 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                     style={
                       loading
                         ? {
-                          backgroundColor: "black",
-                          color: "yellow",
-                          width: "20px",
-                        }
+                            backgroundColor: "black",
+                            color: "yellow",
+                            width: "20px",
+                          }
                         : {}
                     }
                   >
