@@ -80,7 +80,7 @@ export default function Hero() {
         ** As we continue to refine our Beta version, we recommend using Google
         Chrome for the best experience. Please also allow for extra time, as
         server response may be slower than usual during this period. We
-        appreciate your patience and understanding. Improved cross-plateform
+        appreciate your patience and understanding. Improved cross-platform
         compatibility and performance enhancements are on the way! **
       </Typography>
     </Box>
