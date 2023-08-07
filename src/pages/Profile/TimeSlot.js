@@ -37,7 +37,7 @@ export default function TimeSlot({
     endTimeSend.toISOString();
     axios
       .post(
-        `https://team-production-system.onrender.com/availability/`,
+        `${process.env.REACT_APP_BE_URL}/availability/`,
 
         {
           start_time: startTimeSend,
