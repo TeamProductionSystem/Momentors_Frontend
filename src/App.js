@@ -41,7 +41,7 @@ function App() {
     setLoading(true);
     axios
       .post(
-        "https://team-production-system.onrender.com/auth/token/logout/",
+        `${process.env.REACT_APP_BE_URL}/auth/token/logout/`,
         {},
         {
           headers: { Authorization: `Token ${token}` },
