@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -20,6 +20,7 @@ export default function TimeSlot({
   const [endTime, setEndTime] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [error, setError] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -57,7 +58,10 @@ export default function TimeSlot({
       })
       .catch((error) => {
         setError(error.response.data);
-        console.log(error.response.data);
+        setShowError(true);
+        setTimeout(() => {
+          setShowError(false);
+        }, 5000);
       });
   };
 
@@ -100,9 +104,11 @@ export default function TimeSlot({
               Submit
             </Button>
           </Stack>
-          <Alert severity="error">
-            {error && <Typography>{error}</Typography>}
-          </Alert>
+          {showError && (
+            <Alert severity="error">
+              {error && <Typography>{error}</Typography>}
+            </Alert>
+          )}
         </form>
         <Snackbar
           open={openSnackbar}
