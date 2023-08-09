@@ -250,7 +250,9 @@ export default function SessionSignup({ token }) {
                 color: "#000",
                 "&.Mui-focused": { color: "#000" },
                 "&.MuiInputLabel-shrink": { color: "#000" },
+                background: "white",
               }}
+
             >
               Select A Topic
             </InputLabel>
@@ -276,7 +278,7 @@ export default function SessionSignup({ token }) {
               borderRadius: 4,
             }}
           >
-            <InputLabel id="select-day">Select a Day</InputLabel>
+            <InputLabel id="select-day" style={{ background: "white" }}>Select a Day</InputLabel>
             <Select
               labelId="select-day"
               label="Select a Day"
@@ -297,7 +299,7 @@ export default function SessionSignup({ token }) {
               borderRadius: 4,
             }}
           >
-            <InputLabel id="time-block">Select Time Block</InputLabel>
+            <InputLabel id="time-block" style={{ background: "white" }}>Select Time Block</InputLabel>
             <Select
               labelId="time-block"
               label="Select Time Block"
