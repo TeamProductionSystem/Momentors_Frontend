@@ -43,11 +43,11 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setFirstName(
           res.data.first_name.charAt(0).toUpperCase() +
-          res.data.first_name.slice(1)
+            res.data.first_name.slice(1)
         );
         setLastName(
           res.data.last_name.charAt(0).toUpperCase() +
-          res.data.last_name.slice(1)
+            res.data.last_name.slice(1)
         );
         if (res.data.phone_number) {
           setPhoneNumber(
@@ -163,58 +163,67 @@ export default function ProfileMentor({ token, pk, setAuth }) {
 
   // custom switch styling like iOS
   const IOSSwitch = styled((props) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
   ))(({ theme }) => ({
     width: 42,
     height: 26,
     padding: 0,
-    '& .MuiSwitch-switchBase': {
+    "& .MuiSwitch-switchBase": {
       padding: 0,
       margin: 2,
-      transitionDuration: '300ms',
-      '&.Mui-checked': {
-        transform: 'translateX(16px)',
-        color: '#fff',
-        '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+      transitionDuration: "300ms",
+      "&.Mui-checked": {
+        transform: "translateX(16px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
           opacity: 1,
           border: 0,
         },
-        '&.Mui-disabled + .MuiSwitch-track': {
+        "&.Mui-disabled + .MuiSwitch-track": {
           opacity: 0.5,
         },
       },
-      '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: '#33cf4d',
-        border: '6px solid #fff',
+      "&.Mui-focusVisible .MuiSwitch-thumb": {
+        color: "#33cf4d",
+        border: "6px solid #fff",
       },
-      '&.Mui-disabled .MuiSwitch-thumb': {
+      "&.Mui-disabled .MuiSwitch-thumb": {
         color:
-          theme.palette.mode === 'light'
+          theme.palette.mode === "light"
             ? theme.palette.grey[100]
             : theme.palette.grey[600],
       },
-      '&.Mui-disabled + .MuiSwitch-track': {
-        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
       },
     },
-    '& .MuiSwitch-thumb': {
-      boxSizing: 'border-box',
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
       width: 22,
       height: 22,
     },
-    '& .MuiSwitch-track': {
+    "& .MuiSwitch-track": {
       borderRadius: 26 / 2,
-      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
       opacity: 1,
-      transition: theme.transitions.create(['background-color'], {
+      transition: theme.transitions.create(["background-color"], {
         duration: 500,
       }),
     },
   }));
 
   return (
-    <Box className="mentorprofile--page" margin="1rem">
+    <Box
+      className="mentorprofile--page"
+      margin="1rem"
+      sx={{ display: "grid", gridTemplateRows: "auto" }}
+    >
       <Stack spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
@@ -239,11 +248,14 @@ export default function ProfileMentor({ token, pk, setAuth }) {
         {/* Seeting the size of the "What You Know" box on 192 and 193, so that is does not grow 
         when the user adds more availabilities */}
         <Box
-          sx={{ border: "2px solid", borderRadius: "16px" }}
-          width={"15rem"}
-          marginRight={".5rem"}
-          maxHeight={"40rem"}
-          overflow={"auto"}
+          sx={{
+            border: "2px solid",
+            borderRadius: "16px",
+            width: "15rem",
+            marginRight: ".5rem",
+            maxHeight: "40rem",
+            overflow: "auto",
+          }}
         >
           <Typography
             variant="h5"
@@ -253,21 +265,20 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             What You Know
           </Typography>
 
-          <Box>
-            <List>
-              {skills.map((skill, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    fontSize: "20px",
-                    justifyContent: "center",
-                  }}
-                >
-                  {skill}
-                </ListItem>
-              ))}
-            </List>
-          </Box>
+          <List>
+            {skills.map((skill, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  fontSize: "20px",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                {skill}
+              </ListItem>
+            ))}
+          </List>
         </Box>
         <Box width={"100%"} className="mentorProfile--notifications">
           <Box>
@@ -278,8 +289,13 @@ export default function ProfileMentor({ token, pk, setAuth }) {
             <Grid container direction={"row"} spacing={2}>
               <Grid sx={{ marginLeft: "4rem", width: "35rem" }}>
                 <Grid item>
-
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"} marginTop={"1.5rem"}>
+                  <Grid
+                    item
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    marginBottom={".5rem"}
+                    marginTop={"1.5rem"}
+                  >
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee schedules a session
                     </Typography>
@@ -293,7 +309,12 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     />
                   </Grid>
 
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+                  <Grid
+                    item
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    marginBottom={".5rem"}
+                  >
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a session is confirmed
                     </Typography>
@@ -307,7 +328,12 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     />
                   </Grid>
 
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+                  <Grid
+                    item
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    marginBottom={".5rem"}
+                  >
                     <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me when a mentee cancels a session
                     </Typography>
@@ -321,11 +347,21 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     />
                   </Grid>
 
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
-                    <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
+                  <Grid
+                    item
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    marginBottom={".5rem"}
+                  >
+                    <Typography
+                      fontSize={"18px"}
+                      alignSelf={"center"}
+                      color={"#CCCCCC"}
+                    >
                       Notify me 15 minutes before a session
                     </Typography>
-                    <FormControlLabel disabled
+                    <FormControlLabel
+                      disabled
                       control={
                         <IOSSwitch
                           checked={checked15Min}
@@ -335,11 +371,21 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     />
                   </Grid>
 
-                  <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
-                    <Typography fontSize={"18px"} alignSelf={"center"} color={"#CCCCCC"}>
+                  <Grid
+                    item
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    marginBottom={".5rem"}
+                  >
+                    <Typography
+                      fontSize={"18px"}
+                      alignSelf={"center"}
+                      color={"#CCCCCC"}
+                    >
                       Notify me 60 minutes before a session
                     </Typography>
-                    <FormControlLabel disabled
+                    <FormControlLabel
+                      disabled
                       control={
                         <IOSSwitch
                           checked={checked60Min}
