@@ -306,11 +306,13 @@ export default function SessionSignup({ token }) {
               minWidth: "13.75rem",
               backgroundColor: "#FFFFFF",
               borderRadius: 4,
+              size: "small",
             }}
           >
             <InputLabel
               id="time-block"
               size="small"
+              height="20rem"
               variant="filled"
               sx={{
                 background: "white",
