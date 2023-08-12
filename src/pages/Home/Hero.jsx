@@ -27,6 +27,7 @@ export default function Hero() {
               ml: { xs: 2, sm: 6 },
               width: "85%",
             }}
+            data-cy="hero-message"
           >
             Find a mentor to help achieve your goals and a Master you will
             become...
@@ -76,6 +77,7 @@ export default function Hero() {
           marginLeft: { xs: 1, sm: 8 },
           marginRight: { xs: 1, sm: 8 },
         }}
+        data-cy="beta-warning-message"
       >
         ** As we continue to refine our Beta version, we recommend using Google
         Chrome for the best experience. Please also allow for extra time, as
