@@ -22,6 +22,7 @@ export default function RegisterButton() {
         to="/register"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
+        data-test="hero-register-button"
         sx={{
           width: "6.8125rem",
           height: "2.8125rem",
