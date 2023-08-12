@@ -22,6 +22,7 @@ export default function LoginButton() {
         to="/login"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
+        data-test="hero-login-button"
         sx={{
           width: "6.8125rem",
           height: "2.8125rem",

@@ -27,7 +27,7 @@ export default function Hero() {
               ml: { xs: 2, sm: 6 },
               width: "85%",
             }}
-            data-cy="hero-message"
+            data-test="hero-message"
           >
             Find a mentor to help achieve your goals and a Master you will
             become...
@@ -55,10 +55,12 @@ export default function Hero() {
             <img
               src={yoda}
               alt="the best mentor he is yoda"
+              data-test="hero-image"
               style={{
                 width: "100%",
                 objectFit: "cover",
                 borderRadius: "6.0625rem",
+
               }}
             />
           </Box>
@@ -77,7 +79,7 @@ export default function Hero() {
           marginLeft: { xs: 1, sm: 8 },
           marginRight: { xs: 1, sm: 8 },
         }}
-        data-cy="beta-warning-message"
+        data-test="hero-beta-warning-message"
       >
         ** As we continue to refine our Beta version, we recommend using Google
         Chrome for the best experience. Please also allow for extra time, as
