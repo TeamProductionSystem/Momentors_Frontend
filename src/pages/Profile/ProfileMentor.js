@@ -353,15 +353,10 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     justifyContent={"space-between"}
                     marginBottom={".5rem"}
                   >
-                    <Typography
-                      fontSize={"18px"}
-                      alignSelf={"center"}
-                      color={"#CCCCCC"}
-                    >
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me 15 minutes before a session
                     </Typography>
                     <FormControlLabel
-                      disabled
                       control={
                         <IOSSwitch
                           checked={checked15Min}
@@ -377,15 +372,10 @@ export default function ProfileMentor({ token, pk, setAuth }) {
                     justifyContent={"space-between"}
                     marginBottom={".5rem"}
                   >
-                    <Typography
-                      fontSize={"18px"}
-                      alignSelf={"center"}
-                      color={"#CCCCCC"}
-                    >
+                    <Typography fontSize={"18px"} alignSelf={"center"}>
                       Notify me 60 minutes before a session
                     </Typography>
                     <FormControlLabel
-                      disabled
                       control={
                         <IOSSwitch
                           checked={checked60Min}

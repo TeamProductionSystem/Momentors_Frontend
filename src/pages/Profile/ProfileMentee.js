@@ -216,17 +216,17 @@ export default function ProfileMentee({ token, pk, setAuth }) {
             </Grid>
 
             <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
-              <Typography fontSize={"18px"} color={"#CCCCCC"}>
+              <Typography fontSize={"18px"}>
                 Notify me 15 minutes before a session
               </Typography>
-              <FormControlLabel disabled control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
+              <FormControlLabel control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
             </Grid >
 
             <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
-              <Typography fontSize={"18px"} color={"#CCCCCC"}>
+              <Typography fontSize={"18px"}>
                 Notify me 60 minutes before a session
               </Typography>
-              <FormControlLabel disabled control={<IOSSwitch checked={checked60Min} onChange={handle60Min} />} />
+              <FormControlLabel control={<IOSSwitch checked={checked60Min} onChange={handle60Min} />} />
             </Grid>
 
           </Grid>
