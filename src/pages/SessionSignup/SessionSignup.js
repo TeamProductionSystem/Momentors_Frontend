@@ -25,7 +25,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
-  const [issue, setIssue] = useState(false)
+  const [issue, setIssue] = useState(false);
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -37,7 +37,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => { }, [selectedStartTime]);
+  useEffect(() => {}, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -143,13 +143,13 @@ export default function SessionSignup({ token }) {
                   const blockEndTime =
                     selectedDayOnly < endDay
                       ? new Date(
-                        selected.getFullYear(),
-                        selected.getMonth(),
-                        selected.getDate(),
-                        23,
-                        59,
-                        59
-                      )
+                          selected.getFullYear(),
+                          selected.getMonth(),
+                          selected.getDate(),
+                          23,
+                          59,
+                          59
+                        )
                       : end;
                   return getTimeBlocks(
                     blockStartTime,
@@ -317,38 +317,46 @@ export default function SessionSignup({ token }) {
         >
           Select a Mentor for {selectedDayLabel}:
         </Typography>
-        {/* Once a skill and day is selected view a list of mentors that have the skill selected and have an open avaliblity on the day they selected */}
-        <Grid
-          container
-          marginTop={"2rem"}
-          justifyContent={"center"}
-          sx={{ paddingBottom: "5rem" }}
-        >
-          {filteredMentors.map((mentor) =>
-            mentor.skills ? (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                key={mentor.pk}
-                sx={{ padding: 1 }}
-              >
-                <MentorCard
-                  mentor={mentor}
-                  token={token}
-                  selectedDay={selectedDay}
-                  handleSlotSelect={handleSlotSelect}
-                  handleSubmitSession={handleSubmitSession}
-                  issue={issue}
-                  setIssue={setIssue}
-                />
-              </Grid>
-            ) : null
-          )}
-        </Grid>
+        {/* Conditionally render the message if no mentors are available */}
+        {filteredMentors.length === 0 ? (
+          <Typography
+            variant="h6"
+            sx={{ marginTop: "1rem", marginLeft: "1.5rem", color: "#FFFFFF" }}
+          >
+            No mentors are available at this time.
+          </Typography>
+        ) : (
+          <Grid
+            container
+            marginTop={"2rem"}
+            justifyContent={"center"}
+            sx={{ paddingBottom: "5rem" }}
+          >
+            {filteredMentors.map((mentor) =>
+              mentor.skills ? (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={mentor.pk}
+                  sx={{ padding: 1 }}
+                >
+                  <MentorCard
+                    mentor={mentor}
+                    token={token}
+                    selectedDay={selectedDay}
+                    handleSlotSelect={handleSlotSelect}
+                    handleSubmitSession={handleSubmitSession}
+                    issue={issue}
+                    setIssue={setIssue}
+                  />
+                </Grid>
+              ) : null
+            )}
+          </Grid>
+        )}
       </Box>
-
       {/* <SessionForm /> */}
     </Box>
   );
