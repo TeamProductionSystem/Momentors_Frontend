@@ -27,14 +27,18 @@ export default function EditProfile({ token, pk, setAuth }) {
     : `+1${phoneNumber}`;
 
   const skillsChoices = [
+    "AI",
     "AWS S3",
     "Bootstrap",
+    "Career Help",
     "CSS",
     "Django",
+    "FastAPI",
     "Git",
     "GitHub",
     "HTML",
     "Insomnia",
+    "Interview Help",
     "JavaScript",
     "MUI",
     "Other",
@@ -42,8 +46,10 @@ export default function EditProfile({ token, pk, setAuth }) {
     "Postico",
     "Python",
     "React",
+    "Resume Help",
     "SQL",
     "Time Management",
+    "Vue.js",
   ];
 
   useEffect(() => {
