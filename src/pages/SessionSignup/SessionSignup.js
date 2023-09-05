@@ -318,12 +318,12 @@ export default function SessionSignup({ token }) {
           Select a Mentor for {selectedDayLabel}:
         </Typography>
         {/* Conditionally render the message if no mentors are available */}
-        {filteredMentors.length === 0 ? (
+        {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
           <Typography
             variant="h6"
-            sx={{ marginTop: "1rem", marginLeft: "1.5rem", color: "#FFFFFF" }}
+            sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
           >
-            No mentors are available at this time.
+            No mentors are available for {selectedSkill} at this time.
           </Typography>
         ) : (
           <Grid
