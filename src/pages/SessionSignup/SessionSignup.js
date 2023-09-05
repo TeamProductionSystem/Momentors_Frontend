@@ -129,6 +129,7 @@ export default function SessionSignup({ token }) {
                   end.getFullYear(),
                   end.getMonth(),
                   end.getDate()
+
                 );
                 const selectedDayOnly = new Date(
                   selected.getFullYear(),
