@@ -25,7 +25,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
-  const [issue, setIssue] = useState(false)
+  const [issue, setIssue] = useState(false);
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -37,7 +37,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => { }, [selectedStartTime]);
+  useEffect(() => {}, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -144,13 +144,13 @@ export default function SessionSignup({ token }) {
                   const blockEndTime =
                     selectedDayOnly < endDay
                       ? new Date(
-                        selected.getFullYear(),
-                        selected.getMonth(),
-                        selected.getDate(),
-                        23,
-                        59,
-                        59
-                      )
+                          selected.getFullYear(),
+                          selected.getMonth(),
+                          selected.getDate(),
+                          23,
+                          59,
+                          59
+                        )
                       : end;
                   return getTimeBlocks(
                     blockStartTime,
