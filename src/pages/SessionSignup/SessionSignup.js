@@ -23,7 +23,6 @@ export default function SessionSignup({ token }) {
   const [timeBlock, setTimeBlock] = useState(30);
   const [selectedAvailabilityPk, setSelectedAvailabilityPk] = useState(null);
   const [selectedStartTime, setSelectedStartTime] = useState(null);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
   const [issue, setIssue] = useState(false);
   const navigate = useNavigate();
@@ -205,7 +204,6 @@ export default function SessionSignup({ token }) {
       )
       .then((response) => {
         console.log("Session created successfully");
-        setOpenSnackbar(true);
         navigate("/menteesessions");
       })
       .catch((error) => {
@@ -213,13 +211,6 @@ export default function SessionSignup({ token }) {
         setIssue(error.message);
       });
   }
-
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
-  };
 
   return (
     <Box sx={{ backgroundColor: "#1E1E1E", minHeight: "100vh" }}>
@@ -256,7 +247,7 @@ export default function SessionSignup({ token }) {
             </InputLabel>
             <Select
               labelId="skills"
-              label="Select A Topic"
+              label="Select a Topic"
               value={selectedSkill}
               onChange={handleSkillChange}
             >
@@ -317,44 +308,59 @@ export default function SessionSignup({ token }) {
         >
           Select a Mentor for {selectedDayLabel}:
         </Typography>
-        {/* Conditionally render the message if no mentors are available */}
-        {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
+        {skills.length === 0 ? (
           <Typography
             variant="h6"
             sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
           >
-            No mentors are available for {selectedSkill} at this time.
+            No mentors are currently available.
           </Typography>
         ) : (
-          <Grid
-            container
-            marginTop={"2rem"}
-            justifyContent={"center"}
-            sx={{ paddingBottom: "5rem" }}
-          >
-            {filteredMentors.map((mentor) =>
-              mentor.skills ? (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                  key={mentor.pk}
-                  sx={{ padding: 1 }}
-                >
-                  <MentorCard
-                    mentor={mentor}
-                    token={token}
-                    selectedDay={selectedDay}
-                    handleSlotSelect={handleSlotSelect}
-                    handleSubmitSession={handleSubmitSession}
-                    issue={issue}
-                    setIssue={setIssue}
-                  />
-                </Grid>
-              ) : null
+          <>
+            {/* Conditionally render the message if no mentors are available */}
+            {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
+              <Typography
+                variant="h6"
+                sx={{
+                  marginTop: "1rem",
+                  marginLeft: "4.5rem",
+                  color: "#FFFFFF",
+                }}
+              >
+                No mentors are available for {selectedSkill} at this time.
+              </Typography>
+            ) : (
+              <Grid
+                container
+                marginTop={"2rem"}
+                justifyContent={"center"}
+                sx={{ paddingBottom: "5rem" }}
+              >
+                {filteredMentors.map((mentor) =>
+                  mentor.skills ? (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      key={mentor.pk}
+                      sx={{ padding: 1 }}
+                    >
+                      <MentorCard
+                        mentor={mentor}
+                        token={token}
+                        selectedDay={selectedDay}
+                        handleSlotSelect={handleSlotSelect}
+                        handleSubmitSession={handleSubmitSession}
+                        issue={issue}
+                        setIssue={setIssue}
+                      />
+                    </Grid>
+                  ) : null
+                )}
+              </Grid>
             )}
-          </Grid>
+          </>
         )}
       </Box>
       {/* <SessionForm /> */}
