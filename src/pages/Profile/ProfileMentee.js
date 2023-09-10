@@ -5,6 +5,7 @@ import { Avatar, Typography, Grid, Box } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { styled } from "@mui/material/styles";
+import Survey from "./Survey"
 
 export default function ProfileMentee({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -232,6 +233,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
           </Grid>
         </Box>
       </Box>
+      <Survey/>
     </Box >
   );
 }
