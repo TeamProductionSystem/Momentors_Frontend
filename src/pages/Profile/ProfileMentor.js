@@ -15,6 +15,7 @@ import { Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TimeSlot from "../Profile/TimeSlot";
 import { styled } from "@mui/material/styles";
+import Survey from "./Survey"
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -405,6 +406,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           />
         </Box>
       </Stack>
+        <Survey/>
     </Box>
   );
 }
