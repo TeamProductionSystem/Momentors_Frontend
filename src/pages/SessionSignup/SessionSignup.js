@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MentorCard from "./MentorCard";
+import PacmanLoader from "react-spinners/PacmanLoader";
 // import SessionForm from "./SessionForm";
 
 import {
@@ -25,6 +26,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
   const [issue, setIssue] = useState(false);
+  const [loading, setLoading] = useState(true); // 
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -101,6 +103,7 @@ export default function SessionSignup({ token }) {
         });
         // convert Set to array and set as state
         setSkills(Array.from(skillsSet));
+        setLoading(false);
       })
       .catch((error) => {
         console.log("error", error);
@@ -109,6 +112,7 @@ export default function SessionSignup({ token }) {
 
   useEffect(() => {
     if (selectedSkill && selectedDay) {
+      setLoading(true);
       const filteredMentors = mentors
         .map((mentor) => {
           const copyMentor = { ...mentor };
@@ -172,6 +176,7 @@ export default function SessionSignup({ token }) {
         })
         .filter(Boolean);
       setFilteredMentors(filteredMentors);
+      setLoading(false);
     }
   }, [selectedSkill, selectedDay, mentors, timeBlock]);
 
@@ -308,61 +313,72 @@ export default function SessionSignup({ token }) {
         >
           Select a Mentor for {selectedDayLabel}:
         </Typography>
-        {skills.length === 0 ? (
+        {loading === true ? (
           <Typography
-            variant="h6"
-            sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
-          >
-            No mentors are currently available.
+          variant="h6"
+          sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
+        >
+            Insert pacman loader
           </Typography>
         ) : (
           <>
-            {/* Conditionally render the message if no mentors are available */}
-            {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
+            {skills.length === 0 ? (
               <Typography
                 variant="h6"
-                sx={{
-                  marginTop: "1rem",
-                  marginLeft: "4.5rem",
-                  color: "#FFFFFF",
-                }}
+                sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
               >
-                No mentors are available for {selectedSkill} at this time.
+                No mentors are currently available.
               </Typography>
             ) : (
-              <Grid
-                container
-                marginTop={"2rem"}
-                justifyContent={"center"}
-                sx={{ paddingBottom: "5rem" }}
-              >
-                {filteredMentors.map((mentor) =>
-                  mentor.skills ? (
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      key={mentor.pk}
-                      sx={{ padding: 1 }}
-                    >
-                      <MentorCard
-                        mentor={mentor}
-                        token={token}
-                        selectedDay={selectedDay}
-                        handleSlotSelect={handleSlotSelect}
-                        handleSubmitSession={handleSubmitSession}
-                        issue={issue}
-                        setIssue={setIssue}
-                      />
-                    </Grid>
-                  ) : null
+              <>
+                {/* Conditionally render the message if no mentors are available */}
+                {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      marginTop: "1rem",
+                      marginLeft: "4.5rem",
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    No mentors are available for {selectedSkill} at this time.
+                  </Typography>
+                ) : (
+                  <Grid
+                    container
+                    marginTop={"2rem"}
+                    justifyContent={"center"}
+                    sx={{ paddingBottom: "5rem" }}
+                  >
+                    {filteredMentors.map((mentor) =>
+                      mentor.skills ? (
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={3}
+                          key={mentor.pk}
+                          sx={{ padding: 1 }}
+                        >
+                          <MentorCard
+                            mentor={mentor}
+                            token={token}
+                            selectedDay={selectedDay}
+                            handleSlotSelect={handleSlotSelect}
+                            handleSubmitSession={handleSubmitSession}
+                            issue={issue}
+                            setIssue={setIssue}
+                          />
+                        </Grid>
+                      ) : null
+                    )}
+                  </Grid>
                 )}
-              </Grid>
+              </>
             )}
           </>
         )}
-      </Box>
+        </Box>
       {/* <SessionForm /> */}
     </Box>
   );
