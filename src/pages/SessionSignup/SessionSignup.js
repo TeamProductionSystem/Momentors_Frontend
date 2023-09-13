@@ -26,7 +26,7 @@ export default function SessionSignup({ token }) {
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [selectedDayLabel, setSelectedDayLabel] = useState(""); // for highlighting the selected day
   const [issue, setIssue] = useState(false);
-  const [loading, setLoading] = useState(true); // 
+  const [loading, setLoading] = useState(true); // loading allows data to populate, avoiding a temporary false error message
   const navigate = useNavigate();
 
   const handleTimeBlockChange = (event) => {
@@ -65,6 +65,8 @@ export default function SessionSignup({ token }) {
   };
 
   const handleDayChange = (day) => {
+    // loading only if student has selected a day and a skill
+    selectedSkill && setLoading(true);
     const today = new Date();
     today.setHours(0, 0, 0, 0); // set time to 00:00:00
     if (day === "Tomorrow") {
@@ -112,7 +114,6 @@ export default function SessionSignup({ token }) {
 
   useEffect(() => {
     if (selectedSkill && selectedDay) {
-      setLoading(true);
       const filteredMentors = mentors
         .map((mentor) => {
           const copyMentor = { ...mentor };
@@ -176,11 +177,14 @@ export default function SessionSignup({ token }) {
         })
         .filter(Boolean);
       setFilteredMentors(filteredMentors);
+      // finish loading that was initiated if student selected a day and a skill
       setLoading(false);
     }
   }, [selectedSkill, selectedDay, mentors, timeBlock]);
 
   const handleSkillChange = (event) => {
+    // loading only if student has selected a day and a skill
+    selectedDay && setLoading(true);
     setSelectedSkill(event.target.value);
   };
 
