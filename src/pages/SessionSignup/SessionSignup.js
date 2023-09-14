@@ -13,6 +13,7 @@ import {
   Select,
   Grid,
   Typography,
+  Container,
 } from "@mui/material";
 
 export default function SessionSignup({ token }) {
@@ -318,12 +319,13 @@ export default function SessionSignup({ token }) {
           Select a Mentor for {selectedDayLabel}:
         </Typography>
         {loading === true ? (
-          <Typography
-          variant="h6"
-          sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
-        >
-            Insert pacman loader
-          </Typography>
+          <Box 
+            justifyContent={"center"}
+            marginTop={"2rem"}
+            sx={{ display: "flex", paddingBottom: "5rem" }}
+            >
+            <PacmanLoader size={20} color="yellow" />
+          </Box>
         ) : (
           <>
             {skills.length === 0 ? (
