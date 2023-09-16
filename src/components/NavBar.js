@@ -128,7 +128,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 </Button>
               </Box>
             ) : (
-              <Link to="/" onClick={handleLogout}>
+              <Link to="/" >
                 {loading ? (
                   <Button
                     id="loading--button"
