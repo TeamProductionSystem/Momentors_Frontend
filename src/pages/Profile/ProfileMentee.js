@@ -6,6 +6,7 @@ import { Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { styled } from "@mui/material/styles";
 import Survey from "./Survey"
+import MenteeSessions from "../Sessions/MenteeSessions"
 
 export default function ProfileMentee({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -231,6 +232,7 @@ export default function ProfileMentee({ token, pk, setAuth }) {
             </Grid>
 
           </Grid>
+            <MenteeSessions token={token} pk={pk}/>
         </Box>
       </Box>
       <Survey/>
