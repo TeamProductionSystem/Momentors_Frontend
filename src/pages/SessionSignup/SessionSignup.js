@@ -13,7 +13,6 @@ import {
   Select,
   Grid,
   Typography,
-  Container,
 } from "@mui/material";
 
 export default function SessionSignup({ token }) {
@@ -214,7 +213,7 @@ export default function SessionSignup({ token }) {
       )
       .then((response) => {
         console.log("Session created successfully");
-        navigate("/menteesessions");
+        navigate("/profile");
       })
       .catch((error) => {
         console.log("error:", error);

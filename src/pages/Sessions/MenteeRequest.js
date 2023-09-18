@@ -25,9 +25,9 @@ export default function MenteeSessions({ token, pk, setAuth }) {
     <Box className="menteerequest--component">
       {/* Filter and add only pending sessions */}
       <Typography
-        variant="h2"
+        variant="h5"
         component="div"
-        sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
+        sx={{ flexGrow: 1, marginTop: "1rem", padding: "1rem" }}
       >
         Request:
       </Typography>
@@ -40,7 +40,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
           sx={{
             flexGrow: 1,
             marginLeft: "1rem",
-            fontSize: "25px",
+            fontSize: "20px",
             textAlign: "center",
           }}
         >
@@ -66,7 +66,7 @@ export default function MenteeSessions({ token, pk, setAuth }) {
                 flexGrow: 1,
                 marginLeft: "1rem",
                 marginTop: "1.75rem",
-                fontSize: "25px",
+                fontSize: "20px",
                 textAlign: "center",
               }}
             >
