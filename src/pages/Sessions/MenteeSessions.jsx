@@ -19,13 +19,11 @@ export default function MenteeSessions({ token, pk, setAuth }) {
   return (
     <Box className="menteesessions--page">
       <Typography
-        variant="h2"
+        variant="h4"
         component="div"
         sx={{
-          flexGrow: 1,
-          textAlign: "center",
+          paddingLeft: "1rem",
           marginTop: "2rem",
-          textDecoration: "underline",
         }}
       >
         Mentee Session

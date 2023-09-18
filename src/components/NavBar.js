@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,7 +9,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
@@ -73,15 +72,6 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                     Mentor Sessions
                   </MenuItem>
                 )}
-                {isMentee && (
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    to="/menteesessions"
-                  >
-                    Mentee Sessions
-                  </MenuItem>
-                )}
                 <MenuItem
                   onClick={handleClose}
                   component={Link}
@@ -93,7 +83,12 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
             </div>
           )}
 
-          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }} data-test="Nav-Title">
+          <Typography
+            variant="h3"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            data-test="Nav-Title"
+          >
             <p className="nav--title">Momentum Mentors</p>
           </Typography>
 
@@ -128,7 +123,7 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 </Button>
               </Box>
             ) : (
-              <Link to="/" onClick={handleLogout}>
+              <Link to="/">
                 {loading ? (
                   <Button
                     id="loading--button"

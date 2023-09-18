@@ -9,7 +9,6 @@ import Profile from "./pages/Register/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 import MentorSessions from "./pages/Sessions/MentorSessions";
 import SessionSignup from "./pages/SessionSignup/SessionSignup";
-import MenteeSessions from "./pages/Sessions/MenteeSessions";
 import TimeSlot from "./pages/Profile/TimeSlot";
 import CurrentAvailabilities from "./pages/Profile/Current Availabilities";
 import { Routes, Route } from "react-router-dom";
@@ -143,16 +142,6 @@ function App() {
           path="/mentorsessions"
           element={
             <MentorSessions
-              token={token}
-              setAuth={setAuth}
-              isLoggedIn={isLoggedIn}
-            />
-          }
-        />
-        <Route
-          path="/menteesessions"
-          element={
-            <MenteeSessions
               token={token}
               setAuth={setAuth}
               isLoggedIn={isLoggedIn}
