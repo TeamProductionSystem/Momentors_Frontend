@@ -38,7 +38,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => {}, [selectedStartTime]);
+  useEffect(() => { }, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -133,6 +133,7 @@ export default function SessionSignup({ token }) {
                   end.getFullYear(),
                   end.getMonth(),
                   end.getDate()
+
                 );
                 const selectedDayOnly = new Date(
                   selected.getFullYear(),
@@ -147,13 +148,13 @@ export default function SessionSignup({ token }) {
                   const blockEndTime =
                     selectedDayOnly < endDay
                       ? new Date(
-                          selected.getFullYear(),
-                          selected.getMonth(),
-                          selected.getDate(),
-                          23,
-                          59,
-                          59
-                        )
+                        selected.getFullYear(),
+                        selected.getMonth(),
+                        selected.getDate(),
+                        23,
+                        59,
+                        59
+                      )
                       : end;
                   return getTimeBlocks(
                     blockStartTime,
@@ -246,10 +247,10 @@ export default function SessionSignup({ token }) {
           >
             <InputLabel
               id="skills"
+              size="small"
+              variant="filled"
               sx={{
-                color: "#000",
-                "&.Mui-focused": { color: "#000" },
-                "&.MuiInputLabel-shrink": { color: "#000" },
+                background: "white",
               }}
             >
               Select A Topic
@@ -276,7 +277,16 @@ export default function SessionSignup({ token }) {
               borderRadius: 4,
             }}
           >
-            <InputLabel id="select-day">Select a Day</InputLabel>
+            <InputLabel
+              id="select-day"
+              size="small"
+              variant="filled"
+              sx={{
+                background: "white",
+              }}
+            >
+              Select a Day
+            </InputLabel>
             <Select
               labelId="select-day"
               label="Select a Day"
@@ -295,9 +305,19 @@ export default function SessionSignup({ token }) {
               minWidth: "13.75rem",
               backgroundColor: "#FFFFFF",
               borderRadius: 4,
+              size: "small",
             }}
           >
-            <InputLabel id="time-block">Select Time Block</InputLabel>
+            <InputLabel
+              id="time-block"
+              size="small"
+              variant="filled"
+              sx={{
+                background: "white",
+              }}
+            >
+              Select Time Block
+            </InputLabel>
             <Select
               labelId="time-block"
               label="Select Time Block"
