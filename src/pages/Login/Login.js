@@ -4,6 +4,7 @@ import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
+import { Link } from "react-router-dom";
 
 export default function Login({ setAuth, setMentor, setMentee, setUserLive }) {
   const [userName, setUserName] = useState("");
@@ -96,15 +97,28 @@ export default function Login({ setAuth, setMentor, setMentee, setUserLive }) {
                 {!loading && "Loading..."}
               </Button>
             ) : (
-              <Button
-                id="login--button"
-                type="submit"
+              <>
+                <Button
+                  id="login--button"
+                  type="submit"
+                  style={
+                    loading ? { backgroundColor: "black", color: "yellow" } : {}
+                  }
+                >
+                  Login
+                </Button>
+                <Button
+                id="forgot-pw--button"
+                type="button"
                 style={
                   loading ? { backgroundColor: "black", color: "yellow" } : {}
                 }
+                component={Link}
+                to="/resetpw"
               >
-                Login
+                Forgot Password
               </Button>
+            </>
             )}
           </Stack>
         </Stack>

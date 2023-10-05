@@ -5,6 +5,7 @@ import Hero from "./pages/Home/Hero";
 import NavBar from "./components/NavBar";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
+import ResetPW from "./pages/Login/ResetPW";
 import Profile from "./pages/Register/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 import MentorSessions from "./pages/Sessions/MentorSessions";
@@ -113,6 +114,17 @@ function App() {
           path="/login"
           element={
             <Login
+              setAuth={setAuth}
+              setMentor={setMentor}
+              setMentee={setMentee}
+              setUserLive={setUserLive}
+            />
+          }
+        />
+         <Route
+          path="/resetpw"
+          element={
+            <ResetPW
               setAuth={setAuth}
               setMentor={setMentor}
               setMentee={setMentee}

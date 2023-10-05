@@ -24,6 +24,10 @@ header {
   text-align: center;
 }
 
+#forgot-pw--button {
+  margin-top: 2rem;
+}
+
 .field {
   margin: auto;
   margin-top: 1rem;
@@ -49,5 +53,3 @@ header {
 .authentication-switch {
   margin: 1rem;
 }
-
-
