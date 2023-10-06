@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import ResetPW from "./pages/Login/ResetPW";
+import ResetPWConfirm from "./pages/Login/ResetPWConfirm";
 import Profile from "./pages/Register/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 import MentorSessions from "./pages/Sessions/MentorSessions";
@@ -122,9 +123,20 @@ function App() {
           }
         />
          <Route
-          path="/resetpw"
+          path="/password/reset"
           element={
             <ResetPW
+              setAuth={setAuth}
+              setMentor={setMentor}
+              setMentee={setMentee}
+              setUserLive={setUserLive}
+            />
+          }
+        />
+        <Route
+          path="/password/reset/confirm/:uid/:token"
+          element={
+            <ResetPWConfirm
               setAuth={setAuth}
               setMentor={setMentor}
               setMentee={setMentee}

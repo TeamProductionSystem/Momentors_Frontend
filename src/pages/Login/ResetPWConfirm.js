@@ -4,12 +4,15 @@ import axios from "axios";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useParams } from "react-router";
 
 
-export default function ResetPW() {
-    const [email, setEmail] = useState("");
+export default function ResetPWConfirm() {
+    const [newPW, setNewPW] = useState("");
+    const [reNewPW, setReNewPW] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const {uid, token} = useParams()
 
     const navigate = useNavigate();
 
@@ -18,8 +21,11 @@ export default function ResetPW() {
         setError("");
         setLoading(true);
         axios
-          .post(`${process.env.REACT_APP_BE_URL}/auth/users/reset_password/`, {
-            email: email,
+          .post(`${process.env.REACT_APP_BE_URL}/auth/users/reset_password_confirm/`, {
+            uid: uid,
+            token: token,
+            new_password: newPW,
+            re_new_password: reNewPW,
           })
           .then((res) => {
             setLoading(false);
@@ -38,12 +44,20 @@ export default function ResetPW() {
                 <Stack container="true" justifyContent="center" alignItems="center">
                 <Stack item="true" className="field">
                     <TextField
-                    // error={error.username ? true : false}
-                    label="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    // helperText={error.username}
+                    label="password"
+                    type="password"
+                    onChange={(e) => setNewPW(e.target.value)}
                     >
-                    Email
+                    Password
+                    </TextField>
+                </Stack>
+                <Stack item="true" className="field">
+                    <TextField
+                    label="confirm password"
+                    type="password"
+                    onChange={(e) => setReNewPW(e.target.value)}
+                    >
+                    Confirm Password
                     </TextField>
                 </Stack>
                 <Stack item="true" className="button--login">

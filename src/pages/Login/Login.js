@@ -114,7 +114,7 @@ export default function Login({ setAuth, setMentor, setMentee, setUserLive }) {
                   loading ? { backgroundColor: "black", color: "yellow" } : {}
                 }
                 component={Link}
-                to="/resetpw"
+                to="/password/reset"
               >
                 Forgot Password
               </Button>
