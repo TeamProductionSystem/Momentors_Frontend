@@ -1,3 +1,9 @@
+// TODO: What to do with error section in axios call?
+// TODO: See if I should keep errors in TextField
+// TODO: What if someone has an email not in the system
+// TODO: Is process intuitive?
+// Note: some TODO's apply to ResetPWConfirm
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -69,7 +75,7 @@ export default function ResetPW() {
                             loading ? { backgroundColor: "black", color: "yellow" } : {}
                         }
                         >
-                        Reset Password
+                        Email Password Reset Link
                         </Button>
                         </>
                     )}

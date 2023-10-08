@@ -1,3 +1,5 @@
+// TODO: is it ok that we don't auto log in? We don't have username
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
