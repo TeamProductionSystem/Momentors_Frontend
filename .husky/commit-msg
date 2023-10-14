@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+COMMIT_MSG_FILE=$1
+
+npx commitlint < "$COMMIT_MSG_FILE"
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "\nERROR: Your commit message doesn't follow the conventional commit format."
+    echo "Expected format: <type>(<scope>): <description>"
+    echo "Example: feat(auth): add login functionality\n"
+fi
+
+exit $EXIT_CODE
