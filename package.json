@@ -9,7 +9,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "^5.0.0-alpha.125",
-    "@mui/material": "^5.14.6",
+    "@mui/material": "^5.14.10",
     "@mui/styled-engine-sc": "^5.11.11",
     "@sentry/react": "^7.65.0",
     "@testing-library/jest-dom": "^5.16.5",
