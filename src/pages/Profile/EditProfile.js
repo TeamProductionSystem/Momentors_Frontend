@@ -52,18 +52,16 @@ export default function EditProfile({ token, pk, setAuth }) {
     "Vue.js",
   ];
 
-  const client = axios.create({
-    baseURL: `${ process.env.REACT_APP_BE_URL }`,
-    headers: { Authorization: `Token ${ token }` },
-  });
-
   useEffect(() => {
     const getMentorInfo = async () => {
       try {
-        const mentorInfo = await client.get('/mentorinfo/');
-
+        const mentorInfo = await axios.get(
+          `${process.env.REACT_APP_BE_URL}/myprofile/`,
+          { headers: { Authorization: `Token ${ token }` } },
+        );
+  
         setSkills(mentorInfo.data[0].skills);
-        setAboutMe(mentorInfo.data[0].about_me);
+        setAboutMe(mentorInfo.data[0].skills);
       } catch (err) {
         console.error(err);
       }
@@ -71,7 +69,10 @@ export default function EditProfile({ token, pk, setAuth }) {
 
     const getMenteeInfo = async () => {
       try {
-        const menteeInfo = await client.get('/menteeInfo/');
+        const menteeInfo = await axios.get(
+          `${process.env.REACT_APP_BE_URL}/myprofile/`,
+          { headers: { Authorization: `Token ${ token }` } },
+        );
 
         setTeamNumber(menteeInfo.data[0].team_number);
       } catch (err) {
@@ -81,8 +82,11 @@ export default function EditProfile({ token, pk, setAuth }) {
 
     const getProfileData = async () => {
       try {
-        const profileData = await client.get('/myprofile/');
-
+        const profileData = await axios.get(
+          `${process.env.REACT_APP_BE_URL}/myprofile/`,
+          { headers: { Authorization: `Token ${ token }` } },
+        );
+  
         setLoading(false);
         setOriginalProfile(profileData.data);
         setFirstName(profileData.data.first_name);
@@ -98,13 +102,13 @@ export default function EditProfile({ token, pk, setAuth }) {
         }
       } catch (err) {
         setLoading(false);
-        setError(err);
+        setError(err.message);
       }
     }
 
     setLoading(true);
     getProfileData();
-  }, [client]);
+  }, [token]);
 
   const handleChange = (event) => {
     const { value: selectedValue } = event.target;
