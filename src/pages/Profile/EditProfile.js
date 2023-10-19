@@ -287,19 +287,18 @@ export default function EditProfile({ token, pk, setAuth }) {
             </Stack>
           )}
 
-          {isMentee && (
-            <Stack item="true" className="field">
-              <TextField
-                label="Team Number"
-                placeholder={teamNumber !== "" ? teamNumber : "Team Number"}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                value={teamNumber}
-                onChange={(e) => setTeamNumber(e.target.value)}
-              ></TextField>
-            </Stack>
-          )}
+          <Stack item="true" className="field">
+            <TextField
+              label="Team Number"
+              placeholder={teamNumber !== "" ? teamNumber : "Team Number"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={teamNumber}
+              onChange={(e) => setTeamNumber(e.target.value)}
+            ></TextField>
+          </Stack>
+
 
           <Stack item="true" className="button--edit-profile">
             {loading ? (
