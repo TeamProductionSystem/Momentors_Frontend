@@ -61,7 +61,7 @@ export default function EditProfile({ token, pk, setAuth }) {
         );
 
         setSkills(mentorInfo.data[0].skills);
-        setAboutMe(mentorInfo.data[0].skills);
+        setAboutMe(mentorInfo.data[0].about_me);
         setTeamNumber(mentorInfo.data[0].team_number);
       } catch (err) {
         console.error(err);
