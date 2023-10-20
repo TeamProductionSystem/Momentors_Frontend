@@ -56,12 +56,13 @@ export default function EditProfile({ token, pk, setAuth }) {
     const getMentorInfo = async () => {
       try {
         const mentorInfo = await axios.get(
-          `${process.env.REACT_APP_BE_URL}/myprofile/`,
+          `${process.env.REACT_APP_BE_URL}/mentorinfo/`,
           { headers: { Authorization: `Token ${ token }` } },
         );
-  
+
         setSkills(mentorInfo.data[0].skills);
         setAboutMe(mentorInfo.data[0].skills);
+        setTeamNumber(mentorInfo.data[0].team_number);
       } catch (err) {
         console.error(err);
       }
@@ -70,7 +71,7 @@ export default function EditProfile({ token, pk, setAuth }) {
     const getMenteeInfo = async () => {
       try {
         const menteeInfo = await axios.get(
-          `${process.env.REACT_APP_BE_URL}/myprofile/`,
+          `${process.env.REACT_APP_BE_URL}/menteeinfo/`,
           { headers: { Authorization: `Token ${ token }` } },
         );
 
