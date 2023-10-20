@@ -152,12 +152,13 @@ export default function EditProfile({ token, pk, setAuth }) {
         }
       )
       .then((res) => {
-        if (skills && aboutMe) {
+        if (isMentor) {
           axios.patch(
             `${process.env.REACT_APP_BE_URL}/mentorinfoupdate/`,
             {
               skills: skills,
               about_me: aboutMe,
+              team_number: teamNumber,
             },
             {
               headers: {
@@ -166,7 +167,7 @@ export default function EditProfile({ token, pk, setAuth }) {
               },
             }
           );
-        } else if (teamNumber) {
+        } else if (isMentee) {
           axios.patch(
             `${process.env.REACT_APP_BE_URL}/menteeinfoupdate/`,
             {
