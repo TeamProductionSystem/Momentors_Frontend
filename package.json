@@ -30,6 +30,7 @@
     "@babel/plugin-transform-private-property-in-object": "^7.22.11",
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
+    "@sentry/cli": "^2.21.2",
     "cypress": "^13.1.0",
     "eslint": "^8.32.0",
     "eslint-config-airbnb": "^19.0.4",
