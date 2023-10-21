@@ -45,8 +45,6 @@ root.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Sentry.ErrorBoundary fallback={"An error has occurred"}>
-          {" "}
-          {/* Sentry Error Boundary */}
           <App />
         </Sentry.ErrorBoundary>
       </BrowserRouter>
