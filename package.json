@@ -23,7 +23,7 @@
     "react-router-dom": "^6.16.0",
     "react-spinners": "^0.13.8",
     "styled-components": "^5.3.9",
-    "url": "^0.11.0",
+    "url": "^0.11.3",
     "use-local-storage-state": "^18.1.2",
     "web-vitals": "^2.1.4"
   },
