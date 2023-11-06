@@ -25,6 +25,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
   const [profilePhoto, setProfilePhoto] = useState("");
   const [skills, setSkills] = useState([]);
   const [about_me, setAboutMe] = useState("");
+  const [teamNumber, setTeamNumber] = useState("");
   //Update the availabilities when the user adds a new availability
   const [refreshAvailabilities, setRefreshAvailabilities] = useState(false);
 
@@ -67,6 +68,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setSkills(res.data[0].skills);
         setAboutMe(res.data[0].about_me);
+        setTeamNumber(res.data[0].team_number);
       });
     axios
       .get(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
@@ -228,6 +230,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       <Stack spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
+          <Typography variant="h5">{ `Team Number: ${ teamNumber }`}</Typography>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
             lastName={`Last Name: ${lastName}`}
