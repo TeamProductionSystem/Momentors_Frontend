@@ -38,7 +38,7 @@ export default function SessionSignup({ token }) {
     setSelectedStartTime(start);
   };
 
-  useEffect(() => { }, [selectedStartTime]);
+  useEffect(() => {}, [selectedStartTime]);
 
   const getTimeBlocks = (start, end, blockLength, slotPk) => {
     const startTime = start instanceof Date ? start : new Date(start);
@@ -115,66 +115,62 @@ export default function SessionSignup({ token }) {
   useEffect(() => {
     if (selectedSkill && selectedDay) {
       const filteredMentors = mentors
+        .filter(
+          (mentor) =>
+            mentor.skills.includes(selectedSkill) &&
+            mentor.availabilities &&
+            mentor.availabilities.length > 0,
+        )
         .map((mentor) => {
-          const copyMentor = { ...mentor };
-          if (copyMentor.availabilities) {
-            copyMentor.availabilities = copyMentor.availabilities.flatMap(
-              (slot) => {
-                const start = new Date(slot.start_time);
-                const end = new Date(slot.end_time);
-                const selected = new Date(selectedDay);
+          const mentorCopy = { ...mentor };
+          mentorCopy.availabilities = mentor.availabilities.flatMap((slot) => {
+            const start = new Date(slot.start_time);
+            const end = new Date(slot.end_time);
+            const selected = new Date(selectedDay);
 
-                const startDay = new Date(
-                  start.getFullYear(),
-                  start.getMonth(),
-                  start.getDate()
-                );
-                const endDay = new Date(
-                  end.getFullYear(),
-                  end.getMonth(),
-                  end.getDate()
-
-                );
-                const selectedDayOnly = new Date(
-                  selected.getFullYear(),
-                  selected.getMonth(),
-                  selected.getDate()
-                );
-
-                // Check if selected day is in the range of the slot's start and end days
-                if (selectedDayOnly >= startDay && selectedDayOnly <= endDay) {
-                  const blockStartTime =
-                    selectedDayOnly > startDay ? selected : start;
-                  const blockEndTime =
-                    selectedDayOnly < endDay
-                      ? new Date(
-                        selected.getFullYear(),
-                        selected.getMonth(),
-                        selected.getDate(),
-                        23,
-                        59,
-                        59
-                      )
-                      : end;
-                  return getTimeBlocks(
-                    blockStartTime,
-                    blockEndTime,
-                    timeBlock,
-                    slot.pk
-                  );
-                }
-
-                return [];
-              }
+            const startDay = new Date(
+              start.getFullYear(),
+              start.getMonth(),
+              start.getDate(),
             );
-          } else {
-            copyMentor.availabilities = [];
-          }
-          if (copyMentor.availabilities.length > 0) {
-            return copyMentor;
-          }
+            const endDay = new Date(
+              end.getFullYear(),
+              end.getMonth(),
+              end.getDate(),
+            );
+            const selectedDayOnly = new Date(
+              selected.getFullYear(),
+              selected.getMonth(),
+              selected.getDate(),
+            );
 
-          return null;
+            // Check if selected day is in the range of the slot's start and end days
+            if (selectedDayOnly >= startDay && selectedDayOnly <= endDay) {
+              const blockStartTime =
+                selectedDayOnly > startDay ? selected : start;
+              const blockEndTime =
+                selectedDayOnly < endDay
+                  ? new Date(
+                      selected.getFullYear(),
+                      selected.getMonth(),
+                      selected.getDate(),
+                      23,
+                      59,
+                      59,
+                    )
+                  : end;
+              return getTimeBlocks(
+                blockStartTime,
+                blockEndTime,
+                timeBlock,
+                slot.pk,
+              );
+            }
+
+            return [];
+          });
+
+          return mentorCopy.availabilities.length > 0 ? mentorCopy : null;
         })
         .filter(Boolean);
       setFilteredMentors(filteredMentors);
@@ -210,7 +206,7 @@ export default function SessionSignup({ token }) {
         },
         {
           headers: { Authorization: `Token ${token}` },
-        }
+        },
       )
       .then((response) => {
         console.log("Session created successfully");
@@ -338,11 +334,11 @@ export default function SessionSignup({ token }) {
           Select a Mentor for {selectedDayLabel}:
         </Typography>
         {loading === true ? (
-          <Box 
+          <Box
             justifyContent={"center"}
             marginTop={"2rem"}
             sx={{ display: "flex", paddingBottom: "5rem" }}
-            >
+          >
             <PacmanLoader size={20} color="yellow" />
           </Box>
         ) : (
@@ -350,14 +346,20 @@ export default function SessionSignup({ token }) {
             {skills.length === 0 ? (
               <Typography
                 variant="h6"
-                sx={{ marginTop: "1rem", marginLeft: "4.5rem", color: "#FFFFFF" }}
+                sx={{
+                  marginTop: "1rem",
+                  marginLeft: "4.5rem",
+                  color: "#FFFFFF",
+                }}
               >
                 No mentors are currently available.
               </Typography>
             ) : (
               <>
                 {/* Conditionally render the message if no mentors are available */}
-                {selectedSkill && selectedDay && filteredMentors.length === 0 ? (
+                {selectedSkill &&
+                selectedDay &&
+                filteredMentors.length === 0 ? (
                   <Typography
                     variant="h6"
                     sx={{
@@ -395,7 +397,7 @@ export default function SessionSignup({ token }) {
                             setIssue={setIssue}
                           />
                         </Grid>
-                      ) : null
+                      ) : null,
                     )}
                   </Grid>
                 )}
@@ -403,7 +405,7 @@ export default function SessionSignup({ token }) {
             )}
           </>
         )}
-        </Box>
+      </Box>
       {/* <SessionForm /> */}
     </Box>
   );
