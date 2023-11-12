@@ -5,8 +5,7 @@ import { Avatar, Typography, Grid, Box } from "@mui/material";
 import { Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { styled } from "@mui/material/styles";
-import Survey from "./Survey"
-import MenteeSessions from "../Sessions/MenteeSessions"
+import MenteeSessions from "../Sessions/MenteeSessions";
 
 export default function ProfileMentee({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -25,56 +24,60 @@ export default function ProfileMentee({ token, pk, setAuth }) {
 
   // custom switch styling like iOS
   const IOSSwitch = styled((props) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
   ))(({ theme }) => ({
     width: 42,
     height: 26,
     padding: 0,
-    '& .MuiSwitch-switchBase': {
+    "& .MuiSwitch-switchBase": {
       padding: 0,
       margin: 2,
-      transitionDuration: '300ms',
-      '&.Mui-checked': {
-        transform: 'translateX(16px)',
-        color: '#fff',
-        '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+      transitionDuration: "300ms",
+      "&.Mui-checked": {
+        transform: "translateX(16px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
           opacity: 1,
           border: 0,
         },
-        '&.Mui-disabled + .MuiSwitch-track': {
+        "&.Mui-disabled + .MuiSwitch-track": {
           opacity: 0.5,
         },
       },
-      '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: '#33cf4d',
-        border: '6px solid #fff',
+      "&.Mui-focusVisible .MuiSwitch-thumb": {
+        color: "#33cf4d",
+        border: "6px solid #fff",
       },
-      '&.Mui-disabled .MuiSwitch-thumb': {
+      "&.Mui-disabled .MuiSwitch-thumb": {
         color:
-          theme.palette.mode === 'light'
+          theme.palette.mode === "light"
             ? theme.palette.grey[100]
             : theme.palette.grey[600],
       },
-      '&.Mui-disabled + .MuiSwitch-track': {
-        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
       },
     },
-    '& .MuiSwitch-thumb': {
-      boxSizing: 'border-box',
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
       width: 22,
       height: 22,
     },
-    '& .MuiSwitch-track': {
+    "& .MuiSwitch-track": {
       borderRadius: 26 / 2,
-      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
       opacity: 1,
-      transition: theme.transitions.create(['background-color'], {
+      transition: theme.transitions.create(["background-color"], {
         duration: 500,
       }),
     },
   }));
-
 
   useEffect(() => {
     axios
@@ -84,17 +87,17 @@ export default function ProfileMentee({ token, pk, setAuth }) {
       .then((res) => {
         setFirstName(
           res.data.first_name.charAt(0).toUpperCase() +
-          res.data.first_name.slice(1)
+            res.data.first_name.slice(1),
         );
         setLastName(
           res.data.last_name.charAt(0).toUpperCase() +
-          res.data.last_name.slice(1)
+            res.data.last_name.slice(1),
         );
         if (res.data.phone_number) {
           setPhoneNumber(
             res.data.phone_number
               .slice(2)
-              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3")
+              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3"),
           );
         }
         setProfilePhoto(res.data.profile_photo); // set profilePhoto state
@@ -121,60 +124,67 @@ export default function ProfileMentee({ token, pk, setAuth }) {
   // handle Switch functionality
   const handleSessionConf = (event) => {
     setCheckedSessionConf(event.target.checked);
-    axios
-      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+    axios.patch(
+      `${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`,
+      {
         session_confirmed: event.target.checked,
       },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-  }
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  };
 
   const handleSessionCanc = (event) => {
     setCheckedSessionCanc(event.target.checked);
-    axios
-      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+    axios.patch(
+      `${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`,
+      {
         session_canceled: event.target.checked,
       },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-  }
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  };
 
   const handle15Min = (event) => {
     setChecked15Min(event.target.checked);
-    axios
-      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+    axios.patch(
+      `${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`,
+      {
         fifteen_minute_alert: event.target.checked,
       },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-  }
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  };
 
   const handle60Min = (event) => {
     setChecked60Min(event.target.checked);
-    axios
-      .patch(`${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`, {
+    axios.patch(
+      `${process.env.REACT_APP_BE_URL}/notificationsettings/${pk}/`,
+      {
         sixty_minute_alert: event.target.checked,
       },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-  }
-
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  };
 
   return (
     <Box className="profile--page" style={{ marginTop: "2rem" }}>
@@ -198,44 +208,82 @@ export default function ProfileMentee({ token, pk, setAuth }) {
             Notifications:
           </Typography>
 
-
-          <Grid sx={{ marginLeft: "4rem", width: "35rem" }} >
-
+          <Grid sx={{ marginLeft: "4rem", width: "35rem" }}>
             {/* <Typography variant="h6">Email Notifications</Typography> */}
 
-            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+            <Grid
+              item
+              display={"flex"}
+              justifyContent={"space-between"}
+              marginBottom={".5rem"}
+            >
               <Typography fontSize={"18px"}>
                 Notify me when a mentor confirms a session
               </Typography>
-              <FormControlLabel control={<IOSSwitch checked={checkedSessionConf} onChange={handleSessionConf} />} />
+              <FormControlLabel
+                control={
+                  <IOSSwitch
+                    checked={checkedSessionConf}
+                    onChange={handleSessionConf}
+                  />
+                }
+              />
             </Grid>
 
-            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+            <Grid
+              item
+              display={"flex"}
+              justifyContent={"space-between"}
+              marginBottom={".5rem"}
+            >
               <Typography fontSize={"18px"}>
                 Notify me when a mentor cancels a session
               </Typography>
-              <FormControlLabel control={<IOSSwitch checked={checkedSessionCanc} onChange={handleSessionCanc} />} />
+              <FormControlLabel
+                control={
+                  <IOSSwitch
+                    checked={checkedSessionCanc}
+                    onChange={handleSessionCanc}
+                  />
+                }
+              />
             </Grid>
 
-            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+            <Grid
+              item
+              display={"flex"}
+              justifyContent={"space-between"}
+              marginBottom={".5rem"}
+            >
               <Typography fontSize={"18px"}>
                 Notify me 15 minutes before a session
               </Typography>
-              <FormControlLabel control={<IOSSwitch checked={checked15Min} onChange={handle15Min} />} />
-            </Grid >
+              <FormControlLabel
+                control={
+                  <IOSSwitch checked={checked15Min} onChange={handle15Min} />
+                }
+              />
+            </Grid>
 
-            <Grid item display={"flex"} justifyContent={"space-between"} marginBottom={".5rem"}>
+            <Grid
+              item
+              display={"flex"}
+              justifyContent={"space-between"}
+              marginBottom={".5rem"}
+            >
               <Typography fontSize={"18px"}>
                 Notify me 60 minutes before a session
               </Typography>
-              <FormControlLabel control={<IOSSwitch checked={checked60Min} onChange={handle60Min} />} />
+              <FormControlLabel
+                control={
+                  <IOSSwitch checked={checked60Min} onChange={handle60Min} />
+                }
+              />
             </Grid>
-
           </Grid>
-            <MenteeSessions token={token} pk={pk}/>
+          <MenteeSessions token={token} pk={pk} />
         </Box>
       </Box>
-      <Survey/>
-    </Box >
+    </Box>
   );
 }
