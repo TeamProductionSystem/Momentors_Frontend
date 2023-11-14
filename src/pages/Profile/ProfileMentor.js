@@ -15,7 +15,6 @@ import { Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TimeSlot from "../Profile/TimeSlot";
 import { styled } from "@mui/material/styles";
-import Survey from "./Survey"
 
 export default function ProfileMentor({ token, pk, setAuth }) {
   // first name, last name, phone number
@@ -45,17 +44,17 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       .then((res) => {
         setFirstName(
           res.data.first_name.charAt(0).toUpperCase() +
-            res.data.first_name.slice(1)
+            res.data.first_name.slice(1),
         );
         setLastName(
           res.data.last_name.charAt(0).toUpperCase() +
-            res.data.last_name.slice(1)
+            res.data.last_name.slice(1),
         );
         if (res.data.phone_number) {
           setPhoneNumber(
             res.data.phone_number
               .slice(2)
-              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3")
+              .replace(/(\d{3})(\d{3})(\d{4})/, "($1)$2-$3"),
           );
         }
 
@@ -96,7 +95,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   };
 
@@ -112,7 +111,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   };
 
@@ -128,7 +127,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   };
 
@@ -144,7 +143,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   };
 
@@ -160,7 +159,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   };
 
@@ -230,7 +229,7 @@ export default function ProfileMentor({ token, pk, setAuth }) {
       <Stack spacing={1} direction="row">
         <Avatar sx={{ width: 200, height: 210 }} src={profilePhoto} />
         <Box sx={{ fontSize: "20px" }} textAlign={"Center"}>
-          <Typography variant="h5">{ `Team Number: ${ teamNumber }`}</Typography>
+          <Typography variant="h5">{`Team Number: ${teamNumber}`}</Typography>
           <ProfileBasicInfo
             firstName={`First Name: ${firstName}`}
             lastName={`Last Name: ${lastName}`}
@@ -409,7 +408,6 @@ export default function ProfileMentor({ token, pk, setAuth }) {
           />
         </Box>
       </Stack>
-        <Survey/>
     </Box>
   );
 }
