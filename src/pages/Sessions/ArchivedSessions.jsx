@@ -8,10 +8,12 @@ import axios from "axios";
 export default function ArchivedSessions({token, pk, setAuth}) {
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BE_URL}/session/`, {
+      .get(`${process.env.REACT_APP_BE_URL}/archivesession/`, {
         headers: { Authorization: `Token ${token}` },
       })
-
+      .then((res) => {
+        console.log(res.data)
+      })
       .catch((err) => {
         console.log("error", err);
       });
