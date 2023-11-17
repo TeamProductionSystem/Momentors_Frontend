@@ -178,7 +178,6 @@ function App() {
           element={
             <ArchivedSessions
               token={token}
-              setAuth={setAuth}
               isLoggedIn={isLoggedIn}
             />
           }
