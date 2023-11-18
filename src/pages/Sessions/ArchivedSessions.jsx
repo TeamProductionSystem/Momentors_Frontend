@@ -1,3 +1,7 @@
+// TODO: Remove commented code
+// TODO: Approve wording
+
+
 import { Box, Grid, Typography, Chip } from "@mui/material";
 import MentorScheduledSessions from "./MentorScheduled";
 import MentorRequestedSessions from "./MentorRequest";
@@ -5,7 +9,7 @@ import MentorCancledSessions from "./MentorCanceled";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ArchivedSessions({token, pk}) {
+export default function ArchivedSessions({token, pk, mentor}) {
   const [archivedSessions, setArchivedSessions] = useState([]);
 
   useEffect(() => {
@@ -14,6 +18,7 @@ export default function ArchivedSessions({token, pk}) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
+        console.log(res.data)
         setArchivedSessions(res.data);
       })
       .catch((err) => {
@@ -22,7 +27,12 @@ export default function ArchivedSessions({token, pk}) {
   }, [token, pk]);
 
   return (
-    <Box className="mentorsessions--page">
+    <Box 
+    className="mentorsessions--page"
+    sx={{
+      marginBottom: "2rem",
+    }}
+    >
       <Typography
         variant="h2"
         component="div"
@@ -37,13 +47,13 @@ export default function ArchivedSessions({token, pk}) {
       </Typography>
       <Box className="mentorcanceled--component">
         {/* filter and add only canceled sessions */}
-        <Typography
+        {/* <Typography
           variant="h2"
           component="div"
           sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
         >
           Sessions:
-        </Typography>
+        </Typography> */}
         <Box margin={"1rem"}>
           <hr style={{ color: "black" }} />
         </Box>
@@ -57,13 +67,13 @@ export default function ArchivedSessions({token, pk}) {
               textAlign: "center",
             }}
           >
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Box>Name:</Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Box>Date:</Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Box>Time:</Box>
             </Grid>
             {/* <Grid item xs={3}>
@@ -83,17 +93,17 @@ export default function ArchivedSessions({token, pk}) {
                   textAlign: "center",
                 }}
               >
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   {
                     <Box>
-                      {session.mentee_first_name} {session.mentee_last_name}
+                      {mentor ? session.mentee_first_name : session.mentor_first_name} {mentor ? session.mentee_last_name : session.mentor_last_name}
                     </Box>
                   }
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <Box>{new Date(session.start_time).toLocaleDateString()}</Box>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <Box>
                     {new Date(session.start_time).toLocaleTimeString([], {
                       hour: "2-digit",

@@ -179,6 +179,7 @@ function App() {
             <ArchivedSessions
               token={token}
               isLoggedIn={isLoggedIn}
+              mentor = {mentor}
             />
           }
         />
