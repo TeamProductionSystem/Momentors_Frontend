@@ -131,6 +131,8 @@ export default function ArchivedSessions({token, pk, mentor}) {
                 count={pageCount} 
                 page={page}  
                 onChange={handlePageChange} 
+                showFirstButton 
+                showLastButton
                 size="large" />
               </Box>
             :
