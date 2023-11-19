@@ -1,7 +1,4 @@
 import { Box, Grid, Typography, Pagination } from "@mui/material";
-import MentorScheduledSessions from "./MentorScheduled";
-import MentorRequestedSessions from "./MentorRequest";
-import MentorCancledSessions from "./MentorCanceled";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -17,6 +14,7 @@ export default function ArchivedSessions({token, pk, mentor}) {
   };
 
   useEffect(() => {
+    // displaying 10 results per page
     const indexStart = (page - 1)*10;
     const indexEnd = page*10 - 1;
     setSessionsDisplay(archivedSessions.slice(indexStart,indexEnd));
@@ -28,7 +26,8 @@ export default function ArchivedSessions({token, pk, mentor}) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        setArchivedSessions(res.data);
+        // reversing the order on the FE rather than BE because we may want to let users switch order later
+        setArchivedSessions(res.data.reverse());
         setSessionsDisplay(res.data.slice(0,9));
         setPageCount(Math.ceil(res.data.length/10));
       })
