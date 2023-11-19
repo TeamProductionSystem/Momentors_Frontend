@@ -1,8 +1,4 @@
-// TODO: Remove commented code
-// TODO: Approve wording
-
-
-import { Box, Grid, Typography, Chip } from "@mui/material";
+import { Box, Grid, Typography, Pagination } from "@mui/material";
 import MentorScheduledSessions from "./MentorScheduled";
 import MentorRequestedSessions from "./MentorRequest";
 import MentorCancledSessions from "./MentorCanceled";
@@ -11,6 +7,20 @@ import axios from "axios";
 
 export default function ArchivedSessions({token, pk, mentor}) {
   const [archivedSessions, setArchivedSessions] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  // tracking sessions displayed based on page
+  const [sessionsDisplay, setSessionsDisplay] = useState([]);
+
+  const handlePageChange = (event, value) => { 
+    setPage(value); 
+  };
+
+  useEffect(() => {
+    const indexStart = (page - 1)*10;
+    const indexEnd = page*10 - 1;
+    setSessionsDisplay(archivedSessions.slice(indexStart,indexEnd));
+  }, [page, archivedSessions]);
 
   useEffect(() => {
     axios
@@ -18,8 +28,9 @@ export default function ArchivedSessions({token, pk, mentor}) {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        console.log(res.data)
         setArchivedSessions(res.data);
+        setSessionsDisplay(res.data.slice(0,9));
+        setPageCount(Math.ceil(res.data.length/10));
       })
       .catch((err) => {
         console.log("error", err);
@@ -28,10 +39,10 @@ export default function ArchivedSessions({token, pk, mentor}) {
 
   return (
     <Box 
-    className="mentorsessions--page"
-    sx={{
-      marginBottom: "2rem",
-    }}
+      className="mentorsessions--page"
+      sx={{
+        marginBottom: "2rem",
+      }}
     >
       <Typography
         variant="h2"
@@ -45,15 +56,12 @@ export default function ArchivedSessions({token, pk, mentor}) {
       >
         Archived Sessions
       </Typography>
-      <Box className="mentorcanceled--component">
-        {/* filter and add only canceled sessions */}
-        {/* <Typography
-          variant="h2"
-          component="div"
-          sx={{ flexGrow: 1, marginTop: "4rem", padding: "1rem" }}
-        >
-          Sessions:
-        </Typography> */}
+      <Box 
+        className="mentorcanceled--component"
+        sx={{
+          marginBottom: "2rem",
+        }}
+      >
         <Box margin={"1rem"}>
           <hr style={{ color: "black" }} />
         </Box>
@@ -76,11 +84,8 @@ export default function ArchivedSessions({token, pk, mentor}) {
             <Grid item xs={4}>
               <Box>Time:</Box>
             </Grid>
-            {/* <Grid item xs={3}>
-              <Box>Status:</Box>
-            </Grid> */}
           </Grid>
-          {archivedSessions.map((session) => {
+          {sessionsDisplay.map((session) => {
             return (
               <Grid
                 container
@@ -116,20 +121,22 @@ export default function ArchivedSessions({token, pk, mentor}) {
                     })}
                   </Box>
                 </Grid>
-                {/* <Grid item xs={3}>
-                  <Chip
-                    label={session.status === "Pending" ? "Pending" : "Canceled"}
-                    variant="outlined"
-                    color={session.status === "Pending" ? "warning" : "error"}
-                    size="md"
-                    sx={{ margin: ".25rem" }}
-                  ></Chip>
-                </Grid> */}
               </Grid>
             );
           })}
         </Box>
       </Box>
+      {pageCount !== 0 ?
+              <Box display="flex" justifyContent="center">
+                <Pagination 
+                count={pageCount} 
+                page={page}  
+                onChange={handlePageChange} 
+                size="large" />
+              </Box>
+            :
+              <></>
+          }
     </Box>
   );
 }
