@@ -10,6 +10,7 @@ import ResetPWConfirm from "./pages/Login/ResetPWConfirm";
 import Profile from "./pages/Register/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 import MentorSessions from "./pages/Sessions/MentorSessions";
+import ArchivedSessions from "./pages/Sessions/ArchivedSessions";
 import SessionSignup from "./pages/SessionSignup/SessionSignup";
 import TimeSlot from "./pages/Profile/TimeSlot";
 import CurrentAvailabilities from "./pages/Profile/Current Availabilities";
@@ -169,6 +170,16 @@ function App() {
               token={token}
               setAuth={setAuth}
               isLoggedIn={isLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/archivedsessions"
+          element={
+            <ArchivedSessions
+              token={token}
+              isLoggedIn={isLoggedIn}
+              mentor = {mentor}
             />
           }
         />

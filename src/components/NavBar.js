@@ -75,6 +75,13 @@ const NavBar = ({ handleLogout, isLoggedIn, token, loading }) => {
                 <MenuItem
                   onClick={handleClose}
                   component={Link}
+                  to="/archivedsessions"
+                >
+                  Archived Sessions
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  component={Link}
                   to="/sessionsignup"
                 >
                   Session Signup
